@@ -1,43 +1,47 @@
-![alt text](https://github.com/cedlemo/tortosa/tortosa.png "Logo") #Tortosa
+#Tortosa
 
 Tortosa is a terminal emulator based on the vte3 library. I used gnome-terminal but after different upgrades, some functionnalities were removed like background transparency or Japanese input via SCIM.
 
 So I decided to write my own terminal emulator. Even if it looks like a toy, Tortosa do the job of a basic terminal emulator.
 
 +Tortosa has tabs management
+
 +Tortosa supports transparency
+
 +Tortosa can remove Window Manager decorations
+
 +Tortosa works with SCIM
+
 +Tortosa tabs can be themed with a css file
+
 +Tortosa gets its configuration from a file named tortosarc in the directory `~/.config/tortosa` and that's all.
+
 +Tortosa configuration and css can be reloaded via a menu or shortcuts. No need to kill/restart it to apply the modifications.
 
-![tortosa overview](https://github.com/cedlemo/tortosa/tortosa_overview.png "Screenshot")
-
-Example:
+![tortosa overview](https://github.com/cedlemo/Tortosa/blob/master/tortosa_overview.png "Example")
 	
 **tmux in a tortosa tab. In the top tmux pans, 2 colors schemes scripts displaying terminal color. In the bottom, Tortosa configuration and css file are opened. Just need to save after modifications in the files and use reload functions in the main menu in order to see the modifications applied**
 	
 
 ##Dependencies:
 
-*Gtk+ v >= 3.0
++Gtk+ v >= 3.0
 
-*vte3 v >= 2.9
++vte3 v >= 2.9
 
-*autotools
++autotools
 
-*pkg-config
++pkg-config
 
-*Archlinux:
++Archlinux:
     >gtk-+3.0
     >vte3
 
-*Fedora:
++Fedora:
     >gtk3-devel
     >vte3-devel
 
-*Debian: 
++Debian: 
     >libgtk-3-0-dev
     >libvte-2.90-dev
 
@@ -59,9 +63,13 @@ Tortosa can start without a configuration file but that's very ugly.
 
 Create a directory `~/.config/tortosa`. and a file tortosarc in this directory.
 This file is a simple key file ( https://developer.gnome.org/glib/stable/glib-Key-value-file-parser.html ) with four groups.
+
 +Window
+
 +Tabs
+
 +Vte
+
 +Css
 
 Here is the tortosarc file that I use:

@@ -1,0 +1,108 @@
+*{
+	background-color: rgba(0,0,0,0.0);
+	background-image:none;
+	box-shadow: none;
+	padding:0px;
+	margin:0px;
+	border-style:none;
+	border-width:0px;
+	border-radius:0px;
+	border-image:none;
+    -GtkWidget-focus-line-width:0;
+		-GtkWidget-focus-padding:0;
+		-GtkWidget-interior-focus:false;
+	text-shadow:none;
+}
+*:active, *:prelight,*:hover, *:insensitive, *:selected, *:focused, *:inconsistent{
+	background-color: rgba(0,0,0,0.0);
+	background-image:none;
+	box-shadow: none;
+	padding:0px;
+	margin:0px;
+	border-style:none;
+	border-width:0px;
+	border-radius:0px;
+	border-image:none;
+    -GtkWidget-focus-line-width:0;
+		-GtkWidget-focus-padding:0;
+		-GtkWidget-interior-focus:false;
+	text-shadow:none;
+}
+/*see https://developer.gnome.org/gtk3/3.3/GtkNotebook.html#GtkNotebook.style-properties for property like -GtkNotebook-property-name*/
+GtkNotebook, .notebook {
+ background-color: rgba(46,52,54,0.8);
+/*The “border-style” property accepts the “none”, “solid”, “inset” and “outset” keywords. You’d typically use “inset” and “outset” to simulate 3D-like effects on a button when pressed:
+ */
+ border-style: solid;
+ border-width: 1px 1px 1px 1px;
+ border-color: rgba(0,0,0,0.6);
+ border-radius: 0px;
+ border-image:none;
+ padding: 0px;
+    -GtkWidget-focus-line-width:0;
+		-GtkWidget-focus-padding:0;
+		-GtkNotebook-initial-gap: 0;
+		-GtkWidget-interior-focus:false;
+    -GtkNotebook-tab-overlap: 0;
+    -GtkNotebook-tab-curvature: 0;
+
+}
+GtkNotebook tab , .notebook tab {
+    background-color: rgba(0,0,51,0.5);
+		margin:0px;
+	padding:0px;
+	border-style:none;
+	border-width:0px;
+    -GtkWidget-focus-line-width: 0;
+		-GtkWidget-focus-padding:0;
+    -GtkNotebook-tab-overlap: 0;
+    -GtkNotebook-tab-curvature: 0;
+		-GtkNotebook-initial-gap: 0;
+		-GtkWidget-interior-focus:false;
+}
+GtkNotebook tab:active , .notebook tab:active {
+    background-color: rgba(46,52,54,0.8);
+	margin: 0px;	
+	padding:0px;
+	border-style:none;
+	border-width:0px;
+    -GtkWidget-focus-line-width: 0;
+		-GtkWidget-focus-padding:0;
+    -GtkNotebook-tab-overlap: 0;
+    -GtkNotebook-tab-curvature: 0;
+}
+GtkNotebook tab GtkLabel , .notebook tab GtkLabel {
+	padding:0px;
+	margin:0px;
+	border-style:none;
+	border-width:0px;
+    -GtkWidget-focus-line-width: 0;
+		-GtkWidget-focus-padding:0;
+
+    -GtkNotebook-tab-overlap: 0;
+    -GtkNotebook-tab-curvature: 0;
+}
+GtkNotebook tab:active GtkLabel , .notebook tab:active GtkLabel {
+	padding:0px;
+	margin:0px;
+	border-style:none;
+	border-width:0px;
+    -GtkWidget-focus-line-width: 0;
+		-GtkWidget-focus-padding:0;
+
+    -GtkNotebook-tab-overlap: 0;
+    -GtkNotebook-tab-curvature: 0;
+}
+/*GtkMenu {
+	background-color: white;
+}*/
+/*#resizeMenu {
+	background-color: #333333;
+}*/
+/*GtkMenu GtkLabel{
+color: yellow;
+	background-color: black;
+}
+GtkMenu GtkLabel:hover{
+color: yellow;
+}*/

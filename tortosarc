@@ -1,0 +1,53 @@
+###########################
+#main window configuration#
+###########################
+[Window]
+wm_class=Tortosa
+wm_name=Tortosa
+wm_role=Tortosa
+#width=1200
+#height=800
+decorated=true
+background=#2a7fff55
+#background=rgba(90,90,90,1)
+#background=#2E3436dd
+####################
+#Tabs configuration#
+####################
+[Tabs]
+show_border=true
+show_tabs=true
+tabs_position=bottom
+#tabs_position=top
+#default_tab_name=zsh
+#tab_name_max_len=8
+################
+#Vte parameters#
+################
+[Vte]
+#command=/bin/bash
+font=Terminus 10
+foreground=#babdb6
+background=#2E3436dd
+color0=#333333
+color1=#ff6565
+color2=#93d44f
+color3=#eab93d
+color4=#204a87
+color5=#ce5c00
+color6=#89b6e2
+color7=#cccccc
+color8=#555753
+color9=#ff8d8d
+color10=#c8e7a8
+color11=#ffc123
+color12=#3465a4
+color13=#f57900
+color14=#46a4ff
+color15=#ffffff
+
+########################################
+#Css file to override default gtk theme#
+########################################
+[Css]
+file=./tortosa.css

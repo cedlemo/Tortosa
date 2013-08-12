@@ -1,0 +1,10 @@
+<map id="create_main_menu" name="create_main_menu">
+<area shape="rect" id="node2" href="$window_8c.html#a0df6d57d487e1087df7fe855c92a2275" title="toggle_fullscreen" alt="" coords="197,5,315,32"/>
+<area shape="rect" id="node3" href="$window_8c.html#a309131469a8836217d148e4075c4a721" title="toggle_above_below" alt="" coords="187,56,325,83"/>
+<area shape="rect" id="node4" href="$window_8c.html#abfff6474608d015d1ce4f9f779d37fb2" title="toggle_iconify" alt="" coords="205,107,307,133"/>
+<area shape="rect" id="node5" href="$window_8c.html#a09e08a4e1483220e94460c1c33e2467b" title="toggle_stick" alt="" coords="210,157,302,184"/>
+<area shape="rect" id="node6" href="$window_8c.html#ab0c94d712563fc685c969024c9ed75eb" title="toggle_maximize" alt="" coords="196,208,316,235"/>
+<area shape="rect" id="node7" href="$window_8c.html#a2c6d459a87755deebe8b66356a03d0f8" title="grab_move_window" alt="" coords="189,259,323,285"/>
+<area shape="rect" id="node8" href="$tabs_8c.html#a99c0b8a79974ac2d49bbd9b8cf2cfbe6" title="copy_selected_text\l_to_clipboard" alt="" coords="189,310,323,351"/>
+<area shape="rect" id="node9" href="$tabs_8c.html#a6eaea76b67632db6902b49a6c3e1a4ff" title="paste_clipboard_to\l_vte_child" alt="" coords="191,375,321,417"/>
+</map>

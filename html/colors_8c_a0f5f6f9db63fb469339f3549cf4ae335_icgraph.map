@@ -1,0 +1,12 @@
+<map id="extended_gdk_rgba_parse" name="extended_gdk_rgba_parse">
+<area shape="rect" id="node2" href="$gears_8h.html#aacaeacb341027e7df5c6e5cceabcfa1b" title="init_vte_color" alt="" coords="269,5,366,32"/>
+<area shape="rect" id="node3" href="$gears_8h.html#a49692a2d9dc9b2f1de52843a243726e5" title="load_window_configuration" alt="" coords="230,56,405,83"/>
+<area shape="rect" id="node9" href="$gears_8h.html#ab77101d991be30d74aa84043709f6d04" title="load_vte_configuration" alt="" coords="243,107,392,133"/>
+<area shape="rect" id="node4" href="$gears_8h.html#a0448a97343235968e65c8ea387b20382" title="load_config" alt="" coords="503,107,590,133"/>
+<area shape="rect" id="node6" href="$gears_8h.html#a4bda941d2d40f5eb77c9d729dc229879" title="reload_tortosa_configuration" alt="" coords="455,56,639,83"/>
+<area shape="rect" id="node8" href="$window_8h.html#ab6594fce84d4150895ac925b56869bfb" title="reload_window_configuration" alt="" coords="453,5,640,32"/>
+<area shape="rect" id="node5" href="$tortosa_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="main" alt="" coords="875,107,925,133"/>
+<area shape="rect" id="node7" href="$menus_8h.html#a0f10cf5a8a8b20c2a7b244fc9a23c616" title="create_reload_menu" alt="" coords="688,56,827,83"/>
+<area shape="rect" id="node10" href="$tabs_8h.html#ad3eebe36471ae6bd926b22cb2b7141ee" title="reload_vte_configuration" alt="" coords="467,157,627,184"/>
+<area shape="rect" id="node11" href="$events_8h.html#a2b45201051e4603136cfca4ae05b202a" title="event_key_press" alt="" coords="698,157,817,184"/>
+</map>

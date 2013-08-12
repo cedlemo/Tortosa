@@ -57,6 +57,19 @@ make
 On a lot of linux distributions, it's recommanded to use `./configure --prefix=/usr`
 See the INSTALL file for more informations.
 
+
+##Shortcuts
+
++    Right clic display main menu
+
++    ctrl + shift + t create new tab
+
++    ctrl + shift + right/left arrows allow to navigate trought the tabs.
+
++    ctrl + shift + c close current tab or close Tortosa if it remains only one tab.
+
++    ctrl + shift + m display the main menu .
+
 ##Configuration
 
 Tortosa can start without a configuration file but that's very ugly.

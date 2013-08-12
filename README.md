@@ -4,19 +4,19 @@ Tortosa is a terminal emulator based on the vte3 library. I used gnome-terminal 
 
 So I decided to write my own terminal emulator. Even if it looks like a toy, Tortosa do the job of a basic terminal emulator.
 
-+Tortosa has tabs management
++    Tortosa has tabs management
 
-+Tortosa supports transparency
++    Tortosa supports transparency
 
-+Tortosa can remove Window Manager decorations
++    Tortosa can remove Window Manager decorations
 
-+Tortosa works with SCIM
++    Tortosa works with SCIM
 
-+Tortosa tabs can be themed with a css file
++    Tortosa tabs can be themed with a css file
 
-+Tortosa gets its configuration from a file named tortosarc in the directory `~/.config/tortosa` and that's all.
++    Tortosa gets its configuration from a file named tortosarc in the directory `~/.config/tortosa` and that's all.
 
-+Tortosa configuration and css can be reloaded via a menu or shortcuts. No need to kill/restart it to apply the modifications.
++    Tortosa configuration and css can be reloaded via a menu or shortcuts. No need to kill/restart it to apply the modifications.
 
 ![tortosa overview](https://github.com/cedlemo/Tortosa/blob/master/tortosa_overview.png "Example")
 	
@@ -25,25 +25,25 @@ So I decided to write my own terminal emulator. Even if it looks like a toy, Tor
 
 ##Dependencies:
 
-+Gtk+ v >= 3.0
++    Gtk+ v >= 3.0
 
-+vte3 v >= 2.9
++    vte3 v >= 2.9
 
-+autotools
++    autotools
 
-+pkg-config
++    pkg-config
 
-+Archlinux:
-    >gtk-+3.0
-    >vte3
++   Archlinux:
+    > gtk-+3.0
+    > vte3
 
-+Fedora:
-    >gtk3-devel
-    >vte3-devel
++    Fedora:
+    > gtk3-devel
+    > vte3-devel
 
-+Debian: 
-    >libgtk-3-0-dev
-    >libvte-2.90-dev
++    Debian: 
+    > libgtk-3-0-dev
+    > libvte-2.90-dev
 
 ##Installation
 

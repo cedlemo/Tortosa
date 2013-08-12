@@ -19,7 +19,9 @@ So I decided to write my own terminal emulator. Even if it looks like a toy, Tor
 +    Tortosa configuration and css can be reloaded via a menu or shortcuts. No need to kill/restart it to apply the modifications.
 
 ![tortosa overview](https://github.com/cedlemo/Tortosa/blob/master/tortosa_overview.png "Example")
-	
+
+<img src="https://raw.github.com/cedlemo/Tortosa/master/tortosa_overview.png" width="192" height="108" alt="Screenshot">	
+
 **tmux in a tortosa tab. In the top tmux pans, 2 colors schemes scripts displaying terminal color. In the bottom, Tortosa configuration and css file are opened. Just need to save after modifications in the files and use reload functions in the main menu in order to see the modifications applied**
 	
 
@@ -64,13 +66,13 @@ Tortosa can start without a configuration file but that's very ugly.
 Create a directory `~/.config/tortosa`. and a file tortosarc in this directory.
 This file is a simple key file ( https://developer.gnome.org/glib/stable/glib-Key-value-file-parser.html ) with four groups.
 
-+Window
++    Window
 
-+Tabs
++    Tabs
 
-+Vte
++    Vte
 
-+Css
++    Css
 
 Here is the tortosarc file that I use:
 

@@ -21,28 +21,34 @@ Example:
 
 ##Dependencies:
 
-Gtk+ v >= 3.0
-vte3 v >= 2.9
-autotools
-pkg-config
+*Gtk+ v >= 3.0
 
-Archlinux:
-gtk-+3.0
-vte3
+*vte3 v >= 2.9
 
-Fedora:
-gtk3-devel
-vte3-devel
+*autotools
 
-Debian: 
-libgtk-3-0-dev
-libvte-2.90-dev
+*pkg-config
+
+*Archlinux:
+    >gtk-+3.0
+    >vte3
+
+*Fedora:
+    >gtk3-devel
+    >vte3-devel
+
+*Debian: 
+    >libgtk-3-0-dev
+    >libvte-2.90-dev
 
 ##Installation
-`git clone git://github.com/cedlemo/tortosa.git
+
+```bash
+git clone git://github.com/cedlemo/tortosa.git
 cd tortosa
 ./configure
-make`
+make
+```
 
 On a lot of linux distributions, it's recommanded to use `./configure --prefix=/usr`
 See the INSTALL file for more informations.
@@ -60,7 +66,8 @@ This file is a simple key file ( https://developer.gnome.org/glib/stable/glib-Ke
 
 Here is the tortosarc file that I use:
 
-`###########################
+```
+###########################
 #main window configuration#
 ###########################
 [Window]
@@ -74,12 +81,14 @@ background=#33333355
 #background=#92CA5C10
 #background=#2a7fff55
 #background=rgba(90,90,90,1)
-#background=#2E3436dd`
+#background=#2E3436dd
+```
 
 This part allows user to customize the main window (the GtkWindow). The background color support alpha channel if you system have a running compositing manager. This is done using cairo and can't not be handle by css (https://developer.gnome.org/gtk3/3.0/gtk-question-index.html, see 1.15. How do I create a transparent toplevel window ? ).
 
 
-`####################
+```
+####################
 #Tabs configuration#
 ####################
 [Tabs]
@@ -88,11 +97,13 @@ show_tabs=true
 tabs_position=bottom
 #tabs_position=top
 #default_tab_name=zsh
-#tab_name_max_len=16`
+#tab_name_max_len=16
+```
 
 The tabs configuration allows to set options for the GtkNotebook widget.
 
-`################
+```
+################
 #Vte parameters#
 ################
 [Vte]
@@ -141,32 +152,38 @@ cursor_shape=ibeam
 #cursor_shape=underline
 scrollback_lines=-1
 bell_visible=true
-bell_audible=false`
+bell_audible=false
+```
 
 With this part you can set the parameters for the VteTerminal widget. This widget can handle background transparency. If you define a background color with an alpha channel, Tortosa get the alpha value and set the corresponding opacity value. You can override this value using the opacity key (0 to 65535). User must provide a full palette color (16 colors) for the moment otherwise the value won't be used. background_saturation and background_tint_color only work with background_image. background_image key value must be a full path.
 
-`########################################
+```
+########################################
 #Css file to override default gtk theme#
 ########################################
 [Css]
-file=/home/cedlemo/.config/tortosa/tortosa.css`
+file=/home/cedlemo/.config/tortosa/tortosa.css
+```
 
 The file value must be a full path. The css content is applied with the GTK_STYLE_PROVIDER_PRIORITY_USER priority. This means that the current css theme for your system, if you have one, is first loaded and then your css code override this default theme. So it could be usefull to reset default theme's css at the beginning of your css file. Here is the global gtk3 organisation of Tortosa:
 
-`GtkWindow
+```
+	GtkWindow
 	|-------->GtkNotebook
 							|---------->GtkLabel
 							|---------->VteTerminal	
 	GtkMenu
 	|-------->GtkMenuItem
-	|-------->GtkMenuSeparator`
+	|-------->GtkMenuSeparator
+```
 
 see https://developer.gnome.org/gtk3/stable/GtkCssProvider.html for help. Check too https://developer.gnome.org/gtk3/stable/ in each widget related page you can see the style properties part which give informations about css style.
 
 css example:
 
-`/*Reset all previous css style*/
-	*, *:active, *:prelight,*:hover, *:insensitive, *:selected, *:focused, *:inconsistent{
+```css
+/*Reset all previous css style*/
+*, *:active, *:prelight,*:hover, *:insensitive, *:selected, *:focused, *:inconsistent{
 	background: transparent;
 	/*background-color: rgba(0,0,0,0);*/
 	background-image:none;
@@ -217,5 +234,6 @@ GtkNotebook tab:active, .notebook tab:active{
 	border-width:0px 0px 1px 1px;
 	border-radius:0px 0px 6px 0px;
 	color:#ffffff;
-}`
+}
+```
 

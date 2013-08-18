@@ -24,6 +24,8 @@ int main(int argc, char ** argv)
 	
 	load_config(backbone);
 	
+	precompile_regex(backbone);
+	
 	backbone->display = gdk_display_get_default ();
 	backbone->screen = gdk_display_get_default_screen (backbone->display);
 	backbone->provider = gtk_css_provider_new ();
@@ -80,6 +82,8 @@ int main(int argc, char ** argv)
 	gtk_main();
 	return EXIT_SUCCESS;
 }
+//TODO create custom menu that depends on flavor
+//TODO in close tabs free the match_tags for the vte
 //TODO create .pc file with autotools
 //TODO create gdk_shape
 //TODO create doxygen documentation

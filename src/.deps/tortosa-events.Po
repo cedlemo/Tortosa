@@ -548,7 +548,7 @@ tortosa-events.o: events.c /usr/include/stdc-predef.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  /usr/include/string.h /usr/include/bits/string.h \
  /usr/include/bits/string2.h /usr/include/stdlib.h window.h gears.h \
- tabs.h menus.h
+ tabs.h menus.h tgregex.h
 
 /usr/include/stdc-predef.h:
 
@@ -1807,3 +1807,5 @@ gears.h:
 tabs.h:
 
 menus.h:
+
+tgregex.h:

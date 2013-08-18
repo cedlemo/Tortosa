@@ -5,6 +5,7 @@
 #include "backbone.h"
 #include "tabs.h"
 #include "events.h"
+#include "tgregex.h"
 #include "dbg.h"
 
 void close_tab(GtkWidget * vte, backbone_t * backbone)
@@ -240,6 +241,7 @@ void new_tab( backbone_t * backbone)
 	/*Check if it's not the first tab*/
 	if( gtk_notebook_get_n_pages(GTK_NOTEBOOK(backbone->notebook.widget)) >= 1 )
 	{
+		SENTINEL();
 		/*Get the current directory of the focused vte*/
 		GtkWidget * focused_vte = gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), 
 																												gtk_notebook_get_current_page(GTK_NOTEBOOK(backbone->notebook.widget))
@@ -290,13 +292,25 @@ void new_tab( backbone_t * backbone)
 	tab_data_t * tab_data = g_new0(tab_data_t, 1);
 	tab_data->widget = vte;
 	tab_data->pid = pid;
+	tab_data->match_tags = NULL;
+
+	int i;
+  for (i = 0; i < backbone->regexes.number; ++i)
+  {
+		TagData *tag_data;
+		tag_data = g_slice_new (TagData);
+		tag_data->flavor = backbone->regexes.flavors[i];
+		tag_data->tag = vte_terminal_match_add_gregex(VTE_TERMINAL(vte), backbone->regexes.g_regexes[i], 0);
+		tab_data->match_tags = g_slist_prepend( tab_data->match_tags, tag_data);
+	}
 	backbone->tabs_data = g_slist_append(backbone->tabs_data, tab_data);
+
 
 	g_signal_connect(vte, "child-exited", G_CALLBACK(close_tab), backbone);
 	g_signal_connect(vte, "button-press-event", G_CALLBACK(event_button_press), backbone);	
 
 	apply_vte_configuration(backbone, vte);
-	
+
 	int index = gtk_notebook_append_page(GTK_NOTEBOOK(backbone->notebook.widget), vte, NULL);
 	gtk_notebook_set_tab_reorderable(	GTK_NOTEBOOK(backbone->notebook.widget),
 																		vte, 
@@ -328,3 +342,4 @@ void paste_clipboard_to_vte_child(backbone_t * backbone)
 																												);
 	vte_terminal_paste_clipboard(VTE_TERMINAL(focused_vte));
 }
+

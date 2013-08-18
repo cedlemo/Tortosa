@@ -6,6 +6,7 @@
 #include "tabs.h"
 #include "menus.h"
 #include "dbg.h"
+#include "tgregex.h"
 
 /* key event handler */
 gboolean event_key_press(GtkWidget *widget, GdkEventKey *event, backbone_t * backbone) 
@@ -100,6 +101,35 @@ gboolean event_button_press(GtkWidget *widget, GdkEventButton *event, backbone_t
 	{
 		backbone->time = event->time;
 		display_main_menu(event->time, backbone);
+		gchar * match;
+		int flavor;
+		//match = get_regex_match_on_button_press(widget, event, &flavor, backbone);
+		match = get_regex_match_for_tab_on_button_press(widget, event, &flavor, backbone);
+		if (match)
+		{
+			SENTINEL("macth = %s\n", match);
+			switch(flavor)
+			{
+				case FLAVOR_AS_IS:
+					SENTINEL("flavor as is\n");
+					break;
+				case FLAVOR_DEFAULT_TO_HTTP:
+					SENTINEL("default to http\n");
+					break;
+				case FLAVOR_VOIP_CALL:
+					SENTINEL("flavor voip call\n");
+					break;
+				case FLAVOR_EMAIL:
+					SENTINEL("flavor email\n");
+					break;
+				case FLAVOR_COLOR:
+					SENTINEL("flavor color\n");
+					break;
+				default :
+					SENTINEL("no flavor found\n");
+					break;
+			}
+		}
 		return TRUE;
 	}
 	/*nothing handled*/

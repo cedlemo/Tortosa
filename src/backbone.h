@@ -2,6 +2,7 @@
 #define	BACKBONE_H
 #include <gtk/gtk.h>
 #include <vte/vte.h>
+//#include "tgregex.h"
 #include "colors.h"
 /*window structure handling ref to the widget and customization parameter*/
 typedef struct window_t
@@ -71,7 +72,35 @@ typedef struct conf_t
 typedef struct tab_data_t {
 	GtkWidget * widget;
 	GPid pid;
+	GSList * match_tags;
 } tab_data_t;
+
+typedef enum {
+  FLAVOR_AS_IS,
+  FLAVOR_DEFAULT_TO_HTTP,
+  FLAVOR_VOIP_CALL,
+  FLAVOR_EMAIL,
+	FLAVOR_COLOR
+} TerminalURLFlavour;
+
+typedef struct {
+  const char *pattern;
+  TerminalURLFlavour flavor;
+  GRegexCompileFlags flags;
+} TerminalRegexPattern;
+
+
+typedef struct
+{
+  int tag;
+  TerminalURLFlavour flavor;
+} TagData; 
+/*precomplied regex*/
+typedef struct regex_t {
+	GRegex ** g_regexes;
+	TerminalURLFlavour * flavors;
+	guint number;
+} regex_t;
 
 typedef struct  
 {
@@ -79,6 +108,8 @@ typedef struct
 	GdkDisplay *display;
 	GtkCssProvider *provider;
 	GSList * tabs_data;
+	GSList * match_tags;
+	struct regex_t regexes;
 	struct window_t window;
 	struct notebook_t notebook;
 	struct vte_t vte;

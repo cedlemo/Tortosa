@@ -24,6 +24,7 @@ backbone_t * new_backbone( void)
 	backbone->state.above = FALSE;
 	backbone->state.below = FALSE;
 	backbone->tabs_data = NULL;
+	backbone->match_tags = NULL;
 	return backbone;
 }
 
@@ -451,6 +452,11 @@ gint find_node_by_widget( gconstpointer node, gconstpointer widget)
 		return 1;
 }
 
+static free_tag_data (TagData *tagdata)
+{
+	g_slice_free (TagData, tagdata);
+}
+
 void remove_node_by_widget( GSList *slist, GtkWidget *widget)
 {
 	/*find the node for the widget*/
@@ -460,8 +466,13 @@ void remove_node_by_widget( GSList *slist, GtkWidget *widget)
 	/*remove it and free the data*/
 	if (found)
 	{
+		/*release memory for tab_data slist*/
 		tab_data = ((tab_data_t*) found->data);
+		GSList *match_tags = tab_data->match_tags;
 		slist = g_slist_remove(slist, found->data);	
+		/*free tag data slist*/
+		g_slist_foreach (match_tags, (GFunc) free_tag_data, NULL);
+		g_slist_free (match_tags);
 	}
 	else
 		LOG_WARN("data for tab not found....\n");

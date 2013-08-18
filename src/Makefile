@@ -92,7 +92,8 @@ PROGRAMS = $(bin_PROGRAMS)
 am_tortosa_OBJECTS = tortosa-tortosa.$(OBJEXT) \
 	tortosa-window.$(OBJEXT) tortosa-tabs.$(OBJEXT) \
 	tortosa-events.$(OBJEXT) tortosa-gears.$(OBJEXT) \
-	tortosa-menus.$(OBJEXT) tortosa-colors.$(OBJEXT)
+	tortosa-menus.$(OBJEXT) tortosa-colors.$(OBJEXT) \
+	tortosa-tgregex.$(OBJEXT)
 tortosa_OBJECTS = $(am_tortosa_OBJECTS)
 tortosa_LDADD = $(LDADD)
 tortosa_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(tortosa_LDFLAGS) \
@@ -250,7 +251,7 @@ top_builddir = ..
 top_srcdir = ..
 tortosa_LDFLAGS = $(DEPS_LIBS) 
 tortosa_CPPFLAGS = $(DEPS_CFLAGS) -DDATADIR=\"$(datadir)\"
-tortosa_SOURCES = tortosa.c  window.c tabs.c events.c  gears.c menus.c colors.c
+tortosa_SOURCES = tortosa.c  window.c tabs.c events.c  gears.c menus.c colors.c tgregex.c
 all: all-am
 
 .SUFFIXES:
@@ -343,6 +344,7 @@ include ./$(DEPDIR)/tortosa-events.Po
 include ./$(DEPDIR)/tortosa-gears.Po
 include ./$(DEPDIR)/tortosa-menus.Po
 include ./$(DEPDIR)/tortosa-tabs.Po
+include ./$(DEPDIR)/tortosa-tgregex.Po
 include ./$(DEPDIR)/tortosa-tortosa.Po
 include ./$(DEPDIR)/tortosa-window.Po
 
@@ -457,6 +459,20 @@ tortosa-colors.obj: colors.c
 #	$(AM_V_CC)source='colors.c' object='tortosa-colors.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tortosa-colors.obj `if test -f 'colors.c'; then $(CYGPATH_W) 'colors.c'; else $(CYGPATH_W) '$(srcdir)/colors.c'; fi`
+
+tortosa-tgregex.o: tgregex.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tortosa-tgregex.o -MD -MP -MF $(DEPDIR)/tortosa-tgregex.Tpo -c -o tortosa-tgregex.o `test -f 'tgregex.c' || echo '$(srcdir)/'`tgregex.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/tortosa-tgregex.Tpo $(DEPDIR)/tortosa-tgregex.Po
+#	$(AM_V_CC)source='tgregex.c' object='tortosa-tgregex.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tortosa-tgregex.o `test -f 'tgregex.c' || echo '$(srcdir)/'`tgregex.c
+
+tortosa-tgregex.obj: tgregex.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tortosa-tgregex.obj -MD -MP -MF $(DEPDIR)/tortosa-tgregex.Tpo -c -o tortosa-tgregex.obj `if test -f 'tgregex.c'; then $(CYGPATH_W) 'tgregex.c'; else $(CYGPATH_W) '$(srcdir)/tgregex.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/tortosa-tgregex.Tpo $(DEPDIR)/tortosa-tgregex.Po
+#	$(AM_V_CC)source='tgregex.c' object='tortosa-tgregex.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tortosa-tgregex.obj `if test -f 'tgregex.c'; then $(CYGPATH_W) 'tgregex.c'; else $(CYGPATH_W) '$(srcdir)/tgregex.c'; fi`
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique

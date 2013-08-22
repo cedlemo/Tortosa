@@ -16,4 +16,5 @@ gboolean reload_tortosa_configuration(backbone_t *);
 gint find_node_by_widget ( gconstpointer, gconstpointer);
 void remove_node_by_widget( GSList *, GtkWidget *);
 void free_slist_and_data(GSList *);
+void util_open_url(backbone_t *);
 #endif

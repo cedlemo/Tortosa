@@ -106,29 +106,16 @@ gboolean event_button_press(GtkWidget *widget, GdkEventButton *event, backbone_t
 		match = get_regex_match_for_tab_on_button_press(widget, event, &flavor, backbone);
 		if (match)
 		{
-			SENTINEL("macth = %s\n", match);
-			switch(flavor)
+			/*register current flavor and match in widget tab_data*/
+			GSList *found = NULL;
+			found = g_slist_find_custom(backbone->tabs_data, widget, (GCompareFunc) find_node_by_widget);
+			if (found)
 			{
-				case FLAVOR_AS_IS:
-					SENTINEL("flavor as is\n");
-					break;
-				case FLAVOR_DEFAULT_TO_HTTP:
-					SENTINEL("default to http\n");
-					break;
-				case FLAVOR_VOIP_CALL:
-					SENTINEL("flavor voip call\n");
-					break;
-				case FLAVOR_EMAIL:
-					SENTINEL("flavor email\n");
-					break;
-				case FLAVOR_COLOR:
-					SENTINEL("flavor color\n");
-					break;
-				default :
-					SENTINEL("no flavor found\n");
-					break;
+				((tab_data_t*) found->data)->current_flavor = flavor;
+				((tab_data_t*) found->data)->current_match = match;
 			}
 		}
+
 		display_main_menu(event->time, backbone, match, flavor);
 		return TRUE;
 	}

@@ -24,7 +24,7 @@ backbone_t * new_backbone( void)
 	backbone->state.above = FALSE;
 	backbone->state.below = FALSE;
 	backbone->tabs_data = NULL;
-	backbone->match_tags = NULL;
+//	backbone->match_tags = NULL;
 	return backbone;
 }
 
@@ -482,3 +482,48 @@ void free_slist_and_data( GSList * slist)
 {
 	g_slist_free_full(slist, (GDestroyNotify)g_free);
 }
+
+void  util_open_url (backbone_t * backbone )
+{ 
+	GError *error = NULL;
+  char *uri;
+	/**/
+	GtkWidget * vte = gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), gtk_notebook_get_current_page(GTK_NOTEBOOK(backbone->notebook.widget)));
+
+	GSList *found = NULL;
+	found = g_slist_find_custom(backbone->tabs_data, vte, (GCompareFunc) find_node_by_widget);
+	int flavor;     
+	gchar *match = NULL;
+	if (found)
+	{
+		flavor = ((tab_data_t*) found->data)->current_flavor;
+		match = ((tab_data_t*) found->data)->current_match;
+	}
+	if(match)
+	{
+		switch (flavor)
+		{
+			case FLAVOR_DEFAULT_TO_HTTP:
+				uri = g_strdup_printf ("http://%s", match);
+				break;
+			case FLAVOR_EMAIL:
+			  if (g_ascii_strncasecmp ("mailto:", match, 7) != 0)
+					uri = g_strdup_printf ("mailto:%s", match);
+				else
+				  uri = g_strdup (match);
+				break;
+			case FLAVOR_VOIP_CALL:
+			case FLAVOR_AS_IS:
+				uri = g_strdup (match);
+				break;
+			default:
+			  uri = NULL;
+				 g_assert_not_reached ();
+		}
+		GdkScreen *screen;
+	  screen = gtk_widget_get_screen (GTK_WIDGET (backbone->window.widget));
+		if (!gtk_show_uri (screen, uri, backbone->time, &error))
+		LOG_WARN("error opening uri %s", error->message);
+	}
+}
+

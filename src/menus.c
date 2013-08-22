@@ -67,6 +67,9 @@ void create_main_menu(backbone_t* backbone)
 	g_signal_connect_swapped(G_OBJECT(grab_move), "activate", G_CALLBACK(grab_move_window), backbone);
 	g_signal_connect_swapped(G_OBJECT(copy), "activate", G_CALLBACK(copy_selected_text_to_clipboard), backbone);
 	g_signal_connect_swapped(G_OBJECT(paste), "activate", G_CALLBACK(paste_clipboard_to_vte_child), backbone);
+	g_signal_connect_swapped(G_OBJECT(send_mail), "activate", G_CALLBACK(util_open_url), backbone);
+	g_signal_connect_swapped(G_OBJECT(send_call), "activate", G_CALLBACK(util_open_url), backbone);
+	g_signal_connect_swapped(G_OBJECT(open_url), "activate", G_CALLBACK(util_open_url), backbone);
 	gtk_widget_show_all(backbone->main_menu);
 }
 
@@ -95,7 +98,7 @@ void display_main_menu(guint32 time, backbone_t *backbone, gchar * match, int fl
 {
 	GtkWidget * copyitem = get_menuitem_by_label( backbone->main_menu, "Copy");
 		
-		/*Set copy menu item inactive if no text is selected*/
+	/*Set copy menu item inactive if no text is selected*/
 	if(vte_terminal_get_has_selection(VTE_TERMINAL(gtk_notebook_get_nth_page(	GTK_NOTEBOOK(backbone->notebook.widget), 
 																																							gtk_notebook_get_current_page(GTK_NOTEBOOK(backbone->notebook.widget))
 																																						)
@@ -106,7 +109,7 @@ void display_main_menu(guint32 time, backbone_t *backbone, gchar * match, int fl
 		gtk_widget_set_sensitive(GTK_WIDGET(copyitem), TRUE);
 		
 		
-		/*hide/show regex related menuitems*/
+	/*hide/show regex related menuitems*/
 	GtkWidget * send_mail = get_menuitem_by_label( backbone->main_menu,"Send Mail To…");
 	GtkWidget * copy_mail = get_menuitem_by_label( backbone->main_menu,"Copy E-mail Address");
 
@@ -122,7 +125,8 @@ void display_main_menu(guint32 time, backbone_t *backbone, gchar * match, int fl
 	gtk_widget_hide(copy_call);
 	gtk_widget_hide(open_url);
 	gtk_widget_hide(copy_url);
-	
+
+	/*show related menu item if we have a regex match*/
 	if(match)
 	{
 		switch(flavor)

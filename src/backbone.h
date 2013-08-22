@@ -73,6 +73,8 @@ typedef struct tab_data_t {
 	GtkWidget * widget;
 	GPid pid;
 	GSList * match_tags;
+	gchar * current_match;
+	int current_flavor;
 } tab_data_t;
 
 typedef enum {
@@ -108,7 +110,7 @@ typedef struct
 	GdkDisplay *display;
 	GtkCssProvider *provider;
 	GSList * tabs_data;
-	GSList * match_tags;
+	//GSList * match_tags;
 	struct regex_t regexes;
 	struct window_t window;
 	struct notebook_t notebook;

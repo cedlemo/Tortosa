@@ -241,7 +241,6 @@ void new_tab( backbone_t * backbone)
 	/*Check if it's not the first tab*/
 	if( gtk_notebook_get_n_pages(GTK_NOTEBOOK(backbone->notebook.widget)) >= 1 )
 	{
-		SENTINEL();
 		/*Get the current directory of the focused vte*/
 		GtkWidget * focused_vte = gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), 
 																												gtk_notebook_get_current_page(GTK_NOTEBOOK(backbone->notebook.widget))
@@ -293,6 +292,8 @@ void new_tab( backbone_t * backbone)
 	tab_data->widget = vte;
 	tab_data->pid = pid;
 	tab_data->match_tags = NULL;
+	tab_data->current_match = NULL;
+	tab_data->current_flavor = 666; /*a number not in the enum range*/
 
 	int i;
   for (i = 0; i < backbone->regexes.number; ++i)

@@ -20,6 +20,15 @@ void create_main_menu(backbone_t* backbone)
 	GtkWidget * resize = gtk_menu_item_new_with_label("resize");
 	GtkWidget * reload = gtk_menu_item_new_with_label("reload");	
 
+	GtkWidget * send_mail = gtk_menu_item_new_with_label("Send Mail To…");
+	GtkWidget * copy_mail = gtk_menu_item_new_with_label("Copy E-mail Address");
+
+	GtkWidget * send_call = gtk_menu_item_new_with_label("Call To…");
+	GtkWidget * copy_call = gtk_menu_item_new_with_label("Copy Call Address");
+
+	GtkWidget * open_url = gtk_menu_item_new_with_label("Open Link");
+	GtkWidget * copy_url = gtk_menu_item_new_with_label("Copy Link Address");
+	
 	GtkWidget * copy = gtk_menu_item_new_with_label("Copy");
 	GtkWidget * paste = gtk_menu_item_new_with_label("Paste");
 	
@@ -43,6 +52,13 @@ void create_main_menu(backbone_t* backbone)
 	gtk_menu_attach(GTK_MENU(backbone->main_menu), separator3, 0,1,10,11);
 	gtk_menu_attach(GTK_MENU(backbone->main_menu), copy, 0,1,11,12);
 	gtk_menu_attach(GTK_MENU(backbone->main_menu), paste, 0,1,12,13);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), send_mail, 0,1,13,14);  
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), copy_mail, 0,1,14,15);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), send_call, 0,1,15,16);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), copy_call, 0,1,16,17);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), open_url, 0,1,17,18);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), copy_url, 0,1,18,19);
+
 	g_signal_connect_swapped(G_OBJECT(fullscreen), "activate", G_CALLBACK(toggle_fullscreen), backbone);
 	g_signal_connect_swapped(G_OBJECT(above_below), "activate", G_CALLBACK(toggle_above_below), backbone);
 	g_signal_connect_swapped(G_OBJECT(iconify), "activate", G_CALLBACK(toggle_iconify), backbone);
@@ -54,54 +70,98 @@ void create_main_menu(backbone_t* backbone)
 	gtk_widget_show_all(backbone->main_menu);
 }
 
-void display_main_menu(guint32 time, backbone_t *backbone)
+static GtkWidget * get_menuitem_by_label(GtkWidget * menu, gchar * label)
 {
-	/*found the Copy menuitem*/
 	GList * menuitems = NULL;
-	GtkWidget * copyitem;
-	menuitems = gtk_container_get_children(GTK_CONTAINER(backbone->main_menu));
+	GtkWidget * menuitem;
+	menuitems = gtk_container_get_children(GTK_CONTAINER(menu));
 	/*iterate over all items and find the menuitem with label "Copy"*/
 	gint length = g_list_length(menuitems);
 	menuitems = g_list_first(menuitems);
 	int i=0;
 	for(i=0; i< length; i++)
 	{
-		if ( g_strcmp0(gtk_menu_item_get_label(GTK_MENU_ITEM(menuitems->data)), "Copy") == 0)
+		if ( g_strcmp0(gtk_menu_item_get_label(GTK_MENU_ITEM(menuitems->data)), label) == 0)
 		{
-			copyitem=GTK_WIDGET(menuitems->data);
+			menuitem=GTK_WIDGET(menuitems->data);
 			break;
 		}
 		menuitems = g_list_next(menuitems);
 	}
-	
+	return menuitem;
+}
+
+void display_main_menu(guint32 time, backbone_t *backbone, gchar * match, int flavor)
+{
+	GtkWidget * copyitem = get_menuitem_by_label( backbone->main_menu, "Copy");
 		
-		if(vte_terminal_get_has_selection(VTE_TERMINAL(gtk_notebook_get_nth_page(	GTK_NOTEBOOK(backbone->notebook.widget), 
+		/*Set copy menu item inactive if no text is selected*/
+	if(vte_terminal_get_has_selection(VTE_TERMINAL(gtk_notebook_get_nth_page(	GTK_NOTEBOOK(backbone->notebook.widget), 
 																																							gtk_notebook_get_current_page(GTK_NOTEBOOK(backbone->notebook.widget))
 																																						)
 																									)) == FALSE)	
-		/*Set copy menu item inactive if no text is selected*/
 		
-			gtk_widget_set_sensitive(GTK_WIDGET(copyitem), FALSE);
-		else
-			gtk_widget_set_sensitive(GTK_WIDGET(copyitem), TRUE);
+		gtk_widget_set_sensitive(GTK_WIDGET(copyitem), FALSE);
+	else
+		gtk_widget_set_sensitive(GTK_WIDGET(copyitem), TRUE);
 		
-		GdkDeviceManager *device_manager;
-		GdkDevice *device;
-		gint x, y;
-	
-		device_manager = gdk_display_get_device_manager (gtk_widget_get_display (backbone->window.widget));
-		device = gdk_device_manager_get_client_pointer (device_manager);
 		
-		gtk_menu_popup_for_device( GTK_MENU(backbone->main_menu),
-                               device,
-                               NULL,
-                               NULL,
-                               NULL,
-                               NULL,
-                               NULL,
-                               0,
-                               time);
+		/*hide/show regex related menuitems*/
+	GtkWidget * send_mail = get_menuitem_by_label( backbone->main_menu,"Send Mail To…");
+	GtkWidget * copy_mail = get_menuitem_by_label( backbone->main_menu,"Copy E-mail Address");
 
+	GtkWidget * send_call = get_menuitem_by_label( backbone->main_menu,"Call To…");
+	GtkWidget * copy_call = get_menuitem_by_label( backbone->main_menu,"Copy Call Address");
+
+	GtkWidget * open_url = get_menuitem_by_label( backbone->main_menu,"Open Link");
+	GtkWidget * copy_url = get_menuitem_by_label( backbone->main_menu,"Copy Link Address");
+
+	gtk_widget_hide(send_mail);
+	gtk_widget_hide(copy_mail);
+	gtk_widget_hide(send_call);
+	gtk_widget_hide(copy_call);
+	gtk_widget_hide(open_url);
+	gtk_widget_hide(copy_url);
+	
+	if(match)
+	{
+		switch(flavor)
+		{
+			case FLAVOR_AS_IS:
+				gtk_widget_show(open_url);
+				gtk_widget_show(copy_url);
+				break;
+			case FLAVOR_DEFAULT_TO_HTTP:
+				gtk_widget_show(open_url);
+				gtk_widget_show(copy_url);
+				break;
+			case FLAVOR_VOIP_CALL:
+				gtk_widget_show(send_call);
+				gtk_widget_show(copy_call);
+				break;
+			case FLAVOR_EMAIL:
+				gtk_widget_show(send_mail);
+				gtk_widget_show(copy_mail);
+				break;
+		}
+	}
+		
+	GdkDeviceManager *device_manager;
+	GdkDevice *device;
+	gint x, y;
+	
+	device_manager = gdk_display_get_device_manager (gtk_widget_get_display (backbone->window.widget));
+	device = gdk_device_manager_get_client_pointer (device_manager);
+		
+	gtk_menu_popup_for_device( GTK_MENU(backbone->main_menu),
+                              device,
+                              NULL,
+                              NULL,
+                              NULL,
+                              NULL,
+                              NULL,
+                              0,
+                              time);
 }
 
 void create_reload_menu(backbone_t *backbone)
@@ -167,15 +227,6 @@ void create_resize_menu(backbone_t * backbone)
 		GtkWidget * top_right = gtk_menu_item_new_with_label("top-right");
 		GtkWidget * bottom_left = gtk_menu_item_new_with_label("bottom-left");
 		GtkWidget * bottom_right = gtk_menu_item_new_with_label("bottom_right");
-		/*gtk_menu_attach(GTK_MENU(backbone->resize_menu), top_left, 0,1,0,1);
-		gtk_menu_attach(GTK_MENU(backbone->resize_menu), top, 2,3,0,1);
-		gtk_menu_attach(GTK_MENU(backbone->resize_menu), top_right, 4,5,0,1);
-		gtk_menu_attach(GTK_MENU(backbone->resize_menu), left, 0,2,2,3);
-		gtk_menu_attach(GTK_MENU(backbone->resize_menu), right, 3,5,2,3);
-		gtk_menu_attach(GTK_MENU(backbone->resize_menu), bottom_left, 0,1,3,4);
-		gtk_menu_attach(GTK_MENU(backbone->resize_menu), bottom, 2,3,3,4);
-		gtk_menu_attach(GTK_MENU(backbone->resize_menu), bottom_right, 4,5,3,4);
-		*/
 		gtk_menu_attach(GTK_MENU(backbone->resize_menu), top, 0,1,0,1);
 		gtk_menu_attach(GTK_MENU(backbone->resize_menu), bottom, 0,1,1,2);
 		gtk_menu_attach(GTK_MENU(backbone->resize_menu), left, 0,1,2,3);

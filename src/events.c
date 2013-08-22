@@ -79,11 +79,11 @@ gboolean event_key_press(GtkWidget *widget, GdkEventKey *event, backbone_t * bac
 		 reload_vte_configuration(backbone);
      return TRUE;
     }	
-			if (g == GDK_KEY_M) {
-		 backbone->time = event->time;
-		 display_main_menu(event->time, backbone);
-     return TRUE;
-    }
+		//	if (g == GDK_KEY_M) {
+		// backbone->time = event->time;
+		// display_main_menu(event->time, backbone);
+    // return TRUE;
+    //}
 	}
 	//else if ((event->state &(GDK_CONTROL_MASK|GDK_SHIFT_MASK|GDK_BUTTON1_MASK) ) == (GDK_CONTROL_MASK|GDK_SHIFT_MASK|GDK_BUTTON1_MASK))
 	//{
@@ -100,8 +100,7 @@ gboolean event_button_press(GtkWidget *widget, GdkEventButton *event, backbone_t
   if (event->type == GDK_BUTTON_PRESS  &&  event->button == 3)
 	{
 		backbone->time = event->time;
-		display_main_menu(event->time, backbone);
-		gchar * match;
+		gchar * match = NULL;
 		int flavor;
 		//match = get_regex_match_on_button_press(widget, event, &flavor, backbone);
 		match = get_regex_match_for_tab_on_button_press(widget, event, &flavor, backbone);
@@ -130,6 +129,7 @@ gboolean event_button_press(GtkWidget *widget, GdkEventButton *event, backbone_t
 					break;
 			}
 		}
+		display_main_menu(event->time, backbone, match, flavor);
 		return TRUE;
 	}
 	/*nothing handled*/

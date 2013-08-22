@@ -83,8 +83,8 @@ int main(int argc, char ** argv)
 	return EXIT_SUCCESS;
 }
 //TODO create custom menu that depends on flavor
-//TODO in close tabs free the match_tags for the vte
 //TODO create .pc file with autotools
+//TODO make some test for window operation with non gnome desktop
 //TODO create gdk_shape
 //TODO create doxygen documentation
 //TODO write log macro without files/lines information and check if debug flag to swith

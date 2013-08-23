@@ -16,14 +16,16 @@
 #define USERPASS USERCHARS_CLASS "+(?:" PASSCHARS_CLASS "+)?"
 #define URLPATH   "(?:(/"PATHCHARS_CLASS"+(?:[(]"PATHCHARS_CLASS"*[)])*"PATHCHARS_CLASS"*)*"PATHTERM_CLASS")?"
 #define HEX_CLASS "[a-fA-F0-9]"
+#define UINT8_CLASS "([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])" /*http://www.regular-expressions.info/numericranges.html*/
 #define HEX_COLOR "#("HEX_CLASS"{12}|"HEX_CLASS"{9}|"HEX_CLASS"{6}|"HEX_CLASS"{3})"
+#define RGB_COLOR "rgb\\s*\\(\\s*"UINT8_CLASS"\\s*\\,\\s*"UINT8_CLASS"\\s*\\,\\s*"UINT8_CLASS"\\s*\\)"
 static const TerminalRegexPattern url_regex_patterns[] = {
   { SCHEME "//(?:" USERPASS "\\@)?" HOST PORT URLPATH, FLAVOR_AS_IS, G_REGEX_CASELESS },
   { "(?:www|ftp)" HOSTCHARS_CLASS "*\\." HOST PORT URLPATH , FLAVOR_DEFAULT_TO_HTTP, G_REGEX_CASELESS  },
   { "(?:callto:|h323:|sip:)" USERCHARS_CLASS "[" USERCHARS ".]*(?:" PORT "/[a-z0-9]+)?\\@" HOST, FLAVOR_VOIP_CALL, G_REGEX_CASELESS  },
   { "(?:mailto:)?" USERCHARS_CLASS "[" USERCHARS ".]*\\@" HOSTCHARS_CLASS "+\\." HOST, FLAVOR_EMAIL, G_REGEX_CASELESS  },
   { "(?:news:|man:|info:)[[:alnum:]\\Q^_{|}~!\"#$%&'()*+,./;:=?`\\E]+", FLAVOR_AS_IS, G_REGEX_CASELESS  },
-	{ HEX_COLOR, FLAVOR_COLOR, G_REGEX_CASELESS  },
+	{ HEX_COLOR"|"RGB_COLOR, FLAVOR_COLOR, G_REGEX_CASELESS  },
 };
 
 GString  *get_flavor_string( int flavor)
@@ -186,3 +188,4 @@ gchar * get_regex_match_for_tab_on_button_press(GtkWidget *vte, GdkEventButton *
 }
 //TODO remove or adapt get_regex_match_on_button_press as in get_regex_match_for_tab_on_button_press
 //TODO remove or adapt add_regexes_to_vte
+//TODO finish regex for rgb percent and rgba

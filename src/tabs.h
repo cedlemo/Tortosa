@@ -13,4 +13,5 @@ void apply_tab_configuration( backbone_t *);
 gboolean reload_tabs_configuration( backbone_t *);
 void copy_selected_text_to_clipboard(backbone_t *);
 void paste_clipboard_to_vte_child(backbone_t *);
+void copy_regex_match_to_vte_clipboard(backbone_t *);
 #endif

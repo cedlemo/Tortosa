@@ -70,7 +70,10 @@ void create_main_menu(backbone_t* backbone)
 	g_signal_connect_swapped(G_OBJECT(send_mail), "activate", G_CALLBACK(util_open_url), backbone);
 	g_signal_connect_swapped(G_OBJECT(send_call), "activate", G_CALLBACK(util_open_url), backbone);
 	g_signal_connect_swapped(G_OBJECT(open_url), "activate", G_CALLBACK(util_open_url), backbone);
-	gtk_widget_show_all(backbone->main_menu);
+	g_signal_connect_swapped(G_OBJECT(copy_mail), "activate", G_CALLBACK(copy_regex_match_to_vte_clipboard), backbone);
+	g_signal_connect_swapped(G_OBJECT(copy_call), "activate", G_CALLBACK(copy_regex_match_to_vte_clipboard), backbone);
+	g_signal_connect_swapped(G_OBJECT(copy_url), "activate", G_CALLBACK(copy_regex_match_to_vte_clipboard), backbone);
+gtk_widget_show_all(backbone->main_menu);
 }
 
 static GtkWidget * get_menuitem_by_label(GtkWidget * menu, gchar * label)

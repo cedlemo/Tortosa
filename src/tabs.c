@@ -344,3 +344,21 @@ void paste_clipboard_to_vte_child(backbone_t * backbone)
 	vte_terminal_paste_clipboard(VTE_TERMINAL(focused_vte));
 }
 
+void copy_regex_match_to_vte_clipboard(backbone_t * backbone)
+{
+	GtkWidget * vte = gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), gtk_notebook_get_current_page(GTK_NOTEBOOK(backbone->notebook.widget)));
+
+	GSList *found = NULL;
+	found = g_slist_find_custom(backbone->tabs_data, vte, (GCompareFunc) find_node_by_widget);
+	const gchar *match = NULL;
+	if (found)
+	{
+		match = ((tab_data_t*) found->data)->current_match;
+	}
+	if(match)
+	{
+		GtkClipboard *clipboard;
+		clipboard = gtk_widget_get_clipboard(GTK_WIDGET(backbone->window.widget), GDK_SELECTION_CLIPBOARD);
+		gtk_clipboard_set_text(clipboard, match, -1);
+	}
+}

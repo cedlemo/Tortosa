@@ -487,7 +487,6 @@ void  util_open_url (backbone_t * backbone )
 { 
 	GError *error = NULL;
   char *uri;
-	/**/
 	GtkWidget * vte = gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), gtk_notebook_get_current_page(GTK_NOTEBOOK(backbone->notebook.widget)));
 
 	GSList *found = NULL;

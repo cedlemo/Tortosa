@@ -93,7 +93,7 @@ $(document).ready(function(){initNavTree('gears_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -157,6 +157,8 @@ Functions</h2></td></tr>
 <tr class="separator:a8ddb8664a0226267028277979646dd9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9d7dbb8a5bbe0d14030e2a4844ac0e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gears_8c.html#af9d7dbb8a5bbe0d14030e2a4844ac0e9">free_slist_and_data</a> (GSList *slist)</td></tr>
 <tr class="separator:af9d7dbb8a5bbe0d14030e2a4844ac0e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79f77fda50b196c94ba3ae6af85e5349"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gears_8c.html#a79f77fda50b196c94ba3ae6af85e5349">util_open_url</a> (<a class="el" href="structbackbone__t.html">backbone_t</a> *backbone)</td></tr>
+<tr class="separator:a79f77fda50b196c94ba3ae6af85e5349"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a class="anchor" id="a9e65c2c00cfb04bdbcd0dd23cae7886a"></a>
@@ -208,14 +210,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="gears_8c_source.html#l00446">446</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
+<p>Definition at line <a class="el" href="gears_8c_source.html#l00447">447</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="gears_8c_a8ea6b2587b942ee7b536c2af91932f08_icgraph.png" border="0" usemap="#gears_8c_a8ea6b2587b942ee7b536c2af91932f08_icgraph" alt=""/></div>
 <map name="gears_8c_a8ea6b2587b942ee7b536c2af91932f08_icgraph" id="gears_8c_a8ea6b2587b942ee7b536c2af91932f08_icgraph">
-<area shape="rect" id="node2" href="gears_8h.html#a1a81f8b52fb68e84af5773cd28539121" title="remove_node_by_widget" alt="" coords="197,5,360,32"/><area shape="rect" id="node6" href="tabs_8h.html#a7e9717ddf705f34fb1ecdff5f0b4365a" title="new_tab" alt="" coords="537,56,607,83"/><area shape="rect" id="node3" href="tabs_8h.html#a0901fc8dd76308dd599945552a66c66d" title="close_tab" alt="" coords="409,5,487,32"/><area shape="rect" id="node4" href="events_8h.html#a2b45201051e4603136cfca4ae05b202a" title="event_key_press" alt="" coords="657,5,775,32"/><area shape="rect" id="node5" href="tortosa_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="main" alt="" coords="824,31,875,57"/></map>
+<area shape="rect" id="node2" href="events_8h.html#ae6ed16a252e3bcf2c4f284b068436768" title="event_button_press" alt="" coords="409,180,543,207"/><area shape="rect" id="node6" href="gears_8h.html#a1a81f8b52fb68e84af5773cd28539121" title="remove_node_by_widget" alt="" coords="197,121,360,148"/><area shape="rect" id="node8" href="gears_8h.html#a97d35ab35d8091995039bb194587fcf0" title="util_open_url" alt="" coords="231,71,326,97"/><area shape="rect" id="node3" href="tabs_8h.html#a7e9717ddf705f34fb1ecdff5f0b4365a" title="new_tab" alt="" coords="593,176,663,203"/><area shape="rect" id="node10" href="tabs_8h.html#a7a01c586f57a22b81736c6a224e4682f" title="copy_regex_match_to\l_vte_clipboard" alt="" coords="203,5,354,46"/><area shape="rect" id="node11" href="tgregex_8h.html#a6f193929816f3c169fd8ad0269295cb3" title="add_regexes_to_tab" alt="" coords="209,289,348,316"/><area shape="rect" id="node12" href="tgregex_8h.html#a027ebe3cb30a00b246b3efc8b859acf7" title="get_regex_match_for\l_tab_on_button_press" alt="" coords="203,173,354,214"/><area shape="rect" id="node4" href="events_8h.html#a2b45201051e4603136cfca4ae05b202a" title="event_key_press" alt="" coords="713,125,831,152"/><area shape="rect" id="node5" href="tortosa_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="main" alt="" coords="880,125,931,152"/><area shape="rect" id="node7" href="tabs_8h.html#a0901fc8dd76308dd599945552a66c66d" title="close_tab" alt="" coords="437,125,515,152"/><area shape="rect" id="node9" href="menus_8h.html#a62fa76030d9feca62d2192c036d1498a" title="create_main_menu" alt="" coords="410,71,542,97"/></map>
 </div>
 </p>
 
@@ -235,7 +237,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="gears_8c_source.html#l00030">30</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
+<p>Definition at line <a class="el" href="gears_8c_source.html#l00031">31</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -262,7 +264,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="gears_8c_source.html#l00470">470</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
+<p>Definition at line <a class="el" href="gears_8c_source.html#l00481">481</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -305,7 +307,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="gears_8c_source.html#l00067">67</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
+<p>Definition at line <a class="el" href="gears_8c_source.html#l00068">68</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -332,7 +334,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="gears_8c_source.html#l00332">332</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
+<p>Definition at line <a class="el" href="gears_8c_source.html#l00333">333</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -368,7 +370,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="gears_8c_source.html#l00317">317</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
+<p>Definition at line <a class="el" href="gears_8c_source.html#l00318">318</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -395,7 +397,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="gears_8c_source.html#l00168">168</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
+<p>Definition at line <a class="el" href="gears_8c_source.html#l00169">169</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -422,7 +424,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="gears_8c_source.html#l00193">193</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
+<p>Definition at line <a class="el" href="gears_8c_source.html#l00194">194</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -458,7 +460,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="gears_8c_source.html#l00155">155</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
+<p>Definition at line <a class="el" href="gears_8c_source.html#l00156">156</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -521,7 +523,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="gears_8c_source.html#l00358">358</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
+<p>Definition at line <a class="el" href="gears_8c_source.html#l00359">359</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -567,7 +569,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="gears_8c_source.html#l00454">454</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
+<p>Definition at line <a class="el" href="gears_8c_source.html#l00460">460</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -589,13 +591,49 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a class="anchor" id="a79f77fda50b196c94ba3ae6af85e5349"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void util_open_url </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structbackbone__t.html">backbone_t</a> *&#160;</td>
+          <td class="paramname"><em>backbone</em>)</td><td></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="gears_8c_source.html#l00486">486</a> of file <a class="el" href="gears_8c_source.html">gears.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="gears_8c_a79f77fda50b196c94ba3ae6af85e5349_cgraph.png" border="0" usemap="#gears_8c_a79f77fda50b196c94ba3ae6af85e5349_cgraph" alt=""/></div>
+<map name="gears_8c_a79f77fda50b196c94ba3ae6af85e5349_cgraph" id="gears_8c_a79f77fda50b196c94ba3ae6af85e5349_cgraph">
+<area shape="rect" id="node2" href="gears_8c.html#a8ea6b2587b942ee7b536c2af91932f08" title="find_node_by_widget" alt="" coords="150,5,293,32"/></map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="gears_8c_a79f77fda50b196c94ba3ae6af85e5349_icgraph.png" border="0" usemap="#gears_8c_a79f77fda50b196c94ba3ae6af85e5349_icgraph" alt=""/></div>
+<map name="gears_8c_a79f77fda50b196c94ba3ae6af85e5349_icgraph" id="gears_8c_a79f77fda50b196c94ba3ae6af85e5349_icgraph">
+<area shape="rect" id="node2" href="menus_8h.html#a62fa76030d9feca62d2192c036d1498a" title="create_main_menu" alt="" coords="150,5,282,32"/><area shape="rect" id="node3" href="tortosa_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="main" alt="" coords="331,5,381,32"/></map>
+</div>
+</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="gears_8c.html">gears.c</a></li>
-    <li class="footer">Generated on Mon Aug 12 2013 18:44:28 for Tortosa by
+    <li class="footer">Generated on Sat Aug 24 2013 12:07:00 for Tortosa by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

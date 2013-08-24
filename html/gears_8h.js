@@ -12,5 +12,6 @@ var gears_8h =
     [ "load_window_configuration", "gears_8h.html#a49692a2d9dc9b2f1de52843a243726e5", null ],
     [ "new_backbone", "gears_8h.html#a8770fd5ab5b14ff44e6f27a6cba417a4", null ],
     [ "reload_tortosa_configuration", "gears_8h.html#a4bda941d2d40f5eb77c9d729dc229879", null ],
-    [ "remove_node_by_widget", "gears_8h.html#a1a81f8b52fb68e84af5773cd28539121", null ]
+    [ "remove_node_by_widget", "gears_8h.html#a1a81f8b52fb68e84af5773cd28539121", null ],
+    [ "util_open_url", "gears_8h.html#a97d35ab35d8091995039bb194587fcf0", null ]
 ];

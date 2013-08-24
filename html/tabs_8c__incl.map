@@ -1,8 +1,9 @@
 <map id="src/tabs.c" name="src/tabs.c">
-<area shape="rect" id="node5" href="$gears_8h.html" title="gears.h" alt="" coords="246,80,311,107"/>
-<area shape="rect" id="node6" href="$backbone_8h.html" title="backbone.h" alt="" coords="234,155,323,181"/>
-<area shape="rect" id="node8" href="$tabs_8h.html" title="tabs.h" alt="" coords="336,80,393,107"/>
-<area shape="rect" id="node9" href="$events_8h.html" title="events.h" alt="" coords="419,80,489,107"/>
-<area shape="rect" id="node10" href="$dbg_8h.html" title="Define dbg helpers. " alt="" coords="501,155,555,181"/>
-<area shape="rect" id="node7" href="$colors_8h.html" title="colors.h" alt="" coords="238,229,305,256"/>
+<area shape="rect" id="node5" href="$gears_8h.html" title="gears.h" alt="" coords="347,80,412,107"/>
+<area shape="rect" id="node6" href="$backbone_8h.html" title="backbone.h" alt="" coords="311,155,400,181"/>
+<area shape="rect" id="node8" href="$tabs_8h.html" title="tabs.h" alt="" coords="437,80,495,107"/>
+<area shape="rect" id="node9" href="$events_8h.html" title="events.h" alt="" coords="521,80,591,107"/>
+<area shape="rect" id="node14" href="$tgregex_8h.html" title="tgregex.h" alt="" coords="195,80,271,107"/>
+<area shape="rect" id="node10" href="$dbg_8h.html" title="Define dbg helpers. " alt="" coords="602,155,656,181"/>
+<area shape="rect" id="node7" href="$colors_8h.html" title="colors.h" alt="" coords="302,229,369,256"/>
 </map>

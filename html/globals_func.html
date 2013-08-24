@@ -78,6 +78,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>All</span></a></li>
       <li class="current"><a href="globals_func.html"><span>Functions</span></a></li>
       <li><a href="globals_type.html"><span>Typedefs</span></a></li>
+      <li><a href="globals_enum.html"><span>Enumerations</span></a></li>
+      <li><a href="globals_eval.html"><span>Enumerator</span></a></li>
       <li><a href="globals_defs.html"><span>Macros</span></a></li>
     </ul>
   </div>
@@ -96,6 +98,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="#index_p"><span>p</span></a></li>
       <li><a href="#index_r"><span>r</span></a></li>
       <li><a href="#index_t"><span>t</span></a></li>
+      <li><a href="#index_u"><span>u</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -118,7 +121,7 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -131,6 +134,13 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 &#160;
 
 <h3><a class="anchor" id="index_a"></a>- a -</h3><ul>
+<li>add_regexes_to_tab()
+: <a class="el" href="tgregex_8c.html#a9d411137e44f94249528f2f3cdc8f0ad">tgregex.c</a>
+, <a class="el" href="tgregex_8h.html#a6f193929816f3c169fd8ad0269295cb3">tgregex.h</a>
+</li>
+<li>add_regexes_to_vte()
+: <a class="el" href="tgregex_8h.html#ac08239daa844b17427826449ff06d88c">tgregex.h</a>
+</li>
 <li>apply_tab_configuration()
 : <a class="el" href="tabs_8h.html#ad2d7891720d539430a61936bdb979f87">tabs.h</a>
 </li>
@@ -139,8 +149,8 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 , <a class="el" href="tabs_8h.html#a9f4d7e9c4686feaf46e2223fcca9d332">tabs.h</a>
 </li>
 <li>apply_vte_configuration()
-: <a class="el" href="tabs_8h.html#a15a450256ce22f2b32d3cc42ac0628ff">tabs.h</a>
-, <a class="el" href="tabs_8c.html#aed31376fe854e7710d355045c0d8c4c1">tabs.c</a>
+: <a class="el" href="tabs_8c.html#aed31376fe854e7710d355045c0d8c4c1">tabs.c</a>
+, <a class="el" href="tabs_8h.html#a15a450256ce22f2b32d3cc42ac0628ff">tabs.h</a>
 </li>
 <li>apply_window_configuration()
 : <a class="el" href="window_8c.html#ad750c1fce65c16ba5773838331706901">window.c</a>
@@ -154,21 +164,25 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 : <a class="el" href="tabs_8c.html#a85afe42711efaab9fdf1fa504f383cab">tabs.c</a>
 , <a class="el" href="tabs_8h.html#a0901fc8dd76308dd599945552a66c66d">tabs.h</a>
 </li>
+<li>copy_regex_match_to_vte_clipboard()
+: <a class="el" href="tabs_8h.html#a7a01c586f57a22b81736c6a224e4682f">tabs.h</a>
+, <a class="el" href="tabs_8c.html#a72497e27bbe1421432e3df8d5f68386f">tabs.c</a>
+</li>
 <li>copy_selected_text_to_clipboard()
-: <a class="el" href="tabs_8h.html#a99304c27d3f6f12c0e9411de17767bc2">tabs.h</a>
-, <a class="el" href="tabs_8c.html#a99c0b8a79974ac2d49bbd9b8cf2cfbe6">tabs.c</a>
+: <a class="el" href="tabs_8c.html#a99c0b8a79974ac2d49bbd9b8cf2cfbe6">tabs.c</a>
+, <a class="el" href="tabs_8h.html#a99304c27d3f6f12c0e9411de17767bc2">tabs.h</a>
 </li>
 <li>create_main_menu()
-: <a class="el" href="menus_8c.html#a954967483e6405eee6cae0742574aa4b">menus.c</a>
-, <a class="el" href="menus_8h.html#a62fa76030d9feca62d2192c036d1498a">menus.h</a>
+: <a class="el" href="menus_8h.html#a62fa76030d9feca62d2192c036d1498a">menus.h</a>
+, <a class="el" href="menus_8c.html#a954967483e6405eee6cae0742574aa4b">menus.c</a>
 </li>
 <li>create_reload_menu()
-: <a class="el" href="menus_8c.html#af95583032d1a021d3f0ba355fb3e63af">menus.c</a>
-, <a class="el" href="menus_8h.html#a0f10cf5a8a8b20c2a7b244fc9a23c616">menus.h</a>
+: <a class="el" href="menus_8h.html#a0f10cf5a8a8b20c2a7b244fc9a23c616">menus.h</a>
+, <a class="el" href="menus_8c.html#af95583032d1a021d3f0ba355fb3e63af">menus.c</a>
 </li>
 <li>create_resize_menu()
-: <a class="el" href="menus_8h.html#afea9ff972d41ce16001e510f4d6b2f8c">menus.h</a>
-, <a class="el" href="menus_8c.html#a907eaeb3c18e44f728240617ad55c209">menus.c</a>
+: <a class="el" href="menus_8c.html#a907eaeb3c18e44f728240617ad55c209">menus.c</a>
+, <a class="el" href="menus_8h.html#afea9ff972d41ce16001e510f4d6b2f8c">menus.h</a>
 </li>
 </ul>
 
@@ -179,8 +193,8 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 , <a class="el" href="window_8h.html#a7e41f6e46df0e044f984aa1c9023e48f">window.h</a>
 </li>
 <li>display_main_menu()
-: <a class="el" href="menus_8h.html#a8e5f9bea644a5655f75c0d04c86cc6c3">menus.h</a>
-, <a class="el" href="menus_8c.html#a7592ef144bc0c703b874840cc0e00ef1">menus.c</a>
+: <a class="el" href="menus_8h.html#ae7bade0e97da56a12e47c628f286dcde">menus.h</a>
+, <a class="el" href="menus_8c.html#aa51a8c781bd2d393edff29cde7caf766">menus.c</a>
 </li>
 <li>display_resize_menu()
 : <a class="el" href="menus_8c.html#ab1ee338b2f2bf34037ffddeaeef5735e">menus.c</a>
@@ -226,21 +240,32 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 
 
 <h3><a class="anchor" id="index_g"></a>- g -</h3><ul>
+<li>get_flavor_string()
+: <a class="el" href="tgregex_8c.html#a4783d40d126d6d41a0580c1161785a13">tgregex.c</a>
+, <a class="el" href="tgregex_8h.html#a4783d40d126d6d41a0580c1161785a13">tgregex.h</a>
+</li>
+<li>get_regex_match_for_tab_on_button_press()
+: <a class="el" href="tgregex_8h.html#a027ebe3cb30a00b246b3efc8b859acf7">tgregex.h</a>
+, <a class="el" href="tgregex_8c.html#a9e280c1b505b6802b447aa0645fa6d7c">tgregex.c</a>
+</li>
+<li>get_regex_match_on_button_press()
+: <a class="el" href="tgregex_8h.html#af9f83a28bf6f41fb7dcbe14992588519">tgregex.h</a>
+</li>
 <li>get_window_state()
 : <a class="el" href="events_8c.html#a04c2804e7660b275b900e20ddd07d080">events.c</a>
 , <a class="el" href="events_8h.html#a1732f9afc93d6fd7317187fd3f3ebd98">events.h</a>
 </li>
 <li>go_to_next_tab()
-: <a class="el" href="tabs_8h.html#a03482e1616d57331f1d00f6683da37ee">tabs.h</a>
-, <a class="el" href="tabs_8c.html#afd708d681f48794026b4e9748c0ef4df">tabs.c</a>
+: <a class="el" href="tabs_8c.html#afd708d681f48794026b4e9748c0ef4df">tabs.c</a>
+, <a class="el" href="tabs_8h.html#a03482e1616d57331f1d00f6683da37ee">tabs.h</a>
 </li>
 <li>go_to_prev_tab()
 : <a class="el" href="tabs_8c.html#a98e7543155cb51bfcec5a27932510395">tabs.c</a>
 , <a class="el" href="tabs_8h.html#a8ac841e3fd98fcaafc36eaa6fa031601">tabs.h</a>
 </li>
 <li>grab_move_window()
-: <a class="el" href="window_8h.html#a9ac084925bd247f38637745a59278add">window.h</a>
-, <a class="el" href="window_8c.html#a2c6d459a87755deebe8b66356a03d0f8">window.c</a>
+: <a class="el" href="window_8c.html#a2c6d459a87755deebe8b66356a03d0f8">window.c</a>
+, <a class="el" href="window_8h.html#a9ac084925bd247f38637745a59278add">window.h</a>
 </li>
 </ul>
 
@@ -305,6 +330,10 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 : <a class="el" href="tabs_8c.html#a6eaea76b67632db6902b49a6c3e1a4ff">tabs.c</a>
 , <a class="el" href="tabs_8h.html#a60d371b12c74a344ee59bc931cdfd235">tabs.h</a>
 </li>
+<li>precompile_regex()
+: <a class="el" href="tgregex_8c.html#a6db30a9da415893399cfe22b2c9e0446">tgregex.c</a>
+, <a class="el" href="tgregex_8h.html#aa4626b74fdf6f5be1b18be1c6cdaf249">tgregex.h</a>
+</li>
 </ul>
 
 
@@ -358,12 +387,20 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 , <a class="el" href="window_8c.html#a09e08a4e1483220e94460c1c33e2467b">window.c</a>
 </li>
 </ul>
+
+
+<h3><a class="anchor" id="index_u"></a>- u -</h3><ul>
+<li>util_open_url()
+: <a class="el" href="gears_8c.html#a79f77fda50b196c94ba3ae6af85e5349">gears.c</a>
+, <a class="el" href="gears_8h.html#a97d35ab35d8091995039bb194587fcf0">gears.h</a>
+</li>
+</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Aug 12 2013 18:44:28 for Tortosa by
+    <li class="footer">Generated on Sat Aug 24 2013 12:07:00 for Tortosa by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

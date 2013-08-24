@@ -4,6 +4,7 @@ var tabs_8h =
     [ "apply_tabs_configuration", "tabs_8h.html#a9f4d7e9c4686feaf46e2223fcca9d332", null ],
     [ "apply_vte_configuration", "tabs_8h.html#a15a450256ce22f2b32d3cc42ac0628ff", null ],
     [ "close_tab", "tabs_8h.html#a0901fc8dd76308dd599945552a66c66d", null ],
+    [ "copy_regex_match_to_vte_clipboard", "tabs_8h.html#a7a01c586f57a22b81736c6a224e4682f", null ],
     [ "copy_selected_text_to_clipboard", "tabs_8h.html#a99304c27d3f6f12c0e9411de17767bc2", null ],
     [ "go_to_next_tab", "tabs_8h.html#a03482e1616d57331f1d00f6683da37ee", null ],
     [ "go_to_prev_tab", "tabs_8h.html#a8ac841e3fd98fcaafc36eaa6fa031601", null ],

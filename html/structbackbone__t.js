@@ -11,6 +11,7 @@ var structbackbone__t =
     [ "maximized", "structbackbone__t.html#a499fa8e6ab6ec3a11f9f1ce34b00c8a5", null ],
     [ "notebook", "structbackbone__t.html#ae7c2122901b1b3af8cdd923a3bd4b402", null ],
     [ "provider", "structbackbone__t.html#adc3ec5a0054cd28cc202b386e7ca1bb1", null ],
+    [ "regexes", "structbackbone__t.html#aafe28c1293e40455b9842076340957ba", null ],
     [ "reload_menu", "structbackbone__t.html#a4fb9d69f630cdab3bdc69e9872d3cffb", null ],
     [ "resize_menu", "structbackbone__t.html#a7cbc1c33ac361f735edbb465a5d01c6b", null ],
     [ "screen", "structbackbone__t.html#ae721ea915e8dc917e4474171757a230e", null ],

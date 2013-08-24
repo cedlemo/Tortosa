@@ -13,6 +13,8 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     [ "pango-color-table.h", "pango-color-table_8h.html", "pango-color-table_8h" ],
     [ "tabs.c", "tabs_8c.html", "tabs_8c" ],
     [ "tabs.h", "tabs_8h.html", "tabs_8h" ],
+    [ "tgregex.c", "tgregex_8c.html", "tgregex_8c" ],
+    [ "tgregex.h", "tgregex_8h.html", "tgregex_8h" ],
     [ "tortosa.c", "tortosa_8c.html", "tortosa_8c" ],
     [ "window.c", "window_8c.html", "window_8c" ],
     [ "window.h", "window_8h.html", "window_8h" ]

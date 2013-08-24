@@ -1,3 +1,5 @@
 <map id="event_button_press" name="event_button_press">
-<area shape="rect" id="node2" href="$menus_8c.html#a7592ef144bc0c703b874840cc0e00ef1" title="display_main_menu" alt="" coords="190,5,327,32"/>
+<area shape="rect" id="node2" href="$tgregex_8c.html#a9e280c1b505b6802b447aa0645fa6d7c" title="get_regex_match_for\l_tab_on_button_press" alt="" coords="190,5,341,46"/>
+<area shape="rect" id="node3" href="$gears_8c.html#a8ea6b2587b942ee7b536c2af91932f08" title="find_node_by_widget" alt="" coords="390,41,533,68"/>
+<area shape="rect" id="node4" href="$menus_8c.html#aa51a8c781bd2d393edff29cde7caf766" title="display_main_menu" alt="" coords="197,121,334,148"/>
 </map>

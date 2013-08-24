@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('structtab__data__t.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -119,11 +119,59 @@ Data Fields</h2></td></tr>
 <tr class="separator:aca344d357e68756eaeca7eca04111438"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee20d29509fbec5447d9b5e7d4507024"><td class="memItemLeft" align="right" valign="top">GPid&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtab__data__t.html#aee20d29509fbec5447d9b5e7d4507024">pid</a></td></tr>
 <tr class="separator:aee20d29509fbec5447d9b5e7d4507024"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0b1d7744dbbdb03001073673089f0fc"><td class="memItemLeft" align="right" valign="top">GSList *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtab__data__t.html#ad0b1d7744dbbdb03001073673089f0fc">match_tags</a></td></tr>
+<tr class="separator:ad0b1d7744dbbdb03001073673089f0fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c970a0347d2c728bf829437898af6c3"><td class="memItemLeft" align="right" valign="top">gchar *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtab__data__t.html#a7c970a0347d2c728bf829437898af6c3">current_match</a></td></tr>
+<tr class="separator:a7c970a0347d2c728bf829437898af6c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac81281e21c571b90ddac8dd6f1bf6b87"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtab__data__t.html#ac81281e21c571b90ddac8dd6f1bf6b87">current_flavor</a></td></tr>
+<tr class="separator:ac81281e21c571b90ddac8dd6f1bf6b87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="backbone_8h_source.html#l00071">71</a> of file <a class="el" href="backbone_8h_source.html">backbone.h</a>.</p>
+<p>Definition at line <a class="el" href="backbone_8h_source.html#l00072">72</a> of file <a class="el" href="backbone_8h_source.html">backbone.h</a>.</p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="ac81281e21c571b90ddac8dd6f1bf6b87"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int current_flavor</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="backbone_8h_source.html#l00077">77</a> of file <a class="el" href="backbone_8h_source.html">backbone.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7c970a0347d2c728bf829437898af6c3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gchar* current_match</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="backbone_8h_source.html#l00076">76</a> of file <a class="el" href="backbone_8h_source.html">backbone.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad0b1d7744dbbdb03001073673089f0fc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GSList* match_tags</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="backbone_8h_source.html#l00075">75</a> of file <a class="el" href="backbone_8h_source.html">backbone.h</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="aee20d29509fbec5447d9b5e7d4507024"></a>
 <div class="memitem">
 <div class="memproto">
@@ -134,7 +182,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="backbone_8h_source.html#l00073">73</a> of file <a class="el" href="backbone_8h_source.html">backbone.h</a>.</p>
+<p>Definition at line <a class="el" href="backbone_8h_source.html#l00074">74</a> of file <a class="el" href="backbone_8h_source.html">backbone.h</a>.</p>
 
 </div>
 </div>
@@ -148,7 +196,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="backbone_8h_source.html#l00072">72</a> of file <a class="el" href="backbone_8h_source.html">backbone.h</a>.</p>
+<p>Definition at line <a class="el" href="backbone_8h_source.html#l00073">73</a> of file <a class="el" href="backbone_8h_source.html">backbone.h</a>.</p>
 
 </div>
 </div>
@@ -161,7 +209,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structtab__data__t.html">tab_data_t</a></li>
-    <li class="footer">Generated on Mon Aug 12 2013 18:44:28 for Tortosa by
+    <li class="footer">Generated on Sat Aug 24 2013 12:07:00 for Tortosa by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.4 </li>
   </ul>

@@ -79,11 +79,11 @@ gboolean event_key_press(GtkWidget *widget, GdkEventKey *event, backbone_t * bac
 		 reload_vte_configuration(backbone);
      return TRUE;
     }	
-		//	if (g == GDK_KEY_M) {
-		// backbone->time = event->time;
-		// display_main_menu(event->time, backbone);
-    // return TRUE;
-    //}
+			if (g == GDK_KEY_M) {
+		 backbone->time = event->time;
+		 display_main_menu(event->time, backbone, NULL, 666);
+     return TRUE;
+    }
 	}
 	//else if ((event->state &(GDK_CONTROL_MASK|GDK_SHIFT_MASK|GDK_BUTTON1_MASK) ) == (GDK_CONTROL_MASK|GDK_SHIFT_MASK|GDK_BUTTON1_MASK))
 	//{

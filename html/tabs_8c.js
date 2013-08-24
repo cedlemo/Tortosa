@@ -3,6 +3,7 @@ var tabs_8c =
     [ "apply_tabs_configuration", "tabs_8c.html#adb871bc296df7f7483d101d47a6bfbd6", null ],
     [ "apply_vte_configuration", "tabs_8c.html#aed31376fe854e7710d355045c0d8c4c1", null ],
     [ "close_tab", "tabs_8c.html#a85afe42711efaab9fdf1fa504f383cab", null ],
+    [ "copy_regex_match_to_vte_clipboard", "tabs_8c.html#a72497e27bbe1421432e3df8d5f68386f", null ],
     [ "copy_selected_text_to_clipboard", "tabs_8c.html#a99c0b8a79974ac2d49bbd9b8cf2cfbe6", null ],
     [ "go_to_next_tab", "tabs_8c.html#afd708d681f48794026b4e9748c0ef4df", null ],
     [ "go_to_prev_tab", "tabs_8c.html#a98e7543155cb51bfcec5a27932510395", null ],

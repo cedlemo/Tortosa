@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['scheme',['SCHEME',['../tgregex_8c.html#a22b701f7b5eb6d4bca06ffa44d96f802',1,'tgregex.c']]],
   ['screen',['screen',['../structbackbone__t.html#ae721ea915e8dc917e4474171757a230e',1,'backbone_t']]],
   ['scrollback_5flines',['scrollback_lines',['../structvte__t.html#af11a983b2d720001605f02c6b70ff0d8',1,'vte_t']]],
   ['sentinel',['SENTINEL',['../dbg_8h.html#a486c17c299cd0ecb8b33b8c31e5429af',1,'dbg.h']]],

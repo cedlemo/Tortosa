@@ -28,7 +28,10 @@ void create_main_menu(backbone_t* backbone)
 
 	GtkWidget * open_url = gtk_menu_item_new_with_label("Open Link");
 	GtkWidget * copy_url = gtk_menu_item_new_with_label("Copy Link Address");
-	
+
+	GtkWidget * see_color = gtk_color_button_new();
+	GtkWidget * copy_color = gtk_menu_item_new_with_label("Copy color");
+
 	GtkWidget * copy = gtk_menu_item_new_with_label("Copy");
 	GtkWidget * paste = gtk_menu_item_new_with_label("Paste");
 	
@@ -58,6 +61,8 @@ void create_main_menu(backbone_t* backbone)
 	gtk_menu_attach(GTK_MENU(backbone->main_menu), copy_call, 0,1,16,17);
 	gtk_menu_attach(GTK_MENU(backbone->main_menu), open_url, 0,1,17,18);
 	gtk_menu_attach(GTK_MENU(backbone->main_menu), copy_url, 0,1,18,19);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), copy_color, 0,1,19,20);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), see_color, 0,1,20,21);
 
 	g_signal_connect_swapped(G_OBJECT(fullscreen), "activate", G_CALLBACK(toggle_fullscreen), backbone);
 	g_signal_connect_swapped(G_OBJECT(above_below), "activate", G_CALLBACK(toggle_above_below), backbone);
@@ -73,7 +78,8 @@ void create_main_menu(backbone_t* backbone)
 	g_signal_connect_swapped(G_OBJECT(copy_mail), "activate", G_CALLBACK(copy_regex_match_to_vte_clipboard), backbone);
 	g_signal_connect_swapped(G_OBJECT(copy_call), "activate", G_CALLBACK(copy_regex_match_to_vte_clipboard), backbone);
 	g_signal_connect_swapped(G_OBJECT(copy_url), "activate", G_CALLBACK(copy_regex_match_to_vte_clipboard), backbone);
-gtk_widget_show_all(backbone->main_menu);
+	g_signal_connect_swapped(G_OBJECT(copy_color), "activate", G_CALLBACK(copy_regex_match_to_vte_clipboard), backbone);
+	gtk_widget_show_all(backbone->main_menu);
 }
 
 static GtkWidget * get_menuitem_by_label(GtkWidget * menu, gchar * label)
@@ -121,6 +127,7 @@ void display_main_menu(guint32 time, backbone_t *backbone, gchar * match, int fl
 
 	GtkWidget * open_url = get_menuitem_by_label( backbone->main_menu,"Open Link");
 	GtkWidget * copy_url = get_menuitem_by_label( backbone->main_menu,"Copy Link Address");
+	GtkWidget * copy_color = get_menuitem_by_label( backbone->main_menu,"Copy color");
 
 	gtk_widget_hide(send_mail);
 	gtk_widget_hide(copy_mail);
@@ -128,6 +135,7 @@ void display_main_menu(guint32 time, backbone_t *backbone, gchar * match, int fl
 	gtk_widget_hide(copy_call);
 	gtk_widget_hide(open_url);
 	gtk_widget_hide(copy_url);
+	gtk_widget_hide(copy_color);
 
 	/*show related menu item if we have a regex match*/
 	if(match)
@@ -149,6 +157,9 @@ void display_main_menu(guint32 time, backbone_t *backbone, gchar * match, int fl
 			case FLAVOR_EMAIL:
 				gtk_widget_show(send_mail);
 				gtk_widget_show(copy_mail);
+				break;
+			case FLAVOR_COLOR:
+				gtk_widget_show(copy_color);
 				break;
 		}
 	}
@@ -274,4 +285,4 @@ void display_resize_menu(guint32 time, backbone_t *backbone)
                                0,
                                time);
 }
-
+//TODO create menu item allowing to show matched color

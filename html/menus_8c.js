@@ -4,6 +4,6 @@ var menus_8c =
     [ "create_main_menu", "menus_8c.html#a954967483e6405eee6cae0742574aa4b", null ],
     [ "create_reload_menu", "menus_8c.html#af95583032d1a021d3f0ba355fb3e63af", null ],
     [ "create_resize_menu", "menus_8c.html#a907eaeb3c18e44f728240617ad55c209", null ],
-    [ "display_main_menu", "menus_8c.html#a7592ef144bc0c703b874840cc0e00ef1", null ],
+    [ "display_main_menu", "menus_8c.html#aa51a8c781bd2d393edff29cde7caf766", null ],
     [ "display_resize_menu", "menus_8c.html#ab1ee338b2f2bf34037ffddeaeef5735e", null ]
 ];

@@ -1,3 +1,7 @@
-finish colors regexes
-add dynamic menu items for colors regexes
-create actions for menu items
+//TODO create gtkdialog with color chooser
+//TODO add it to see/edit color menu item callback
+//TODO find a way to provide theme value for cairo via css with gtk_css_provider_to_string + regex parsing for
+//	-window background (handled by cairo for transparency)
+//	-active tab font color theme (not provided by gtk3)
+//	-background menu for transparency (try to use cairo)
+//utility of main window action (fullscreen/maximize ??) if let them maybe use low level function instead of those currently used that only works with gnome like windows managers.

@@ -282,5 +282,3 @@ gboolean extended_gdk_rgba_parse (GdkRGBA *rgba,  const gchar *spec)
 	return TRUE;
 }
 #undef SKIP_WHITESPACES
-//TODO check rgba() value parsing
-//TODO check x11 color parsing

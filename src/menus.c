@@ -29,7 +29,7 @@ void create_main_menu(backbone_t* backbone)
 	GtkWidget * open_url = gtk_menu_item_new_with_label("Open Link");
 	GtkWidget * copy_url = gtk_menu_item_new_with_label("Copy Link Address");
 
-	GtkWidget * see_color = gtk_color_button_new();
+	GtkWidget * see_color = gtk_menu_item_new_with_label("See/edit Color");
 	GtkWidget * copy_color = gtk_menu_item_new_with_label("Copy color");
 
 	GtkWidget * copy = gtk_menu_item_new_with_label("Copy");
@@ -93,7 +93,7 @@ static GtkWidget * get_menuitem_by_label(GtkWidget * menu, gchar * label)
 	int i=0;
 	for(i=0; i< length; i++)
 	{
-		if ( g_strcmp0(gtk_menu_item_get_label(GTK_MENU_ITEM(menuitems->data)), label) == 0)
+		if ( GTK_IS_MENU_ITEM(menuitems->data) && g_strcmp0(gtk_menu_item_get_label(GTK_MENU_ITEM(menuitems->data)), label) == 0)
 		{
 			menuitem=GTK_WIDGET(menuitems->data);
 			break;
@@ -106,12 +106,9 @@ static GtkWidget * get_menuitem_by_label(GtkWidget * menu, gchar * label)
 void display_main_menu(guint32 time, backbone_t *backbone, gchar * match, int flavor)
 {
 	GtkWidget * copyitem = get_menuitem_by_label( backbone->main_menu, "Copy");
-		
+	GtkWidget * current_vte = gtk_notebook_get_nth_page( GTK_NOTEBOOK(backbone->notebook.widget), gtk_notebook_get_current_page(GTK_NOTEBOOK(backbone->notebook.widget)));
 	/*Set copy menu item inactive if no text is selected*/
-	if(vte_terminal_get_has_selection(VTE_TERMINAL(gtk_notebook_get_nth_page(	GTK_NOTEBOOK(backbone->notebook.widget), 
-																																							gtk_notebook_get_current_page(GTK_NOTEBOOK(backbone->notebook.widget))
-																																						)
-																									)) == FALSE)	
+	if(vte_terminal_get_has_selection(VTE_TERMINAL(current_vte)) == FALSE)	
 		
 		gtk_widget_set_sensitive(GTK_WIDGET(copyitem), FALSE);
 	else
@@ -127,7 +124,9 @@ void display_main_menu(guint32 time, backbone_t *backbone, gchar * match, int fl
 
 	GtkWidget * open_url = get_menuitem_by_label( backbone->main_menu,"Open Link");
 	GtkWidget * copy_url = get_menuitem_by_label( backbone->main_menu,"Copy Link Address");
+	
 	GtkWidget * copy_color = get_menuitem_by_label( backbone->main_menu,"Copy color");
+	GtkWidget * see_color = get_menuitem_by_label( backbone->main_menu,"See/edit Color");
 
 	gtk_widget_hide(send_mail);
 	gtk_widget_hide(copy_mail);
@@ -136,6 +135,7 @@ void display_main_menu(guint32 time, backbone_t *backbone, gchar * match, int fl
 	gtk_widget_hide(open_url);
 	gtk_widget_hide(copy_url);
 	gtk_widget_hide(copy_color);
+	gtk_widget_hide(see_color);
 
 	/*show related menu item if we have a regex match*/
 	if(match)
@@ -160,6 +160,14 @@ void display_main_menu(guint32 time, backbone_t *backbone, gchar * match, int fl
 				break;
 			case FLAVOR_COLOR:
 				gtk_widget_show(copy_color);
+				GdkRGBA color; 
+				if(extended_gdk_rgba_parse(&color, match))
+				{
+					/*not working yet see  https://bugzilla.gnome.org/show_bug.cgi?id=656461 */
+					//gtk_widget_override_background_color(see_color, GTK_STATE_FLAG_NORMAL, &color);
+					gtk_widget_override_color(see_color, GTK_STATE_FLAG_NORMAL, &color);
+				}
+				gtk_widget_show(see_color);
 				break;
 		}
 	}
@@ -285,4 +293,3 @@ void display_resize_menu(guint32 time, backbone_t *backbone)
                                0,
                                time);
 }
-//TODO create menu item allowing to show matched color

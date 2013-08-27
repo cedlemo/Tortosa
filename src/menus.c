@@ -7,6 +7,35 @@
 #include "backbone.h"
 #include "dbg.h"
 
+/*see http://zetcode.com/tutorials/gtktutorial/gtkdialogs */
+static void display_color_editor(backbone_t *backbone)
+{
+	GtkWidget * current_vte = gtk_notebook_get_nth_page( GTK_NOTEBOOK(backbone->notebook.widget), gtk_notebook_get_current_page(GTK_NOTEBOOK(backbone->notebook.widget)));
+	GtkWidget * color_editor = gtk_color_chooser_dialog_new("See color", GTK_WINDOW(backbone->window.widget));
+	gtk_color_chooser_set_use_alpha(GTK_COLOR_CHOOSER(color_editor), TRUE);
+	GSList *found = NULL;
+	found = g_slist_find_custom(backbone->tabs_data, current_vte, (GCompareFunc) find_node_by_widget);
+	gchar *match = NULL;
+	
+	if (found)
+	  match = ((tab_data_t*) found->data)->current_match;
+	
+	GdkRGBA color; 
+	if(extended_gdk_rgba_parse(&color, match))
+	{
+		gtk_color_chooser_set_rgba(GTK_COLOR_CHOOSER(color_editor), &color);
+		GtkResponseType result;
+		result = gtk_dialog_run(GTK_DIALOG(color_editor));
+		if (result == GTK_RESPONSE_OK)
+		{
+			GdkRGBA new_color;
+			gtk_color_chooser_get_rgba(GTK_COLOR_CHOOSER(color_editor), &new_color)	;	
+			SENTINEL(" %d, %d, %d, %d\n", new_color.red, new_color.blue, new_color.green, new_color.alpha);
+		}
+		gtk_widget_destroy(color_editor);
+	}
+}
+
 void create_main_menu(backbone_t* backbone)
 {
 	backbone->main_menu = gtk_menu_new();
@@ -79,6 +108,7 @@ void create_main_menu(backbone_t* backbone)
 	g_signal_connect_swapped(G_OBJECT(copy_call), "activate", G_CALLBACK(copy_regex_match_to_vte_clipboard), backbone);
 	g_signal_connect_swapped(G_OBJECT(copy_url), "activate", G_CALLBACK(copy_regex_match_to_vte_clipboard), backbone);
 	g_signal_connect_swapped(G_OBJECT(copy_color), "activate", G_CALLBACK(copy_regex_match_to_vte_clipboard), backbone);
+	g_signal_connect_swapped(G_OBJECT(see_color), "activate", G_CALLBACK(display_color_editor), backbone);
 	gtk_widget_show_all(backbone->main_menu);
 }
 
@@ -293,3 +323,5 @@ void display_resize_menu(guint32 time, backbone_t *backbone)
                                0,
                                time);
 }
+
+

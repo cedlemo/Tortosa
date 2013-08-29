@@ -12,9 +12,10 @@ tortosa-tortosa.o: tortosa.c /usr/include/stdc-predef.h \
  /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
  /usr/include/bits/pthreadtypes.h /usr/include/alloca.h \
  /usr/include/bits/stdlib-bsearch.h /usr/include/bits/stdlib-float.h \
- /usr/include/gtk-3.0/gtk/gtk.h /usr/include/gtk-3.0/gdk/gdk.h \
- /usr/include/gtk-3.0/gdk/gdkconfig.h /usr/include/glib-2.0/glib.h \
- /usr/include/glib-2.0/glib/galloca.h /usr/include/glib-2.0/glib/gtypes.h \
+ /usr/include/getopt.h /usr/include/gtk-3.0/gtk/gtk.h \
+ /usr/include/gtk-3.0/gdk/gdk.h /usr/include/gtk-3.0/gdk/gdkconfig.h \
+ /usr/include/glib-2.0/glib.h /usr/include/glib-2.0/glib/galloca.h \
+ /usr/include/glib-2.0/glib/gtypes.h \
  /usr/lib/glib-2.0/include/glibconfig.h \
  /usr/include/glib-2.0/glib/gmacros.h \
  /usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/include-fixed/limits.h \
@@ -133,7 +134,7 @@ tortosa-tortosa.o: tortosa.c /usr/include/stdc-predef.h \
  /usr/include/glib-2.0/gio/gconverteroutputstream.h \
  /usr/include/glib-2.0/gio/gcredentials.h /usr/include/unistd.h \
  /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
- /usr/include/bits/confname.h /usr/include/getopt.h \
+ /usr/include/bits/confname.h \
  /usr/include/glib-2.0/gio/gdatainputstream.h \
  /usr/include/glib-2.0/gio/gdataoutputstream.h \
  /usr/include/glib-2.0/gio/gdbusaddress.h \
@@ -606,6 +607,8 @@ tortosa-tortosa.o: tortosa.c /usr/include/stdc-predef.h \
 
 /usr/include/bits/stdlib-float.h:
 
+/usr/include/getopt.h:
+
 /usr/include/gtk-3.0/gtk/gtk.h:
 
 /usr/include/gtk-3.0/gdk/gdk.h:
@@ -907,8 +910,6 @@ tortosa-tortosa.o: tortosa.c /usr/include/stdc-predef.h \
 /usr/include/bits/environments.h:
 
 /usr/include/bits/confname.h:
-
-/usr/include/getopt.h:
 
 /usr/include/glib-2.0/gio/gdatainputstream.h:
 

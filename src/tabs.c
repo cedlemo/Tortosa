@@ -235,13 +235,16 @@ static gchar* get_pid_dir(GPid pid)
 
 void new_tab( backbone_t * backbone)
 {
-	const char * working_directory;
-	
+	const char * working_directory = NULL;
 	GPid pid = 0;
+	GtkWidget * vte;
+	gchar **argvp=0;
+	int argc;
+
 	/*Check if it's not the first tab*/
 	if( gtk_notebook_get_n_pages(GTK_NOTEBOOK(backbone->notebook.widget)) >= 1 )
 	{
-		/*Get the current directory of the focused vte*/
+		/*Get the current directory of the focused vte in order to start the new vte in this directory*/
 		GtkWidget * focused_vte = gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), 
 																												gtk_notebook_get_current_page(GTK_NOTEBOOK(backbone->notebook.widget))
 																												);
@@ -249,28 +252,34 @@ void new_tab( backbone_t * backbone)
 		found = g_slist_find_custom(backbone->tabs_data, focused_vte, (GCompareFunc) find_node_by_widget);
 		
 		if (found)
-		{
 			working_directory =  get_pid_dir(((tab_data_t*) found->data)->pid);
-		}
-		else
+	
+		/*parse vte arguments*/
+		if ( g_shell_parse_argv(backbone->vte.command->str, &argc, &argvp,0) != TRUE )
 		{
-			working_directory = NULL;
+			g_shell_parse_argv(g_getenv("SHELL"), &argc, &argvp,0);
 		}
 	}
 	else
 	{
-		working_directory = NULL;
+		/*This is the first tab*/
+		/*check command line argument for command to execute and parse vte arguments*/
+		if(backbone->args.command_to_execute)
+		{
+			if ( g_shell_parse_argv(backbone->args.command_to_execute->str, &argc, &argvp,0) != TRUE )
+			{
+				g_shell_parse_argv(g_getenv("SHELL"), &argc, &argvp,0);
+			}
+		}
+		else
+		{
+			if ( g_shell_parse_argv(backbone->vte.command->str, &argc, &argvp,0) != TRUE )
+			{
+				g_shell_parse_argv(g_getenv("SHELL"), &argc, &argvp,0);
+			}
+		}
 	}
 
-	GtkWidget * vte;
-	pid = 0;
-	gchar **argvp=0;
-	int argc;
-	if ( g_shell_parse_argv(backbone->vte.command->str, &argc, &argvp,0) != TRUE )
-	{
-		g_shell_parse_argv(g_getenv("SHELL"), &argc, &argvp,0);
-	}
-	
 	GError *error = NULL;
 	vte = vte_terminal_new();
 	if( !vte_terminal_fork_command_full( VTE_TERMINAL(vte),
@@ -283,8 +292,12 @@ void new_tab( backbone_t * backbone)
 																	NULL,
 																	&pid,
 																	&error))
-		LOG_WARN("%s\n", error->message);
-	
+	{
+		LOG_ERR("%s\n", error->message);
+		g_strfreev(argvp);
+		/*TODO make a clean exit*/
+		exit(EXIT_FAILURE);
+	}
 	g_strfreev(argvp);
 
 	/*register our tabs data in the tabs_data GSList*/

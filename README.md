@@ -14,9 +14,13 @@ So I decided to write my own terminal emulator. Even if it looks like a toy, Tor
 
 +    Tortosa tabs can be themed with a css file
 
-+    Tortosa gets its configuration from a file named tortosarc in the directory `~/.config/tortosa` and that's all.
++    Tortosa gets its configuration from a file named tortosarc usually in the directory `~/.config/tortosa` and that's all.
+
++    Tortosa supports only 2 command lines parameters --config /-c followed by path to the configuration file and --execute -e with the command line to execute.
 
 +    Tortosa configuration and css can be reloaded via a menu or shortcuts. No need to kill/restart it to apply the modifications.
+
++    Tortosa supports detection of urls/uri and can launch default applications like in gnome-terminal via the main menu. Furthermore Tortosa detect colors pattern and allow you to copy/edit this color via the main menu.
 
 <img src="https://raw.github.com/cedlemo/Tortosa/master/tortosa_overview.png" width="576" height="324" alt="Screenshot">	
 

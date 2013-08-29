@@ -24,7 +24,8 @@ backbone_t * new_backbone( void)
 	backbone->state.above = FALSE;
 	backbone->state.below = FALSE;
 	backbone->tabs_data = NULL;
-//	backbone->match_tags = NULL;
+	backbone->args.configuration_file = NULL;
+	backbone->args.command_to_execute = NULL;
 	return backbone;
 }
 
@@ -57,6 +58,8 @@ void free_backbone( backbone_t * backbone)
 	
 	FREE_GSTRING(backbone->configuration.dir_path);
 	FREE_GSTRING(backbone->configuration.file_path);
+	/*no need to free args.configuration_file (already freed with FREE_GSTRING(backbone->configuration.file_path);*/
+	FREE_GSTRING(backbone->args.command_to_execute);
 	if(backbone->configuration.keyfile)
 		g_key_file_free(backbone->configuration.keyfile);
 

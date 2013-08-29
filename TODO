@@ -1,9 +1,9 @@
-//TODO !!!done create gtkdialog with color chooser 
-//TODO !!!done add it to see/edit color menu item callback
-//TODO send edited color to clipboard
+//TODO clean code
+//TODO test code that free backbone
+//TODO make clean exit code
+//TODO write indication to stolen code from gnome-terminal and pango
 //TODO find a way to provide theme value for cairo via css with gtk_css_provider_to_string + regex parsing for
 //	-window background (handled by cairo for transparency)
 //	-active tab font color theme (not provided by gtk3)
 //	-background menu for transparency (try to use cairo)
-//TODO add -e and -c command line parameter for tortosa
 //utility of main window action (fullscreen/maximize ??) if let them maybe use low level function instead of those currently used that only works with gnome like windows managers.

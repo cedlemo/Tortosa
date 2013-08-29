@@ -30,7 +30,9 @@ static void display_color_editor(backbone_t *backbone)
 		{
 			GdkRGBA new_color;
 			gtk_color_chooser_get_rgba(GTK_COLOR_CHOOSER(color_editor), &new_color)	;	
-			SENTINEL(" %d, %d, %d, %d\n", new_color.red, new_color.blue, new_color.green, new_color.alpha);
+			GtkClipboard *clipboard;
+			clipboard = gtk_widget_get_clipboard(GTK_WIDGET(backbone->window.widget), GDK_SELECTION_CLIPBOARD);
+			gtk_clipboard_set_text(clipboard, gdk_rgba_to_string(&new_color), -1);
 		}
 		gtk_widget_destroy(color_editor);
 	}

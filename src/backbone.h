@@ -106,11 +106,14 @@ typedef struct regex_t {
 
 typedef struct  
 {
+	struct {
+		GString *configuration_file;
+		GString * command_to_execute;
+	} args;
 	GdkScreen *screen;
 	GdkDisplay *display;
 	GtkCssProvider *provider;
 	GSList * tabs_data;
-	//GSList * match_tags;
 	struct regex_t regexes;
 	struct window_t window;
 	struct notebook_t notebook;

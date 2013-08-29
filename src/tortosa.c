@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <getopt.h>
 #include <gtk/gtk.h>
 #include <cairo.h>
 #include "window.h"
@@ -11,15 +12,60 @@
 
 int main(int argc, char ** argv)
 {
+	
+	/*Manage command line parameters*/
+	static struct option tortosa_options[] =
+	{
+	   { "help",		no_argument, NULL, 'h' }, // display help
+	   { "version", no_argument, NULL, 'v' }, // display version
+	   { "config",	required_argument, NULL, 'c' }, // use specified file as configuration file
+	   { "execute", required_argument, NULL, 'e' }, // command to execute 
+	   { NULL,      0, NULL, 0 }    // no options
+	};
+	GString * arg_configuration_file = NULL;
+	GString * arg_command_to_execute = NULL;
+	int opt;
+	while((opt = getopt_long(argc, argv, "hvc:e:", tortosa_options, NULL)) != -1)
+		switch(opt)
+		{
+			case 'v':
+				printf("✔ Tortosa Terminal Beta\n");
+				exit(EXIT_SUCCESS);
+				break;
+			case 'h':
+				printf("✔ Tortosa Terminal Beta help:\n");
+				exit(EXIT_SUCCESS);
+				break;
+			case 'e':
+				printf("Execute :%s\n",optarg);
+				arg_command_to_execute = g_string_new(optarg);
+				//exit(EXIT_SUCCESS);
+				break;
+			case 'c':
+				printf("Fichier de configuration :%s\n",optarg);
+				arg_configuration_file = g_string_new(optarg);
+				//exit(EXIT_SUCCESS);
+				break;
+		}
+
+	
 	gtk_init(&argc, &argv);
 	
 	backbone_t * backbone = new_backbone();
+	backbone->args.configuration_file = arg_configuration_file;
+	backbone->args.command_to_execute = arg_command_to_execute;
+	
 	char tortosa[] = "Tortosa";
 	
 	GString * home;
 	home = g_string_new(g_get_home_dir());
 	backbone->configuration.dir_path = g_string_new( g_string_append(home,"/.config/tortosa")->str);
-	backbone->configuration.file_path = g_string_new(g_string_append(backbone->configuration.dir_path, "/tortosarc")->str);
+	
+	if(arg_configuration_file)
+		backbone->configuration.file_path = arg_configuration_file;
+	else
+		backbone->configuration.file_path = g_string_new(g_string_append(backbone->configuration.dir_path, "/tortosarc")->str);
+	
 	g_string_free(home, TRUE);
 	
 	load_config(backbone);

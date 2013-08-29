@@ -18,7 +18,7 @@
 #define HEX_CLASS "[a-fA-F0-9]"
 #define UINT8_CLASS "([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])" /*http://www.regular-expressions.info/numericranges.html*/
 #define PERCENT_CLASS "(0{0,2}[0-9]\\s*\\%|0?[1-9][0-9]\\s*\\%|100\\s*\\%)"
-#define HEX_COLOR "#("HEX_CLASS"{12}|"HEX_CLASS"{9}|"HEX_CLASS"{6}|"HEX_CLASS"{3})"
+#define HEX_COLOR "#("HEX_CLASS"{16}|"HEX_CLASS"{12}|"HEX_CLASS"{9}|"HEX_CLASS"{8}|"HEX_CLASS"{6}|"HEX_CLASS"{4}|"HEX_CLASS"{3})"
 #define RGB_COLOR "rgb\\s*\\(\\s*"UINT8_CLASS"\\s*\\,\\s*"UINT8_CLASS"\\s*\\,\\s*"UINT8_CLASS"\\s*\\)"
 #define RGBPERC_COLOR "rgb\\s*\\(\\s*"PERCENT_CLASS"\\s*\\,\\s*"PERCENT_CLASS"\\s*\\,\\s*"PERCENT_CLASS"\\s*\\)"
 #define RGBA_COLOR "rgba\\s*\\(\\s*"UINT8_CLASS"\\s*\\,\\s*"UINT8_CLASS"\\s*\\,\\s*"UINT8_CLASS"\\s*\\,\\s*[0-1](\\.[0-9]*)?\\s*\\)"

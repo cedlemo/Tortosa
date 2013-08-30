@@ -551,7 +551,7 @@ tortosa-tortosa.o: tortosa.c /usr/include/stdc-predef.h \
  /usr/include/linux/errno.h /usr/include/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  /usr/include/string.h /usr/include/bits/string.h \
- /usr/include/bits/string2.h gears.h
+ /usr/include/bits/string2.h gears.h tgregex.h
 
 /usr/include/stdc-predef.h:
 
@@ -1820,3 +1820,5 @@ dbg.h:
 /usr/include/bits/string2.h:
 
 gears.h:
+
+tgregex.h:

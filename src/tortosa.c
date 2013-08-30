@@ -9,6 +9,7 @@
 #include "gears.h"
 #include "backbone.h"
 #include "dbg.h"
+#include "tgregex.h"
 
 int main(int argc, char ** argv)
 {
@@ -101,6 +102,7 @@ int main(int argc, char ** argv)
 	if ( backbone->css.file != NULL)
 	{
 			gtk_css_provider_load_from_file( GTK_CSS_PROVIDER (backbone->provider), backbone->css.file, NULL);
+			get_css_match(backbone);
 	}
 	
 	/**********************/

@@ -3,7 +3,7 @@
 #include "gears.h"
 #include "tgregex.h"
 #include "dbg.h"
-
+/*Rgexes for vte match*/
 #define USERCHARS "-[:alnum:]"
 #define USERCHARS_CLASS "[" USERCHARS "]"
 #define PASSCHARS_CLASS "[-[:alnum:]\\Q,?;.:/!%$^*&~\"#'\\E]"
@@ -189,6 +189,27 @@ gchar * get_regex_match_for_tab_on_button_press(GtkWidget *vte, GdkEventButton *
 	}
 	else
 		return NULL;
+}
+
+/*Regexes for css match*/
+void get_css_match(backbone_t *backbone)
+{
+	GRegex * regex;
+	GMatchInfo *match_info;
+	const gchar pattern[]="\\s*GtkWindow[^\\{]*\\{[^\\{]*background-color\\s*\\:\\s*("HEX_COLOR"|"RGB_COLOR"|"RGBPERC_COLOR"|"RGBA_COLOR"|"RGBAPERC_COLOR")\\s*\\;[^\\{]*\\}";
+	regex = g_regex_new ( pattern, /*GRegexCompileFlags compile_options*/ G_REGEX_OPTIMIZE, /*GRegexMatchFlags match_options*/ 0, /* GError **error*/ NULL);
+	gboolean  have_matches;
+	const gchar *string = gtk_css_provider_to_string(GTK_CSS_PROVIDER (backbone->provider));
+	have_matches = g_regex_match (regex, string, /*GRegexMatchFlags match_options*/ 0, &match_info);
+  while (g_match_info_matches (match_info))
+	{
+	  gchar *word = g_match_info_fetch (match_info, 1);
+	  SENTINEL("Found: %s\n", word);
+	  g_free (word);
+	  g_match_info_next (match_info, NULL);
+	} 
+	g_match_info_free (match_info);
+	g_regex_unref (regex);
 }
 //TODO remove or adapt get_regex_match_on_button_press as in get_regex_match_for_tab_on_button_press
 //TODO remove or adapt add_regexes_to_vte

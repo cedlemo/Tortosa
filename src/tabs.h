@@ -1,7 +1,9 @@
-#ifndef TABS_H
-#define TABS_H
 #include <gtk/gtk.h>
 #include "backbone.h"
+
+#ifndef TABS_H
+#define TABS_H
+
 void close_tab(GtkWidget *, backbone_t *);
 void go_to_next_tab( backbone_t*);
 void go_to_prev_tab( backbone_t *);

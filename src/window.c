@@ -146,6 +146,7 @@ void reload_css_theme( backbone_t * backbone)
 	if ( backbone->css.file != NULL)
 	{
 		gtk_css_provider_load_from_file( GTK_CSS_PROVIDER (backbone->provider), backbone->css.file, NULL/*&error*/);
+		load_css_regexes_match(backbone);
 	}
 	else
 	{
@@ -201,6 +202,11 @@ gboolean reload_window_configuration(backbone_t * backbone)
 		FREE_GSTRING(backbone->window.background.color);
 		/*reload current configuration for window*/
 		load_window_configuration(backbone);	
+		if ( backbone->css.file != NULL)
+		{
+			load_css_regexes_match(backbone);
+	  }
+
 		apply_window_configuration(backbone->window.widget, backbone);
 		gtk_widget_queue_draw (GTK_WIDGET (backbone->window.widget));
 		//gtk_widget_show_all(backbone->window.widget);

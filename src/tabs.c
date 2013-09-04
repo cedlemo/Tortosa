@@ -28,14 +28,38 @@ void close_tab(GtkWidget * vte, backbone_t * backbone)
 	}
 }
 
+static void remove_pango_active_tab_color(GtkWidget * vte, GtkWidget * notebook)
+{
+	gtk_notebook_set_tab_label_text(GTK_NOTEBOOK(notebook), vte, gtk_notebook_get_tab_label_text(GTK_NOTEBOOK(notebook), vte));
+}
+
+static void add_pango_active_tab_color(GtkWidget * vte, GtkWidget * notebook, GdkRGBA *color)
+{
+		GtkWidget * tab_label = gtk_notebook_get_tab_label(GTK_NOTEBOOK(notebook), vte);
+		char *markup;
+		markup = g_markup_printf_escaped("<span color=\"#%02x%02x%02x\">%s</span>", (int) color->red*255,
+																																								(int) color->green*255, 
+																																								(int) color->blue*255, 
+																																								gtk_label_get_text(GTK_LABEL(tab_label)));
+		gtk_label_set_markup (GTK_LABEL(tab_label), markup);
+		g_free (markup);
+
+}
+
 void go_to_next_tab(backbone_t * backbone)
 {
 	int current_tab, next_tab_index, num_of_tabs;
 	current_tab = gtk_notebook_get_current_page(GTK_NOTEBOOK(backbone->notebook.widget)) ;
 	num_of_tabs = gtk_notebook_get_n_pages(GTK_NOTEBOOK(backbone->notebook.widget)) - 1;
 	next_tab_index = current_tab < num_of_tabs ? current_tab + 1 : 0;
+
+	/*remove pango attributes for inactive tab and add them on the new focused tab*/
+	remove_pango_active_tab_color(gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), current_tab), backbone->notebook.widget);
+	add_pango_active_tab_color(gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), next_tab_index), backbone->notebook.widget, &backbone->notebook.active_tab.rgba);
+	
 	gtk_widget_show_all(backbone->notebook.widget);
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(backbone->notebook.widget), next_tab_index);
+	
 	gtk_widget_grab_focus(gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), next_tab_index));
 }
 
@@ -45,6 +69,11 @@ void go_to_prev_tab(backbone_t * backbone)
 	current_tab = gtk_notebook_get_current_page(GTK_NOTEBOOK(backbone->notebook.widget)) ;
 	num_of_tabs = gtk_notebook_get_n_pages(GTK_NOTEBOOK(backbone->notebook.widget)) - 1;
 	next_tab_index = current_tab > 0 ? current_tab -1 : num_of_tabs;
+	
+	/*remove pango attributes for inactive tab and add them on the new focused tab*/
+	remove_pango_active_tab_color(gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), current_tab), backbone->notebook.widget);
+	add_pango_active_tab_color(gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), next_tab_index), backbone->notebook.widget, &backbone->notebook.active_tab.rgba);
+	
 	gtk_widget_show_all(backbone->notebook.widget);
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(backbone->notebook.widget), next_tab_index);
 	gtk_widget_grab_focus(gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), next_tab_index));
@@ -79,6 +108,11 @@ static void set_tab_name( GtkWidget * vte, backbone_t * backbone)
 	}
 	gtk_notebook_popup_disable(GTK_NOTEBOOK(backbone->notebook.widget));
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(backbone->notebook.widget));
+	
+	if(backbone->notebook.active_tab.color && vte == gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), gtk_notebook_get_current_page(GTK_NOTEBOOK(backbone->notebook.widget)) ) )
+	{
+		add_pango_active_tab_color(vte, backbone->notebook.widget, &backbone->notebook.active_tab.rgba);
+	}
 }
 
 void apply_vte_configuration(backbone_t *backbone, GtkWidget * vte)
@@ -259,6 +293,9 @@ void new_tab( backbone_t * backbone)
 		{
 			g_shell_parse_argv(g_getenv("SHELL"), &argc, &argvp,0);
 		}
+	
+		/*set default color for the tab label*/
+		remove_pango_active_tab_color(focused_vte, backbone->notebook.widget);
 	}
 	else
 	{

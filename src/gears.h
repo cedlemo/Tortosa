@@ -1,6 +1,7 @@
+#include "backbone.h"
+
 #ifndef GEARS_H
 #define GEARS_H
-#include "backbone.h"
 
 #define FREE_GSTRING(S) if(S != NULL) g_string_free(S, TRUE)
 
@@ -12,6 +13,7 @@ void load_window_configuration(backbone_t *);
 void load_tabs_configuration(backbone_t *);
 void load_vte_configuration(backbone_t *);
 void load_css_configuration(backbone_t *);
+void load_css_regexes_match(backbone_t *);
 gboolean reload_tortosa_configuration(backbone_t *);
 gint find_node_by_widget ( gconstpointer, gconstpointer);
 void remove_node_by_widget( GSList *, GtkWidget *);

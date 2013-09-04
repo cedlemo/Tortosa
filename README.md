@@ -109,8 +109,13 @@ background=#33333355
 #background=#2E3436dd
 ```
 
-This part allows user to customize the main window (the GtkWindow). The background color support alpha channel if you system have a running compositing manager. This is done using cairo and can't not be handle by css (https://developer.gnome.org/gtk3/3.0/gtk-question-index.html, see 1.15. How do I create a transparent toplevel window ? ).
+This part allows user to customize the main window (the GtkWindow). The background color support alpha channel if you system have a running compositing manager. This is done using cairo and can't, noramally, be handled by css (https://developer.gnome.org/gtk3/3.0/gtk-question-index.html, see 1.15. How do I create a transparent toplevel window ? ). But I have added parsers for the css so user can use in css:
 
+```
+GtkWindow {
+	background-color: #000000;
+}
+```
 
 ```
 ####################
@@ -123,9 +128,18 @@ tabs_position=bottom
 #tabs_position=top
 #default_tab_name=zsh
 #tab_name_max_len=16
+active_tab_color=rgba(56,67,230,0.78)
 ```
 
-The tabs configuration allows to set options for the GtkNotebook widget.
+The tabs configuration allows to set options for the GtkNotebook widget. Note due to a problem with gtk3 and css parsing it was impossible to set the font color of an active tab label. With Tortosa, user can use the key/value active_tab_color in order to set the font color for the active tab. Furthermore, Tortosa has a css parser that force the font color of the active tab, your css file just need to have:
+
+```
+GtkNotebook tab:active {
+	...
+	color:rgb(26,48,56);
+	...
+}
+```
 
 ```
 ################

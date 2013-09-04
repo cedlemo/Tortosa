@@ -70,7 +70,7 @@ int main(int argc, char ** argv)
 	g_string_free(home, TRUE);
 	
 	load_config(backbone);
-	
+	//TODO rename	
 	precompile_regex(backbone);
 	
 	backbone->display = gdk_display_get_default ();
@@ -79,7 +79,6 @@ int main(int argc, char ** argv)
 	gtk_style_context_add_provider_for_screen (	backbone->screen, 
 																							GTK_STYLE_PROVIDER (backbone->provider), 
 																							GTK_STYLE_PROVIDER_PRIORITY_USER);
-
 	/***************/	
 	/* Main Window */
 	/***************/
@@ -101,8 +100,13 @@ int main(int argc, char ** argv)
 	/*css*/
 	if ( backbone->css.file != NULL)
 	{
-			gtk_css_provider_load_from_file( GTK_CSS_PROVIDER (backbone->provider), backbone->css.file, NULL);
-			get_css_match(backbone);
+		/*load css*/
+		gtk_css_provider_load_from_file( GTK_CSS_PROVIDER (backbone->provider), backbone->css.file, NULL);
+		/*compile css regexes for window background, notebook tab active color*/
+		compile_css_regexes(backbone);
+		/*get matches*/
+		load_css_regexes_match(backbone);
+		gtk_widget_queue_draw(backbone->window.widget);
 	}
 	
 	/**********************/

@@ -3,6 +3,7 @@
 #include "gears.h"
 #include "backbone.h"
 #include "colors.h"
+#include "tgregex.h"
 #include "dbg.h"
 
 /*Stuff for creating and freeing backbone*/
@@ -91,6 +92,8 @@ static void set_default_config(backbone_t *backbone)
 	backbone->notebook.tabs_position=GTK_POS_TOP;
 	backbone->notebook.default_tab_name=g_string_new(g_path_get_basename(g_getenv("SHELL")));
 	backbone->notebook.tab_name_max_len=0;	
+	backbone->notebook.active_tab.color = NULL;
+	
 	backbone->vte.command=g_string_new(g_getenv("SHELL"));
 	backbone->vte.user_valid_palette=FALSE;
 	backbone->vte.opacity=65535;
@@ -191,6 +194,13 @@ void load_tabs_configuration(backbone_t *backbone)
 	if ( (backbone->notebook.tab_name_max_len > 0) && ( backbone->notebook.default_tab_name->len > backbone->notebook.tab_name_max_len ))
 	{
 		backbone->notebook.default_tab_name = g_string_truncate(backbone->notebook.default_tab_name,backbone->notebook.tab_name_max_len);
+	}
+	
+	get_key_string(backbone->configuration.keyfile,"Tabs","active_tab_color",&backbone->notebook.active_tab.color, NULL);
+	if( backbone->notebook.active_tab.color->len == 0 )
+	{
+		g_string_free(backbone->notebook.active_tab.color, TRUE);
+		backbone->notebook.active_tab.color = NULL;
 	}
 }
 
@@ -333,6 +343,29 @@ void load_css_configuration(backbone_t * backbone)
 	}
 }
 
+void load_css_regexes_match(backbone_t * backbone)
+{
+	const gchar *string = gtk_css_provider_to_string(GTK_CSS_PROVIDER (backbone->provider));
+	/*free if previously allocated*/
+	GString * color = NULL;
+	color = get_css_regex_match(backbone->css.window_background_color_regex, string);
+	if(color)
+	{	
+		//SENTINEL("get color %s\n", color->str);
+		FREE_GSTRING(backbone->window.background.color);
+		backbone->window.background.color = color;
+		extended_gdk_rgba_parse( &backbone->window.background.rgba, backbone->window.background.color->str);
+	}
+
+	color = get_css_regex_match(backbone->css.notebook_tab_active_color_regex, string);
+	if (color)
+	{
+		FREE_GSTRING(backbone->notebook.active_tab.color);
+		backbone->notebook.active_tab.color = color;
+		extended_gdk_rgba_parse( &backbone->notebook.active_tab.rgba, backbone->notebook.active_tab.color->str);
+	}
+}
+
 gboolean load_config( backbone_t* backbone)
 {
 	gboolean ret;
@@ -389,7 +422,6 @@ gboolean reload_tortosa_configuration(backbone_t * backbone)
 		/*reload current configuration for window*/
 		load_window_configuration(backbone);	
 		apply_window_configuration(backbone->window.widget, backbone);
-		//gtk_widget_queue_draw (GTK_WIDGET (backbone->window.widget));
 		
 		/*notebook configuration*/
 		backbone->notebook.show_border = TRUE;
@@ -435,6 +467,7 @@ gboolean reload_tortosa_configuration(backbone_t * backbone)
 		if ( backbone->css.file != NULL)
 		{
 			gtk_css_provider_load_from_file( GTK_CSS_PROVIDER (backbone->provider), backbone->css.file, NULL/*&error*/);
+			load_css_regexes_match(backbone);
 		}
 		else
 		{

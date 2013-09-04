@@ -81,22 +81,6 @@ void precompile_regex(backbone_t * backbone)
     }
 }
 
-//void add_regexes_to_vte(GtkWidget *vte, backbone_t *backbone)
-//{
-//	int i;
-//  for (i = 0; i < backbone->regexes.number; ++i)
-//    {
-//      TagData *tag_data;
-//
-//      tag_data = g_slice_new (TagData);
-//      tag_data->flavor = backbone->regexes.flavors[i];
-//      tag_data->tag = vte_terminal_match_add_gregex (VTE_TERMINAL(vte), backbone->regexes.g_regexes[i], 0);
-      //vte_terminal_match_set_cursor_type (terminal, tag_data->tag, URL_MATCH_CURSOR);
-//
-//      backbone->match_tags = g_slist_prepend (backbone->match_tags, tag_data);
-//	 }
-//}
-
 void add_regexes_to_tab(GtkWidget *vte, backbone_t *backbone)
 {
 	GSList *found = NULL;
@@ -118,37 +102,6 @@ void add_regexes_to_tab(GtkWidget *vte, backbone_t *backbone)
 	else
 		LOG_WARN("vte not found in tabs_data GSList\n");
 }
-
-//gchar * get_regex_match_on_button_press(GtkWidget *vte, GdkEventButton *event, int * flavor, backbone_t * backbone)
-//{
-//	int cell_width_pixels, cell_height_pixels, row, col;
-//	GtkBorder *inner_border = NULL;
-//	cell_width_pixels = vte_terminal_get_char_width (VTE_TERMINAL(vte));
-//	cell_height_pixels = vte_terminal_get_char_height (VTE_TERMINAL(vte));
-//	gtk_widget_style_get (vte, "inner-border", &inner_border, NULL);
-//	row = (event->x - (inner_border ? inner_border->left : 0)) / cell_width_pixels;
-//	col = (event->y - (inner_border ? inner_border->top : 0)) / cell_height_pixels;
-//	gtk_border_free (inner_border);
-//
-//	gchar *match =NULL;
-//	GSList *tags;
-//	int tag;
-
-//	match = vte_terminal_match_check (VTE_TERMINAL (vte), col, row, &tag);
-//	for (tags = backbone->match_tags; tags != NULL; tags = tags->next)
-//	{
-//	   TagData *tag_data = (TagData*) tags->data;
-//	   if (tag_data->tag == tag)
-//	   {
-//	      if (flavor)
-//	        *flavor = tag_data->flavor;
-//	       return match;
-//	   }
-//	}
-//	 
-//	g_free (match);
-//	return NULL;
-//}
 
 gchar * get_regex_match_for_tab_on_button_press(GtkWidget *vte, GdkEventButton *event, int * flavor, backbone_t * backbone)
 {
@@ -192,24 +145,47 @@ gchar * get_regex_match_for_tab_on_button_press(GtkWidget *vte, GdkEventButton *
 }
 
 /*Regexes for css match*/
-void get_css_match(backbone_t *backbone)
+void compile_css_regexes(backbone_t * backbone)
 {
-	GRegex * regex;
+#define GTKWINDOW_CSS_KEY "(GtkWindow|.window)"
+#define GTKNOTEBOOK_TAB_ACTIVE_KEY "(GtkNotebook\\s+tab\\s*\\:\\s*active|.notebook\\s+tab\\s*\\:\\s*active)"
+	const gchar window_background_color_pattern[]="\\s*"GTKWINDOW_CSS_KEY"[^\\{]*\\{[^\\{]*\\;*\\s*background-color\\s*\\:\\s*("HEX_COLOR"|"RGB_COLOR"|"RGBPERC_COLOR"|"RGBA_COLOR"|"RGBAPERC_COLOR")\\s*\\;[^\\{]*\\}";
+	const gchar notebook_tab_active_color_pattern[]="\\s*"GTKNOTEBOOK_TAB_ACTIVE_KEY"\\s*[^\\{]*\\{[^\\{]*\\;\\s*color\\s*\\:\\s*("HEX_COLOR"|"RGB_COLOR"|"RGBPERC_COLOR"|"RGBA_COLOR"|"RGBAPERC_COLOR")\\s*\\;[^\\{]*\\}";
+	backbone->css.window_background_color_regex = g_regex_new(window_background_color_pattern, /*GRegexCompileFlags compile_options*/ G_REGEX_OPTIMIZE, /*GRegexMatchFlags match_options*/ 0, /* GError **error*/ NULL);
+	backbone->css.notebook_tab_active_color_regex = g_regex_new( notebook_tab_active_color_pattern, G_REGEX_OPTIMIZE, 0, NULL);
+}
+
+GString * get_css_regex_match(GRegex *regex, const gchar *string)
+{
 	GMatchInfo *match_info;
-	const gchar pattern[]="\\s*GtkWindow[^\\{]*\\{[^\\{]*background-color\\s*\\:\\s*("HEX_COLOR"|"RGB_COLOR"|"RGBPERC_COLOR"|"RGBA_COLOR"|"RGBAPERC_COLOR")\\s*\\;[^\\{]*\\}";
-	regex = g_regex_new ( pattern, /*GRegexCompileFlags compile_options*/ G_REGEX_OPTIMIZE, /*GRegexMatchFlags match_options*/ 0, /* GError **error*/ NULL);
 	gboolean  have_matches;
-	const gchar *string = gtk_css_provider_to_string(GTK_CSS_PROVIDER (backbone->provider));
-	have_matches = g_regex_match (regex, string, /*GRegexMatchFlags match_options*/ 0, &match_info);
+	gchar *match =NULL;
+	have_matches = g_regex_match (regex, string, 0, &match_info);
   while (g_match_info_matches (match_info))
 	{
-	  gchar *word = g_match_info_fetch (match_info, 1);
-	  SENTINEL("Found: %s\n", word);
-	  g_free (word);
+	  if (match)
+		{
+			g_free(match);
+			match = NULL;
+		}
+		match = g_match_info_fetch (match_info, 2);
+	  
 	  g_match_info_next (match_info, NULL);
-	} 
+	}
+
 	g_match_info_free (match_info);
-	g_regex_unref (regex);
+
+	GString * color = NULL;
+	
+	if (match)
+	{
+		color = g_string_new(match);
+		g_free(match);
+	}
+	return color;
 }
-//TODO remove or adapt get_regex_match_on_button_press as in get_regex_match_for_tab_on_button_press
-//TODO remove or adapt add_regexes_to_vte
+
+void free_css_regexes(backbone_t *backbone)
+{
+	g_regex_unref(backbone->css.window_background_color_regex);
+}

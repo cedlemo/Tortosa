@@ -1,9 +1,10 @@
-#ifndef BACKBONE_H
-#define	BACKBONE_H
 #include <gtk/gtk.h>
 #include <vte/vte.h>
 //#include "tgregex.h"
 #include "colors.h"
+
+#ifndef BACKBONE_H
+#define	BACKBONE_H
 /*window structure handling ref to the widget and customization parameter*/
 typedef struct window_t
 {
@@ -28,6 +29,7 @@ typedef struct notebook_t
 		GtkPositionType tabs_position;
 		GString * default_tab_name;
 		gint tab_name_max_len;
+		struct color_t active_tab;
 }notebook_t;
 
 /*vte structure handling general configuration for all the launched vte*/
@@ -58,6 +60,9 @@ typedef struct css_t
 {
 		GString * path;
 		GFile * file;
+		GRegex * window_background_color_regex;
+		GRegex * notebook_tab_active_color_regex;
+		//TODO GRegex * menu_background_color_regex;
 }css_t;
 
 /*configuration file path*/

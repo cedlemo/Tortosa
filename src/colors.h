@@ -1,6 +1,6 @@
+#include <gtk/gtk.h>
 #ifndef COLORS_H
 #define COLORS_H
-#include <gtk/gtk.h>
 typedef struct color_t {
 	GString * color;
 	GdkRGBA rgba;

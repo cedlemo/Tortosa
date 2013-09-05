@@ -7,6 +7,7 @@
 void close_tab(GtkWidget *, backbone_t *);
 void go_to_next_tab( backbone_t*);
 void go_to_prev_tab( backbone_t *);
+void on_switch_tabs_signal(GtkNotebook *, GtkWidget *, guint, backbone_t * backbone);
 void apply_tabs_configuration(backbone_t *);
 void new_tab(backbone_t *);
 void apply_vte_configuration(backbone_t *, GtkWidget *);

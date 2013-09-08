@@ -1,5 +1,7 @@
 <map id="src/tgregex.h" name="src/tgregex.h">
 <area shape="rect" id="node2" href="$events_8c.html" title="src/events.c" alt="" coords="5,80,96,107"/>
-<area shape="rect" id="node3" href="$tabs_8c.html" title="src/tabs.c" alt="" coords="121,80,200,107"/>
-<area shape="rect" id="node4" href="$tgregex_8c.html" title="src/tgregex.c" alt="" coords="225,80,324,107"/>
+<area shape="rect" id="node3" href="$gears_8c.html" title="src/gears.c" alt="" coords="121,80,207,107"/>
+<area shape="rect" id="node4" href="$tabs_8c.html" title="src/tabs.c" alt="" coords="232,80,311,107"/>
+<area shape="rect" id="node5" href="$tgregex_8c.html" title="src/tgregex.c" alt="" coords="336,80,435,107"/>
+<area shape="rect" id="node6" href="$tortosa_8c.html" title="src/tortosa.c" alt="" coords="459,80,553,107"/>
 </map>

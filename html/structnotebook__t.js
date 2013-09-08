@@ -1,5 +1,6 @@
 var structnotebook__t =
 [
+    [ "active_tab", "structnotebook__t.html#a54c8e892ba37994c81a6eb21a53042b0", null ],
     [ "default_tab_name", "structnotebook__t.html#adabc07c9d7107a597ae246c7cca7f641", null ],
     [ "show_border", "structnotebook__t.html#a06da6998bc3399975b9a3f83d866ec9c", null ],
     [ "show_tabs", "structnotebook__t.html#ac758006b538a185d1a3f4f02910e3083", null ],

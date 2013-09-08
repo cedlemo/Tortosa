@@ -9,6 +9,7 @@ var tabs_8h =
     [ "go_to_next_tab", "tabs_8h.html#a03482e1616d57331f1d00f6683da37ee", null ],
     [ "go_to_prev_tab", "tabs_8h.html#a8ac841e3fd98fcaafc36eaa6fa031601", null ],
     [ "new_tab", "tabs_8h.html#a7e9717ddf705f34fb1ecdff5f0b4365a", null ],
+    [ "on_switch_tabs_signal", "tabs_8h.html#ab4614edd73edce92cd03e359b538b887", null ],
     [ "paste_clipboard_to_vte_child", "tabs_8h.html#a60d371b12c74a344ee59bc931cdfd235", null ],
     [ "reload_tabs_configuration", "tabs_8h.html#a99dabcf43137f96cf5524ad88d02bed3", null ],
     [ "reload_vte_configuration", "tabs_8h.html#ad3eebe36471ae6bd926b22cb2b7141ee", null ]

@@ -1,5 +1,7 @@
 var tgregex_8c =
 [
+    [ "GTKNOTEBOOK_TAB_ACTIVE_KEY", "tgregex_8c.html#afb70ed4df12a08ab1ac1a3096b100167", null ],
+    [ "GTKWINDOW_CSS_KEY", "tgregex_8c.html#a006ea00ebd2511b56895b4ac2b493352", null ],
     [ "HEX_CLASS", "tgregex_8c.html#af453cff12822ae7498a6472fb47e067c", null ],
     [ "HEX_COLOR", "tgregex_8c.html#abf47346c6af1df4b1e9d3063f5ec32f4", null ],
     [ "HOST", "tgregex_8c.html#abbbcf3c42c997889127cc676754a6fea", null ],
@@ -7,8 +9,12 @@ var tgregex_8c =
     [ "PASSCHARS_CLASS", "tgregex_8c.html#a0d99b37cc05e0d85a8a9724686497967", null ],
     [ "PATHCHARS_CLASS", "tgregex_8c.html#ab9af027789cc970040e7ad557b8cb230", null ],
     [ "PATHTERM_CLASS", "tgregex_8c.html#a0730c4ffc099c0e92ec1457f4002eeee", null ],
+    [ "PERCENT_CLASS", "tgregex_8c.html#aee1a0734e9acee3205e9b293afe0856a", null ],
     [ "PORT", "tgregex_8c.html#a614217d263be1fb1a5f76e2ff7be19a2", null ],
     [ "RGB_COLOR", "tgregex_8c.html#accf4f579409440bcebf17327ceaf6ebe", null ],
+    [ "RGBA_COLOR", "tgregex_8c.html#af4242b01fe669dd6a7d6a9c802b333d9", null ],
+    [ "RGBAPERC_COLOR", "tgregex_8c.html#afb48321ecf00331458794b6552f50075", null ],
+    [ "RGBPERC_COLOR", "tgregex_8c.html#af2622d3edcf46e7c0303ff5713a0b85d", null ],
     [ "SCHEME", "tgregex_8c.html#a22b701f7b5eb6d4bca06ffa44d96f802", null ],
     [ "UINT8_CLASS", "tgregex_8c.html#a8ca3dc6b23df228cde8ca8db37056558", null ],
     [ "URLPATH", "tgregex_8c.html#ab500fec108b94daeda6d1647a9682f53", null ],
@@ -16,6 +22,9 @@ var tgregex_8c =
     [ "USERCHARS_CLASS", "tgregex_8c.html#ace944b7dc3a2b88fbceb8f017494cc92", null ],
     [ "USERPASS", "tgregex_8c.html#a82796ea6cd2d5122c347dd73780cb98d", null ],
     [ "add_regexes_to_tab", "tgregex_8c.html#a9d411137e44f94249528f2f3cdc8f0ad", null ],
+    [ "compile_css_regexes", "tgregex_8c.html#a782c6d7fd4e32f00202cabc4b96f2c65", null ],
+    [ "free_css_regexes", "tgregex_8c.html#a4d782a47cbcbc94980df7a5f94f9bf49", null ],
+    [ "get_css_regex_match", "tgregex_8c.html#a931ff88535b3274e93b6702a285fc835", null ],
     [ "get_flavor_string", "tgregex_8c.html#a4783d40d126d6d41a0580c1161785a13", null ],
     [ "get_regex_match_for_tab_on_button_press", "tgregex_8c.html#a9e280c1b505b6802b447aa0645fa6d7c", null ],
     [ "precompile_regex", "tgregex_8c.html#a6db30a9da415893399cfe22b2c9e0446", null ]

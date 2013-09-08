@@ -46,9 +46,6 @@ void create_main_menu(backbone_t* backbone)
 	GtkWidget * iconify = gtk_menu_item_new_with_label("toggle iconify");
 	GtkWidget * stick = gtk_menu_item_new_with_label("toggle stick");
 	GtkWidget * maximize = gtk_menu_item_new_with_label("toggle maximize");
-	GtkWidget * grab_move = gtk_menu_item_new_with_label("grab/move");
-	
-	GtkWidget * resize = gtk_menu_item_new_with_label("resize");
 	GtkWidget * reload = gtk_menu_item_new_with_label("reload");	
 
 	GtkWidget * send_mail = gtk_menu_item_new_with_label("Send Mail To…");
@@ -67,40 +64,48 @@ void create_main_menu(backbone_t* backbone)
 	GtkWidget * paste = gtk_menu_item_new_with_label("Paste");
 	
 	GtkWidget * separator1 = gtk_separator_menu_item_new();
-	GtkWidget * separator2 = gtk_separator_menu_item_new();
 	GtkWidget * separator3 = gtk_separator_menu_item_new();
 
-	gtk_menu_item_set_submenu(GTK_MENU_ITEM(resize), backbone->resize_menu);
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM(reload), backbone->reload_menu);
 	
-	gtk_menu_attach(GTK_MENU(backbone->main_menu), reload, 0,1,0,1);
-	gtk_menu_attach(GTK_MENU(backbone->main_menu), separator1, 0,1,1,2);
-	gtk_menu_attach(GTK_MENU(backbone->main_menu), fullscreen, 0,1,2,3);
-	gtk_menu_attach(GTK_MENU(backbone->main_menu), above_below, 0,1,3,4);
-	gtk_menu_attach(GTK_MENU(backbone->main_menu), iconify, 0,1,4,5);
-	gtk_menu_attach(GTK_MENU(backbone->main_menu), stick, 0,1,5,6);
-	gtk_menu_attach(GTK_MENU(backbone->main_menu), grab_move, 0,1,6,7);
-	gtk_menu_attach(GTK_MENU(backbone->main_menu), maximize, 0,1,7,8);
-	gtk_menu_attach(GTK_MENU(backbone->main_menu), separator2, 0,1,8,9);
-	gtk_menu_attach(GTK_MENU(backbone->main_menu), resize, 0,1,9,10);
-	gtk_menu_attach(GTK_MENU(backbone->main_menu), separator3, 0,1,10,11);
-	gtk_menu_attach(GTK_MENU(backbone->main_menu), copy, 0,1,11,12);
-	gtk_menu_attach(GTK_MENU(backbone->main_menu), paste, 0,1,12,13);
-	gtk_menu_attach(GTK_MENU(backbone->main_menu), send_mail, 0,1,13,14);  
-	gtk_menu_attach(GTK_MENU(backbone->main_menu), copy_mail, 0,1,14,15);
-	gtk_menu_attach(GTK_MENU(backbone->main_menu), send_call, 0,1,15,16);
-	gtk_menu_attach(GTK_MENU(backbone->main_menu), copy_call, 0,1,16,17);
-	gtk_menu_attach(GTK_MENU(backbone->main_menu), open_url, 0,1,17,18);
-	gtk_menu_attach(GTK_MENU(backbone->main_menu), copy_url, 0,1,18,19);
-	gtk_menu_attach(GTK_MENU(backbone->main_menu), copy_color, 0,1,19,20);
-	gtk_menu_attach(GTK_MENU(backbone->main_menu), see_color, 0,1,20,21);
+	int t =0;
+	int b =1;
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), reload, 0,1,t,b);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), separator1, 0,1,t+=1,b+=1);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), fullscreen, 0,1,t+=1,b+=1);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), above_below, 0,1,t+=1,b+=1);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), iconify, 0,1,t+=1,b+=1);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), stick, 0,1,t+=1,b+=1);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), maximize, 0,1,t+=1,b+=1);
+	
+	if(window_manager_is_gnome_like(backbone->screen))
+	{
+		GtkWidget * grab_move = gtk_menu_item_new_with_label("grab/move");	
+		GtkWidget * resize = gtk_menu_item_new_with_label("resize");
+		gtk_menu_item_set_submenu(GTK_MENU_ITEM(resize), backbone->resize_menu);
+		GtkWidget * separator2 = gtk_separator_menu_item_new();
+		gtk_menu_attach(GTK_MENU(backbone->main_menu), separator2, 0,1,t+=1,b+=1);
+		gtk_menu_attach(GTK_MENU(backbone->main_menu), grab_move, 0,1,t+=1,b+=1);
+		gtk_menu_attach(GTK_MENU(backbone->main_menu), resize, 0,1,t+=1,b+=1);
+		g_signal_connect_swapped(G_OBJECT(grab_move), "activate", G_CALLBACK(grab_move_window), backbone);
+	}
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), separator3, 0,1,t+=1,b+=1);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), copy, 0,1,t+=1,b+=1);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), paste, 0,1,t+=1,b+=1);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), send_mail, 0,1,t+=1,b+=1);  
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), copy_mail, 0,1,t+=1,b+=1);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), send_call, 0,1,t+=1,b+=1);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), copy_call, 0,1,t+=1,b+=1);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), open_url, 0,1,t+=1,b+=1);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), copy_url, 0,1,t+=1,b+=1);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), copy_color, 0,1,t+=1,b+=1);
+	gtk_menu_attach(GTK_MENU(backbone->main_menu), see_color, 0,1,t+=1,b+=1);
 
 	g_signal_connect_swapped(G_OBJECT(fullscreen), "activate", G_CALLBACK(toggle_fullscreen), backbone);
 	g_signal_connect_swapped(G_OBJECT(above_below), "activate", G_CALLBACK(toggle_above_below), backbone);
 	g_signal_connect_swapped(G_OBJECT(iconify), "activate", G_CALLBACK(toggle_iconify), backbone);
 	g_signal_connect_swapped(G_OBJECT(stick), "activate", G_CALLBACK(toggle_stick), backbone);
 	g_signal_connect_swapped(G_OBJECT(maximize), "activate", G_CALLBACK(toggle_maximize), backbone);
-	g_signal_connect_swapped(G_OBJECT(grab_move), "activate", G_CALLBACK(grab_move_window), backbone);
 	g_signal_connect_swapped(G_OBJECT(copy), "activate", G_CALLBACK(copy_selected_text_to_clipboard), backbone);
 	g_signal_connect_swapped(G_OBJECT(paste), "activate", G_CALLBACK(paste_clipboard_to_vte_child), backbone);
 	g_signal_connect_swapped(G_OBJECT(send_mail), "activate", G_CALLBACK(util_open_url), backbone);

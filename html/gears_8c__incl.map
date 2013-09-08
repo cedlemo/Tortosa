@@ -1,6 +1,7 @@
 <map id="src/gears.c" name="src/gears.c">
 <area shape="rect" id="node4" href="$gears_8h.html" title="gears.h" alt="" coords="145,80,209,107"/>
-<area shape="rect" id="node5" href="$backbone_8h.html" title="backbone.h" alt="" coords="158,155,247,181"/>
-<area shape="rect" id="node7" href="$colors_8h.html" title="colors.h" alt="" coords="241,229,308,256"/>
-<area shape="rect" id="node8" href="$dbg_8h.html" title="Define dbg helpers. " alt="" coords="382,80,436,107"/>
+<area shape="rect" id="node5" href="$backbone_8h.html" title="backbone.h" alt="" coords="199,155,288,181"/>
+<area shape="rect" id="node7" href="$colors_8h.html" title="colors.h" alt="" coords="138,229,205,256"/>
+<area shape="rect" id="node8" href="$tgregex_8h.html" title="tgregex.h" alt="" coords="286,80,361,107"/>
+<area shape="rect" id="node9" href="$dbg_8h.html" title="Define dbg helpers. " alt="" coords="486,80,540,107"/>
 </map>

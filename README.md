@@ -1,6 +1,6 @@
 #Tortosa
 
-Tortosa is a terminal emulator based on the vte3 library. I used gnome-terminal but after different upgrades, some functionnalities were removed like background transparency or Japanese input via SCIM.
+Tortosa is a terminal emulator based on the vte3 library. I used gnome-terminal but after different upgrades, some functionalities were removed like background transparency or Japanese input via SCIM.
 
 So I decided to write my own terminal emulator. Even if it looks like a toy, Tortosa do the job of a basic terminal emulator.
 
@@ -58,7 +58,7 @@ cd tortosa
 make
 ```
 
-On a lot of linux distributions, it's recommanded to use `./configure --prefix=/usr`
+On a lot of linux distributions, it's recommended to use `./configure --prefix=/usr`
 See the INSTALL file for more informations.
 
 
@@ -68,7 +68,7 @@ See the INSTALL file for more informations.
 
 +    ctrl + shift + t create new tab
 
-+    ctrl + shift + right/left arrows allow to navigate trought the tabs.
++    ctrl + shift + right/left arrows allow to navigate trough the tabs.
 
 +    ctrl + shift + c close current tab or close Tortosa if it remains only one tab.
 
@@ -109,7 +109,7 @@ background=#33333355
 #background=#2E3436dd
 ```
 
-This part allows user to customize the main window (the GtkWindow). The background color support alpha channel if you system have a running compositing manager. This is done using cairo and can't, noramally, be handled by css (https://developer.gnome.org/gtk3/3.0/gtk-question-index.html, see 1.15. How do I create a transparent toplevel window ? ). But I have added parsers for the css so user can use in css:
+This part allows user to customize the main window (the GtkWindow). The background color support alpha channel if you system have a running compositing manager. This is done using cairo and can't, normally, be handled by css (https://developer.gnome.org/gtk3/3.0/gtk-question-index.html, see 1.15. How do I create a transparent toplevel window ? ). But I have added parsers for the css so user can use in css:
 
 ```
 GtkWindow {
@@ -204,7 +204,7 @@ With this part you can set the parameters for the VteTerminal widget. This widge
 file=/home/cedlemo/.config/tortosa/tortosa.css
 ```
 
-The file value must be a full path. The css content is applied with the GTK_STYLE_PROVIDER_PRIORITY_USER priority. This means that the current css theme for your system, if you have one, is first loaded and then your css code override this default theme. So it could be usefull to reset default theme's css at the beginning of your css file. Here is the global gtk3 organisation of Tortosa:
+The file value must be a full path. The css content is applied with the GTK_STYLE_PROVIDER_PRIORITY_USER priority. This means that the current css theme for your system, if you have one, is first loaded and then your css code override this default theme. So it could be useful to reset default theme's css at the beginning of your css file. Here is the global gtk3 organisation of Tortosa:
 
 ```
 	GtkWindow

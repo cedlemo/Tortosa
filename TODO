@@ -8,6 +8,7 @@
 //TODO clean code
 //TODO test code that free backbone
 //TODO make clean exit code
+//TODO create .pc file with autotools
 //TODO write indication to stolen code from gnome-terminal and pango
-
-//utility of main window action (fullscreen/maximize ??) if let them maybe use low level function instead of those currently used that only works with gnome like windows managers.
+//TODO make some test for window operation with non gnome desktop
+//TODO write log macro without files/lines information and check if debug flag to swith

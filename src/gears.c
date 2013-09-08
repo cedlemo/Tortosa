@@ -562,4 +562,19 @@ void  util_open_url (backbone_t * backbone )
 	}
 }
 
+/*Check the window manager*/
+gboolean window_manager_is_gnome_like(GdkScreen * screen)
+{
+	const char cinnamon[]="Mutter (Muffin)";
+	const char gnomeshell[]="GNOME Shell";
+	char * current_WM = gdk_x11_screen_get_window_manager_name(screen);
+	SENTINEL("%s\n", current_WM);
+	gboolean is_gnome_like = FALSE;
 
+	if ( g_strcmp0(current_WM, cinnamon) == 0)
+		is_gnome_like = TRUE;
+	if ( g_strcmp0(current_WM, gnomeshell) == 0)
+		is_gnome_like = TRUE;
+
+	return is_gnome_like;
+}

@@ -19,4 +19,5 @@ gint find_node_by_widget ( gconstpointer, gconstpointer);
 void remove_node_by_widget( GSList *, GtkWidget *);
 void free_slist_and_data(GSList *);
 void util_open_url(backbone_t *);
+gboolean window_manager_is_gnome_like(GdkScreen *);
 #endif

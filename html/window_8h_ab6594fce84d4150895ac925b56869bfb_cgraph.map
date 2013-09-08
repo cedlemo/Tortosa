@@ -1,5 +1,7 @@
 <map id="reload_window_configuration" name="reload_window_configuration">
 <area shape="rect" id="node2" href="$gears_8c.html#abfbe3db99bf143a2b33f9e45d169cca2" title="load_window_configuration" alt="" coords="245,5,419,32"/>
-<area shape="rect" id="node4" href="$window_8c.html#ad750c1fce65c16ba5773838331706901" title="apply_window_configuration" alt="" coords="241,56,423,83"/>
+<area shape="rect" id="node4" href="$gears_8c.html#a2d63895ec9517c29ec2a530ae8e66d74" title="load_css_regexes_match" alt="" coords="247,56,417,83"/>
+<area shape="rect" id="node6" href="$window_8c.html#ad750c1fce65c16ba5773838331706901" title="apply_window_configuration" alt="" coords="241,107,423,133"/>
 <area shape="rect" id="node3" href="$colors_8c.html#a0f5f6f9db63fb469339f3549cf4ae335" title="extended_gdk_rgba_parse" alt="" coords="473,5,647,32"/>
+<area shape="rect" id="node5" href="$tgregex_8c.html#a931ff88535b3274e93b6702a285fc835" title="get_css_regex_match" alt="" coords="485,56,635,83"/>
 </map>

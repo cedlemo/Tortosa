@@ -1,15 +1,15 @@
 <map id="src/backbone.h" name="src/backbone.h">
-<area shape="rect" id="node2" href="$events_8h.html" title="src/events.h" alt="" coords="29,80,121,107"/>
-<area shape="rect" id="node3" href="$events_8c.html" title="src/events.c" alt="" coords="304,155,395,181"/>
-<area shape="rect" id="node6" href="$window_8h.html" title="src/window.h" alt="" coords="594,80,690,107"/>
-<area shape="rect" id="node9" href="$gears_8h.html" title="src/gears.h" alt="" coords="715,80,801,107"/>
-<area shape="rect" id="node12" href="$tabs_8h.html" title="src/tabs.h" alt="" coords="197,80,275,107"/>
-<area shape="rect" id="node13" href="$menus_8h.html" title="src/menus.h" alt="" coords="475,80,569,107"/>
-<area shape="rect" id="node14" href="$tgregex_8h.html" title="src/tgregex.h" alt="" coords="301,80,399,107"/>
-<area shape="rect" id="node10" href="$gears_8c.html" title="src/gears.c" alt="" coords="948,155,1034,181"/>
-<area shape="rect" id="node7" href="$menus_8c.html" title="src/menus.c" alt="" coords="585,155,679,181"/>
-<area shape="rect" id="node4" href="$tabs_8c.html" title="src/tabs.c" alt="" coords="197,155,275,181"/>
-<area shape="rect" id="node11" href="$tgregex_8c.html" title="src/tgregex.c" alt="" coords="705,155,803,181"/>
-<area shape="rect" id="node5" href="$tortosa_8c.html" title="src/tortosa.c" alt="" coords="443,155,537,181"/>
-<area shape="rect" id="node8" href="$window_8c.html" title="src/window.c" alt="" coords="827,155,923,181"/>
+<area shape="rect" id="node2" href="$events_8h.html" title="src/events.h" alt="" coords="200,80,292,107"/>
+<area shape="rect" id="node3" href="$events_8c.html" title="src/events.c" alt="" coords="311,155,402,181"/>
+<area shape="rect" id="node4" href="$tabs_8c.html" title="src/tabs.c" alt="" coords="546,155,625,181"/>
+<area shape="rect" id="node5" href="$tortosa_8c.html" title="src/tortosa.c" alt="" coords="192,155,286,181"/>
+<area shape="rect" id="node6" href="$window_8h.html" title="src/window.h" alt="" coords="421,80,517,107"/>
+<area shape="rect" id="node7" href="$menus_8c.html" title="src/menus.c" alt="" coords="427,155,521,181"/>
+<area shape="rect" id="node8" href="$window_8c.html" title="src/window.c" alt="" coords="650,155,746,181"/>
+<area shape="rect" id="node9" href="$gears_8h.html" title="src/gears.h" alt="" coords="592,80,678,107"/>
+<area shape="rect" id="node10" href="$gears_8c.html" title="src/gears.c" alt="" coords="894,155,980,181"/>
+<area shape="rect" id="node11" href="$tgregex_8c.html" title="src/tgregex.c" alt="" coords="770,155,869,181"/>
+<area shape="rect" id="node12" href="$tabs_8h.html" title="src/tabs.h" alt="" coords="317,80,396,107"/>
+<area shape="rect" id="node13" href="$menus_8h.html" title="src/menus.h" alt="" coords="30,80,124,107"/>
+<area shape="rect" id="node14" href="$tgregex_8h.html" title="src/tgregex.h" alt="" coords="754,80,853,107"/>
 </map>

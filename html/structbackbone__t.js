@@ -1,8 +1,11 @@
 var structbackbone__t =
 [
     [ "above", "structbackbone__t.html#a12a9695911951e352560f3c2058665be", null ],
+    [ "args", "structbackbone__t.html#a6472fe1dbd633b9d1983f9341eceda69", null ],
     [ "below", "structbackbone__t.html#a7170dac10be59bf82113aa25222e8fc3", null ],
+    [ "command_to_execute", "structbackbone__t.html#ae09f34390633491763ae4f75a8d4c124", null ],
     [ "configuration", "structbackbone__t.html#a7e36a20e817c99d8d587ab39b81645da", null ],
+    [ "configuration_file", "structbackbone__t.html#ae997c6d28c6dc90b4994b67f0194d517", null ],
     [ "css", "structbackbone__t.html#aac05cdf634920e88e82e0096c9fcbc7d", null ],
     [ "display", "structbackbone__t.html#af8ddf64c2ced2048a5de5626a796c43c", null ],
     [ "fullscreen", "structbackbone__t.html#ae0e3cdfa06abe7e29f987421869713e1", null ],
@@ -15,7 +18,7 @@ var structbackbone__t =
     [ "reload_menu", "structbackbone__t.html#a4fb9d69f630cdab3bdc69e9872d3cffb", null ],
     [ "resize_menu", "structbackbone__t.html#a7cbc1c33ac361f735edbb465a5d01c6b", null ],
     [ "screen", "structbackbone__t.html#ae721ea915e8dc917e4474171757a230e", null ],
-    [ "state", "structbackbone__t.html#a943c0c70f242c5bde9f30f35db0670e9", null ],
+    [ "state", "structbackbone__t.html#a385fa02c13d6034976b575209b399395", null ],
     [ "sticky", "structbackbone__t.html#a98592e5c19a0ff1471d1a0bf9ba14e04", null ],
     [ "tabs_data", "structbackbone__t.html#a5c0ba889b0db26136b866162509ac446", null ],
     [ "time", "structbackbone__t.html#a6fa4a8db54566bd18c1217bf931ccd11", null ],

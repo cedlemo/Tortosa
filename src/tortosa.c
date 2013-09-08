@@ -75,6 +75,7 @@ int main(int argc, char ** argv)
 	
 	backbone->display = gdk_display_get_default ();
 	backbone->screen = gdk_display_get_default_screen (backbone->display);
+
 	backbone->provider = gtk_css_provider_new ();
 	gtk_style_context_add_provider_for_screen (	backbone->screen, 
 																							GTK_STYLE_PROVIDER (backbone->provider), 
@@ -135,6 +136,3 @@ int main(int argc, char ** argv)
 	gtk_main();
 	return EXIT_SUCCESS;
 }
-//TODO create .pc file with autotools
-//TODO make some test for window operation with non gnome desktop
-//TODO write log macro without files/lines information and check if debug flag to swith

@@ -202,6 +202,8 @@ void load_tabs_configuration(backbone_t *backbone)
 		g_string_free(backbone->notebook.active_tab.color, TRUE);
 		backbone->notebook.active_tab.color = NULL;
 	}
+	else
+		extended_gdk_rgba_parse( &backbone->notebook.active_tab.rgba, backbone->notebook.active_tab.color->str);
 }
 
 void load_vte_configuration(backbone_t *backbone)
@@ -428,10 +430,10 @@ gboolean reload_tortosa_configuration(backbone_t * backbone)
 		backbone->notebook.show_tabs = TRUE;
 		backbone->notebook.tabs_position = GTK_POS_TOP;
 		FREE_GSTRING(backbone->notebook.default_tab_name);
+		FREE_GSTRING(backbone->notebook.active_tab.color);
 		backbone->notebook.tab_name_max_len=0;
 		load_tabs_configuration(backbone);
 		apply_tabs_configuration(backbone);
-		//gtk_widget_show(backbone->notebook.widget);
 		
 		/*vte configuration*/
 		backbone->vte.user_valid_palette=FALSE;
@@ -456,7 +458,6 @@ gboolean reload_tortosa_configuration(backbone_t * backbone)
 		{
 			GtkWidget *vte = gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), i);
 			apply_vte_configuration(backbone, vte);
-				//gtk_widget_show(GTK_WIDGET (vte));
 		}
 		
 		/*css configuration*/

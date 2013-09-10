@@ -28,12 +28,12 @@ void close_tab(GtkWidget * vte, backbone_t * backbone)
 	}
 }
 
-static void remove_pango_active_tab_color(GtkWidget * vte, GtkNotebook * notebook)
+void remove_pango_active_tab_color(GtkWidget * vte, GtkNotebook * notebook)
 {
 	gtk_notebook_set_tab_label_text(GTK_NOTEBOOK(notebook), vte, gtk_notebook_get_tab_label_text(GTK_NOTEBOOK(notebook), vte));
 }
 
-static void add_pango_active_tab_color(GtkWidget * vte, GtkNotebook * notebook, GdkRGBA *color)
+void add_pango_active_tab_color(GtkWidget * vte, GtkNotebook * notebook, GdkRGBA *color)
 {
 		GtkWidget * tab_label = gtk_notebook_get_tab_label(GTK_NOTEBOOK(notebook), vte);
 		if (tab_label == NULL)
@@ -254,9 +254,21 @@ gboolean reload_tabs_configuration( backbone_t * backbone)
 		backbone->notebook.show_tabs = TRUE;
 		backbone->notebook.tabs_position = GTK_POS_TOP;
 		FREE_GSTRING(backbone->notebook.default_tab_name);
+		FREE_GSTRING(backbone->notebook.active_tab.color);
 		backbone->notebook.tab_name_max_len=0;
 		load_tabs_configuration(backbone);
 		apply_tabs_configuration(backbone);
+		
+		/*reload css in order to get active tab color*/
+		if ( backbone->css.file != NULL)
+		{
+		  //gtk_css_provider_load_from_file( GTK_CSS_PROVIDER (backbone->provider), backbone->css.file, NULL/*&error*/);
+		  load_css_regexes_match(backbone);
+		}
+
+		GtkWidget * current_vte = gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), gtk_notebook_get_current_page(GTK_NOTEBOOK(backbone->notebook.widget)));
+		remove_pango_active_tab_color(current_vte, GTK_NOTEBOOK(backbone->notebook.widget));
+		add_pango_active_tab_color(current_vte, GTK_NOTEBOOK(backbone->notebook.widget), &backbone->notebook.active_tab.rgba);
 		gtk_widget_show(backbone->notebook.widget);
 	}
 

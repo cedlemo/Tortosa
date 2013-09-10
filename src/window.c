@@ -152,6 +152,10 @@ void reload_css_theme( backbone_t * backbone)
 	{
 		LOG_WARN("No css file to reload check your tortosarc file.\n");
 	}
+	GtkWidget * current_vte = gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), gtk_notebook_get_current_page(GTK_NOTEBOOK(backbone->notebook.widget)));
+	remove_pango_active_tab_color(current_vte, GTK_NOTEBOOK(backbone->notebook.widget));
+	add_pango_active_tab_color(current_vte, GTK_NOTEBOOK(backbone->notebook.widget), &backbone->notebook.active_tab.rgba);
+
 	gtk_widget_queue_draw (GTK_WIDGET (backbone->window.widget));
 }
 

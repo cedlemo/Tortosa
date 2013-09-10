@@ -139,6 +139,9 @@ GtkNotebook tab:active {
 	color:rgb(26,48,56);
 	...
 }
+
+Always remember that the css value take precedence on the value in the configuration file event if you only reload the tabs configuration.
+
 ```
 
 ```

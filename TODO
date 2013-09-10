@@ -1,10 +1,3 @@
-//TODO !!done use signal switch page in order to change the pango attribute otherwise changing tab with mouse doesn't change the pango markup
-//see https://developer.gnome.org/gtk3/3.4/GtkNotebook.html#GtkNotebook-change-current-page
-//TODO !!done find a way to provide theme value for cairo via css with gtk_css_provider_to_string + regex parsing for
-//	-!!done window background (handled by cairo for transparency) regex finished
-//	-!!done active tab font color theme (not provided by gtk3) regex finished
-//	-make sure that if active tab color is changed, then the modifications are applied on reload configs
-//	-background menu for transparency (try to use cairo)
 //TODO clean code
 //TODO test code that free backbone
 //TODO make clean exit code

@@ -5,6 +5,8 @@
 #define TABS_H
 
 void close_tab(GtkWidget *, backbone_t *);
+void add_pango_active_tab_color(GtkWidget *, GtkNotebook *, GdkRGBA *);
+void remove_pango_active_tab_color(GtkWidget * , GtkNotebook * );
 void go_to_next_tab( backbone_t*);
 void go_to_prev_tab( backbone_t *);
 void on_switch_tabs_signal(GtkNotebook *, GtkWidget *, guint, backbone_t * backbone);

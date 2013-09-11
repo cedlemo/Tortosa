@@ -32,15 +32,18 @@ backbone_t * new_backbone( void)
 
 void free_backbone( backbone_t * backbone)
 {
-
+	//SENTINEL("Free window stuff\n");
 	FREE_GSTRING(backbone->window.title);
 	FREE_GSTRING(backbone->window.wm_class);
 	FREE_GSTRING(backbone->window.wm_name);
 	FREE_GSTRING(backbone->window.role);
 	FREE_GSTRING(backbone->window.background.color);
 	
+	//SENTINEL("Free notebook stuff\n");
 	FREE_GSTRING(backbone->notebook.default_tab_name);
+	FREE_GSTRING(backbone->notebook.active_tab.color);
 	
+	//SENTINEL("Free vte stuff\n");
 	FREE_GSTRING(backbone->vte.foreground.color);
 	FREE_GSTRING(backbone->vte.background.color);
 	FREE_GSTRING(backbone->vte.background_image);
@@ -53,10 +56,12 @@ void free_backbone( backbone_t * backbone)
 	FREE_GSTRING(backbone->vte.font);
 	FREE_GSTRING(backbone->vte.cursor_color.color);
 	
+	//SENTINEL("Free css stuff\n");
 	FREE_GSTRING(backbone->css.path);
 	if(backbone->css.file)
 		g_object_unref(backbone->css.file);
 	
+	//SENTINEL("Free other stuff\n");
 	FREE_GSTRING(backbone->configuration.dir_path);
 	FREE_GSTRING(backbone->configuration.file_path);
 	/*no need to free args.configuration_file (already freed with FREE_GSTRING(backbone->configuration.file_path);*/
@@ -64,8 +69,17 @@ void free_backbone( backbone_t * backbone)
 	if(backbone->configuration.keyfile)
 		g_key_file_free(backbone->configuration.keyfile);
 
+	//SENTINEL("Free tabs_data slist stuff\n");
 	free_slist_and_data(backbone->tabs_data);
+	
+	//SENTINEL("Free main backbone\n");
 	free((void *) backbone);
+}
+
+void quit_gracefully(backbone_t * backbone)
+{
+	free_backbone(backbone);
+	gtk_main_quit();
 }
 
 /*Stuff for filling backbone from configuration key file*/
@@ -569,7 +583,7 @@ gboolean window_manager_is_gnome_like(GdkScreen * screen)
 	const char cinnamon[]="Mutter (Muffin)";
 	const char gnomeshell[]="GNOME Shell";
 	char * current_WM = gdk_x11_screen_get_window_manager_name(screen);
-	SENTINEL("%s\n", current_WM);
+	//SENTINEL("%s\n", current_WM);
 	gboolean is_gnome_like = FALSE;
 
 	if ( g_strcmp0(current_WM, cinnamon) == 0)

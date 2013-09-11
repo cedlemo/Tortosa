@@ -1,4 +1,7 @@
 <map id="close_tab" name="close_tab">
 <area shape="rect" id="node2" href="$gears_8c.html#a8ddb8664a0226267028277979646dd9b" title="remove_node_by_widget" alt="" coords="133,5,296,32"/>
+<area shape="rect" id="node4" href="$gears_8c.html#a9d0d7f002505f12db9e92c4552786bae" title="quit_gracefully" alt="" coords="162,56,267,83"/>
 <area shape="rect" id="node3" href="$gears_8c.html#a8ea6b2587b942ee7b536c2af91932f08" title="find_node_by_widget" alt="" coords="345,5,487,32"/>
+<area shape="rect" id="node5" href="$gears_8c.html#a2b1f6613c29b698a856ff17d86bc9114" title="free_backbone" alt="" coords="363,56,469,83"/>
+<area shape="rect" id="node6" href="$gears_8c.html#af9d7dbb8a5bbe0d14030e2a4844ac0e9" title="free_slist_and_data" alt="" coords="537,56,671,83"/>
 </map>

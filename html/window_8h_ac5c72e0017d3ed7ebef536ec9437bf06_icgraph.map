@@ -1,5 +1,4 @@
 <map id="toggle_iconify" name="toggle_iconify">
-<area shape="rect" id="node2" href="$events_8h.html#a2b45201051e4603136cfca4ae05b202a" title="event_key_press" alt="" coords="162,5,281,32"/>
-<area shape="rect" id="node4" href="$menus_8h.html#a62fa76030d9feca62d2192c036d1498a" title="create_main_menu" alt="" coords="155,56,287,83"/>
-<area shape="rect" id="node3" href="$tortosa_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="main" alt="" coords="336,31,387,57"/>
+<area shape="rect" id="node2" href="$menus_8h.html#a62fa76030d9feca62d2192c036d1498a" title="create_main_menu" alt="" coords="155,5,287,32"/>
+<area shape="rect" id="node3" href="$tortosa_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="main" alt="" coords="336,5,387,32"/>
 </map>

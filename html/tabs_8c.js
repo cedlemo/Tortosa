@@ -1,5 +1,6 @@
 var tabs_8c =
 [
+    [ "add_pango_active_tab_color", "tabs_8c.html#a0b99a1ac65e2474523e82346ff39a69b", null ],
     [ "apply_tabs_configuration", "tabs_8c.html#adb871bc296df7f7483d101d47a6bfbd6", null ],
     [ "apply_vte_configuration", "tabs_8c.html#aed31376fe854e7710d355045c0d8c4c1", null ],
     [ "close_tab", "tabs_8c.html#a85afe42711efaab9fdf1fa504f383cab", null ],
@@ -11,5 +12,6 @@ var tabs_8c =
     [ "on_switch_tabs_signal", "tabs_8c.html#aacf62195b5c6790d056b9afeb07e0a16", null ],
     [ "paste_clipboard_to_vte_child", "tabs_8c.html#a6eaea76b67632db6902b49a6c3e1a4ff", null ],
     [ "reload_tabs_configuration", "tabs_8c.html#ac48bccc3c0f20b9eb0f106795bde0f57", null ],
-    [ "reload_vte_configuration", "tabs_8c.html#a7da766cdba9b522223468a1d7dcdfa5a", null ]
+    [ "reload_vte_configuration", "tabs_8c.html#a7da766cdba9b522223468a1d7dcdfa5a", null ],
+    [ "remove_pango_active_tab_color", "tabs_8c.html#aee9d7034b43736bb151aba88ed65643b", null ]
 ];

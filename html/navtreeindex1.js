@@ -1,5 +1,11 @@
 var NAVTREEINDEX1 =
 {
+"tgregex_8c.html#a0d99b37cc05e0d85a8a9724686497967":[1,0,0,13,6],
+"tgregex_8c.html#a22b701f7b5eb6d4bca06ffa44d96f802":[1,0,0,13,15],
+"tgregex_8c.html#a30636792585cf7fef518cdc37ec4346f":[1,0,0,13,5],
+"tgregex_8c.html#a4783d40d126d6d41a0580c1161785a13":[1,0,0,13,25],
+"tgregex_8c.html#a4d782a47cbcbc94980df7a5f94f9bf49":[1,0,0,13,23],
+"tgregex_8c.html#a614217d263be1fb1a5f76e2ff7be19a2":[1,0,0,13,10],
 "tgregex_8c.html#a6db30a9da415893399cfe22b2c9e0446":[1,0,0,13,27],
 "tgregex_8c.html#a7707a250fefd33e980187bd829e38e9b":[1,0,0,13,18],
 "tgregex_8c.html#a782c6d7fd4e32f00202cabc4b96f2c65":[1,0,0,13,22],

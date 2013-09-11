@@ -91,7 +91,7 @@ int main(int argc, char ** argv)
 	init_window_visual_with_alpha(backbone->window.widget, backbone);
 	apply_window_configuration(backbone->window.widget, backbone);
 	
-	g_signal_connect(backbone->window.widget, "destroy", G_CALLBACK(gtk_main_quit), NULL); 
+	g_signal_connect_swapped(backbone->window.widget, "destroy", G_CALLBACK(quit_gracefully), backbone); 
 	g_signal_connect(backbone->window.widget, "window-state-event", G_CALLBACK(get_window_state), backbone); //get window state events, this is used by fullscreen, above/below, iconify, maximize ... actions	
 	g_signal_connect(G_OBJECT(backbone->window.widget), "draw", G_CALLBACK(draw_window_background), backbone); //redraw window background when needed
 	g_signal_connect(backbone->window.widget, "screen-changed", G_CALLBACK(init_window_visual_with_alpha), backbone); //re-define the visual of the window if this one move to another screen

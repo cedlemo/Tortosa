@@ -1,4 +1,9 @@
 <map id="reload_tabs_configuration" name="reload_tabs_configuration">
-<area shape="rect" id="node2" href="$gears_8c.html#ae01b0889f33b884eeab43ef60e146e46" title="load_tabs_configuration" alt="" coords="227,5,386,32"/>
-<area shape="rect" id="node3" href="$tabs_8c.html#adb871bc296df7f7483d101d47a6bfbd6" title="apply_tabs_configuration" alt="" coords="224,56,389,83"/>
+<area shape="rect" id="node2" href="$gears_8c.html#ae01b0889f33b884eeab43ef60e146e46" title="load_tabs_configuration" alt="" coords="230,5,389,32"/>
+<area shape="rect" id="node4" href="$tabs_8c.html#adb871bc296df7f7483d101d47a6bfbd6" title="apply_tabs_configuration" alt="" coords="227,56,392,83"/>
+<area shape="rect" id="node5" href="$gears_8c.html#a2d63895ec9517c29ec2a530ae8e66d74" title="load_css_regexes_match" alt="" coords="224,107,395,133"/>
+<area shape="rect" id="node7" href="$tabs_8c.html#aee9d7034b43736bb151aba88ed65643b" title="remove_pango_active\l_tab_color" alt="" coords="237,158,382,199"/>
+<area shape="rect" id="node8" href="$tabs_8c.html#a0b99a1ac65e2474523e82346ff39a69b" title="add_pango_active_tab\l_color" alt="" coords="234,223,385,265"/>
+<area shape="rect" id="node3" href="$colors_8c.html#a0f5f6f9db63fb469339f3549cf4ae335" title="extended_gdk_rgba_parse" alt="" coords="443,31,618,57"/>
+<area shape="rect" id="node6" href="$tgregex_8c.html#a931ff88535b3274e93b6702a285fc835" title="get_css_regex_match" alt="" coords="455,107,606,133"/>
 </map>

@@ -24,7 +24,8 @@ void close_tab(GtkWidget * vte, backbone_t * backbone)
 	}
 	else
 	{
-		gtk_main_quit();
+		quit_gracefully(backbone);
+		//gtk_main_quit();
 	}
 }
 

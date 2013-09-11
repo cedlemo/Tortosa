@@ -132,6 +132,10 @@ This graph shows which files directly or indirectly include this file:</div>
 Functions</h2></td></tr>
 <tr class="memitem:a0901fc8dd76308dd599945552a66c66d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tabs_8h.html#a0901fc8dd76308dd599945552a66c66d">close_tab</a> (GtkWidget *, <a class="el" href="structbackbone__t.html">backbone_t</a> *)</td></tr>
 <tr class="separator:a0901fc8dd76308dd599945552a66c66d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91bea056916f5b0dc2a694f5aa1fd6bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tabs_8h.html#a91bea056916f5b0dc2a694f5aa1fd6bf">add_pango_active_tab_color</a> (GtkWidget *, GtkNotebook *, GdkRGBA *)</td></tr>
+<tr class="separator:a91bea056916f5b0dc2a694f5aa1fd6bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87bf48a9b63da87924150d2c0723128e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tabs_8h.html#a87bf48a9b63da87924150d2c0723128e">remove_pango_active_tab_color</a> (GtkWidget *, GtkNotebook *)</td></tr>
+<tr class="separator:a87bf48a9b63da87924150d2c0723128e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03482e1616d57331f1d00f6683da37ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tabs_8h.html#a03482e1616d57331f1d00f6683da37ee">go_to_next_tab</a> (<a class="el" href="structbackbone__t.html">backbone_t</a> *)</td></tr>
 <tr class="separator:a03482e1616d57331f1d00f6683da37ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ac841e3fd98fcaafc36eaa6fa031601"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tabs_8h.html#a8ac841e3fd98fcaafc36eaa6fa031601">go_to_prev_tab</a> (<a class="el" href="structbackbone__t.html">backbone_t</a> *)</td></tr>
@@ -158,6 +162,49 @@ Functions</h2></td></tr>
 <tr class="separator:a7a01c586f57a22b81736c6a224e4682f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a91bea056916f5b0dc2a694f5aa1fd6bf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void add_pango_active_tab_color </td>
+          <td>(</td>
+          <td class="paramtype">GtkWidget *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GtkNotebook *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GdkRGBA *&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="tabs_8c_source.html#l00037">37</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="tabs_8h_a91bea056916f5b0dc2a694f5aa1fd6bf_icgraph.png" border="0" usemap="#tabs_8h_a91bea056916f5b0dc2a694f5aa1fd6bf_icgraph" alt=""/></div>
+<map name="tabs_8h_a91bea056916f5b0dc2a694f5aa1fd6bf_icgraph" id="tabs_8h_a91bea056916f5b0dc2a694f5aa1fd6bf_icgraph">
+<area shape="rect" id="node2" href="tabs_8h.html#ab4614edd73edce92cd03e359b538b887" title="on_switch_tabs_signal" alt="" coords="425,5,578,32"/><area shape="rect" id="node4" href="tabs_8h.html#a99dabcf43137f96cf5524ad88d02bed3" title="reload_tabs_configuration" alt="" coords="206,56,375,83"/><area shape="rect" id="node6" href="window_8h.html#afc260ef4462cea2de9dcf5598eeddf8f" title="reload_css_theme" alt="" coords="227,107,355,133"/><area shape="rect" id="node3" href="tortosa_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="main" alt="" coords="627,56,677,83"/><area shape="rect" id="node5" href="menus_8h.html#a0f10cf5a8a8b20c2a7b244fc9a23c616" title="create_reload_menu" alt="" coords="432,56,571,83"/><area shape="rect" id="node7" href="events_8h.html#a2b45201051e4603136cfca4ae05b202a" title="event_key_press" alt="" coords="442,107,561,133"/></map>
+</div>
+</p>
+
+</div>
+</div>
 <a class="anchor" id="ad2d7891720d539430a61936bdb979f87"></a>
 <div class="memitem">
 <div class="memproto">
@@ -188,7 +235,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="tabs_8c_source.html#l00225">225</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
+<p>Definition at line <a class="el" href="tabs_8c_source.html#l00226">226</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -225,7 +272,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="tabs_8c_source.html#l00122">122</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
+<p>Definition at line <a class="el" href="tabs_8c_source.html#l00123">123</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -269,7 +316,7 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="tabs_8h_a0901fc8dd76308dd599945552a66c66d_cgraph.png" border="0" usemap="#tabs_8h_a0901fc8dd76308dd599945552a66c66d_cgraph" alt=""/></div>
 <map name="tabs_8h_a0901fc8dd76308dd599945552a66c66d_cgraph" id="tabs_8h_a0901fc8dd76308dd599945552a66c66d_cgraph">
-<area shape="rect" id="node2" href="gears_8c.html#a8ddb8664a0226267028277979646dd9b" title="remove_node_by_widget" alt="" coords="133,5,296,32"/><area shape="rect" id="node3" href="gears_8c.html#a8ea6b2587b942ee7b536c2af91932f08" title="find_node_by_widget" alt="" coords="345,5,487,32"/></map>
+<area shape="rect" id="node2" href="gears_8c.html#a8ddb8664a0226267028277979646dd9b" title="remove_node_by_widget" alt="" coords="133,5,296,32"/><area shape="rect" id="node4" href="gears_8c.html#a9d0d7f002505f12db9e92c4552786bae" title="quit_gracefully" alt="" coords="162,56,267,83"/><area shape="rect" id="node3" href="gears_8c.html#a8ea6b2587b942ee7b536c2af91932f08" title="find_node_by_widget" alt="" coords="345,5,487,32"/><area shape="rect" id="node5" href="gears_8c.html#a2b1f6613c29b698a856ff17d86bc9114" title="free_backbone" alt="" coords="363,56,469,83"/><area shape="rect" id="node6" href="gears_8c.html#af9d7dbb8a5bbe0d14030e2a4844ac0e9" title="free_slist_and_data" alt="" coords="537,56,671,83"/></map>
 </div>
 </p>
 
@@ -298,7 +345,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="tabs_8c_source.html#l00398">398</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
+<p>Definition at line <a class="el" href="tabs_8c_source.html#l00411">411</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -334,7 +381,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="tabs_8c_source.html#l00380">380</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
+<p>Definition at line <a class="el" href="tabs_8c_source.html#l00393">393</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -361,7 +408,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="tabs_8c_source.html#l00061">61</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
+<p>Definition at line <a class="el" href="tabs_8c_source.html#l00062">62</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -388,7 +435,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="tabs_8c_source.html#l00074">74</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
+<p>Definition at line <a class="el" href="tabs_8c_source.html#l00075">75</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -415,14 +462,14 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="tabs_8c_source.html#l00274">274</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
+<p>Definition at line <a class="el" href="tabs_8c_source.html#l00287">287</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="tabs_8h_a7e9717ddf705f34fb1ecdff5f0b4365a_cgraph.png" border="0" usemap="#tabs_8h_a7e9717ddf705f34fb1ecdff5f0b4365a_cgraph" alt=""/></div>
 <map name="tabs_8h_a7e9717ddf705f34fb1ecdff5f0b4365a_cgraph" id="tabs_8h_a7e9717ddf705f34fb1ecdff5f0b4365a_cgraph">
-<area shape="rect" id="node2" href="gears_8c.html#a8ea6b2587b942ee7b536c2af91932f08" title="find_node_by_widget" alt="" coords="558,71,701,98"/><area shape="rect" id="node3" href="tabs_8c.html#a85afe42711efaab9fdf1fa504f383cab" title="close_tab" alt="" coords="165,46,243,73"/><area shape="rect" id="node5" href="events_8c.html#a017e88886910cdf4526a3ad619ff100e" title="event_button_press" alt="" coords="137,97,271,123"/><area shape="rect" id="node9" href="tabs_8c.html#aed31376fe854e7710d355045c0d8c4c1" title="apply_vte_configuration" alt="" coords="126,147,282,174"/><area shape="rect" id="node4" href="gears_8c.html#a8ddb8664a0226267028277979646dd9b" title="remove_node_by_widget" alt="" coords="331,46,493,73"/><area shape="rect" id="node6" href="tgregex_8c.html#a9e280c1b505b6802b447aa0645fa6d7c" title="get_regex_match_for\l_tab_on_button_press" alt="" coords="337,148,487,189"/><area shape="rect" id="node7" href="menus_8c.html#aa51a8c781bd2d393edff29cde7caf766" title="display_main_menu" alt="" coords="343,214,481,241"/><area shape="rect" id="node8" href="colors_8c.html#a0f5f6f9db63fb469339f3549cf4ae335" title="extended_gdk_rgba_parse" alt="" coords="542,214,717,241"/></map>
+<area shape="rect" id="node2" href="gears_8c.html#a8ea6b2587b942ee7b536c2af91932f08" title="find_node_by_widget" alt="" coords="558,132,701,159"/><area shape="rect" id="node3" href="tabs_8c.html#a85afe42711efaab9fdf1fa504f383cab" title="close_tab" alt="" coords="165,56,243,83"/><area shape="rect" id="node8" href="events_8c.html#a017e88886910cdf4526a3ad619ff100e" title="event_button_press" alt="" coords="137,157,271,184"/><area shape="rect" id="node12" href="tabs_8c.html#aed31376fe854e7710d355045c0d8c4c1" title="apply_vte_configuration" alt="" coords="126,208,282,235"/><area shape="rect" id="node4" href="gears_8c.html#a8ddb8664a0226267028277979646dd9b" title="remove_node_by_widget" alt="" coords="331,56,493,83"/><area shape="rect" id="node5" href="gears_8c.html#a9d0d7f002505f12db9e92c4552786bae" title="quit_gracefully" alt="" coords="359,5,465,32"/><area shape="rect" id="node6" href="gears_8c.html#a2b1f6613c29b698a856ff17d86bc9114" title="free_backbone" alt="" coords="576,5,683,32"/><area shape="rect" id="node7" href="gears_8c.html#af9d7dbb8a5bbe0d14030e2a4844ac0e9" title="free_slist_and_data" alt="" coords="766,5,901,32"/><area shape="rect" id="node9" href="tgregex_8c.html#a9e280c1b505b6802b447aa0645fa6d7c" title="get_regex_match_for\l_tab_on_button_press" alt="" coords="337,209,487,250"/><area shape="rect" id="node10" href="menus_8c.html#aa51a8c781bd2d393edff29cde7caf766" title="display_main_menu" alt="" coords="343,275,481,301"/><area shape="rect" id="node11" href="colors_8c.html#a0f5f6f9db63fb469339f3549cf4ae335" title="extended_gdk_rgba_parse" alt="" coords="542,275,717,301"/></map>
 </div>
 </p>
 
@@ -473,7 +520,16 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="tabs_8c_source.html#l00051">51</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
+<p>Definition at line <a class="el" href="tabs_8c_source.html#l00052">52</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="tabs_8h_ab4614edd73edce92cd03e359b538b887_cgraph.png" border="0" usemap="#tabs_8h_ab4614edd73edce92cd03e359b538b887_cgraph" alt=""/></div>
+<map name="tabs_8h_ab4614edd73edce92cd03e359b538b887_cgraph" id="tabs_8h_ab4614edd73edce92cd03e359b538b887_cgraph">
+<area shape="rect" id="node2" href="tabs_8c.html#aee9d7034b43736bb151aba88ed65643b" title="remove_pango_active\l_tab_color" alt="" coords="211,5,357,46"/><area shape="rect" id="node3" href="tabs_8c.html#a0b99a1ac65e2474523e82346ff39a69b" title="add_pango_active_tab\l_color" alt="" coords="209,70,359,111"/></map>
+</div>
+</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -500,7 +556,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="tabs_8c_source.html#l00389">389</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
+<p>Definition at line <a class="el" href="tabs_8c_source.html#l00402">402</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -527,14 +583,14 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="tabs_8c_source.html#l00235">235</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
+<p>Definition at line <a class="el" href="tabs_8c_source.html#l00236">236</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="tabs_8h_a99dabcf43137f96cf5524ad88d02bed3_cgraph.png" border="0" usemap="#tabs_8h_a99dabcf43137f96cf5524ad88d02bed3_cgraph" alt=""/></div>
 <map name="tabs_8h_a99dabcf43137f96cf5524ad88d02bed3_cgraph" id="tabs_8h_a99dabcf43137f96cf5524ad88d02bed3_cgraph">
-<area shape="rect" id="node2" href="gears_8c.html#ae01b0889f33b884eeab43ef60e146e46" title="load_tabs_configuration" alt="" coords="227,5,386,32"/><area shape="rect" id="node3" href="tabs_8c.html#adb871bc296df7f7483d101d47a6bfbd6" title="apply_tabs_configuration" alt="" coords="224,56,389,83"/></map>
+<area shape="rect" id="node2" href="gears_8c.html#ae01b0889f33b884eeab43ef60e146e46" title="load_tabs_configuration" alt="" coords="230,5,389,32"/><area shape="rect" id="node4" href="tabs_8c.html#adb871bc296df7f7483d101d47a6bfbd6" title="apply_tabs_configuration" alt="" coords="227,56,392,83"/><area shape="rect" id="node5" href="gears_8c.html#a2d63895ec9517c29ec2a530ae8e66d74" title="load_css_regexes_match" alt="" coords="224,107,395,133"/><area shape="rect" id="node7" href="tabs_8c.html#aee9d7034b43736bb151aba88ed65643b" title="remove_pango_active\l_tab_color" alt="" coords="237,158,382,199"/><area shape="rect" id="node8" href="tabs_8c.html#a0b99a1ac65e2474523e82346ff39a69b" title="add_pango_active_tab\l_color" alt="" coords="234,223,385,265"/><area shape="rect" id="node3" href="colors_8c.html#a0f5f6f9db63fb469339f3549cf4ae335" title="extended_gdk_rgba_parse" alt="" coords="443,31,618,57"/><area shape="rect" id="node6" href="tgregex_8c.html#a931ff88535b3274e93b6702a285fc835" title="get_css_regex_match" alt="" coords="455,107,606,133"/></map>
 </div>
 </p>
 
@@ -563,7 +619,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="tabs_8c_source.html#l00177">177</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
+<p>Definition at line <a class="el" href="tabs_8c_source.html#l00178">178</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -585,13 +641,50 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a class="anchor" id="a87bf48a9b63da87924150d2c0723128e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void remove_pango_active_tab_color </td>
+          <td>(</td>
+          <td class="paramtype">GtkWidget *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GtkNotebook *&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="tabs_8c_source.html#l00032">32</a> of file <a class="el" href="tabs_8c_source.html">tabs.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="tabs_8h_a87bf48a9b63da87924150d2c0723128e_icgraph.png" border="0" usemap="#tabs_8h_a87bf48a9b63da87924150d2c0723128e_icgraph" alt=""/></div>
+<map name="tabs_8h_a87bf48a9b63da87924150d2c0723128e_icgraph" id="tabs_8h_a87bf48a9b63da87924150d2c0723128e_icgraph">
+<area shape="rect" id="node2" href="tabs_8h.html#ab4614edd73edce92cd03e359b538b887" title="on_switch_tabs_signal" alt="" coords="419,5,573,32"/><area shape="rect" id="node4" href="tabs_8h.html#a99dabcf43137f96cf5524ad88d02bed3" title="reload_tabs_configuration" alt="" coords="201,56,370,83"/><area shape="rect" id="node6" href="window_8h.html#afc260ef4462cea2de9dcf5598eeddf8f" title="reload_css_theme" alt="" coords="221,107,349,133"/><area shape="rect" id="node3" href="tortosa_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="main" alt="" coords="621,56,672,83"/><area shape="rect" id="node5" href="menus_8h.html#a0f10cf5a8a8b20c2a7b244fc9a23c616" title="create_reload_menu" alt="" coords="427,56,565,83"/><area shape="rect" id="node7" href="events_8h.html#a2b45201051e4603136cfca4ae05b202a" title="event_key_press" alt="" coords="437,107,555,133"/></map>
+</div>
+</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="tabs_8h.html">tabs.h</a></li>
-    <li class="footer">Generated on Sun Sep 8 2013 10:31:23 for Tortosa by
+    <li class="footer">Generated on Wed Sep 11 2013 18:57:09 for Tortosa by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
   </ul>

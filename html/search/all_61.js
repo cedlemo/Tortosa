@@ -2,6 +2,7 @@ var searchData=
 [
   ['above',['above',['../structbackbone__t.html#a12a9695911951e352560f3c2058665be',1,'backbone_t']]],
   ['active_5ftab',['active_tab',['../structnotebook__t.html#a54c8e892ba37994c81a6eb21a53042b0',1,'notebook_t']]],
+  ['add_5fpango_5factive_5ftab_5fcolor',['add_pango_active_tab_color',['../tabs_8c.html#a0b99a1ac65e2474523e82346ff39a69b',1,'add_pango_active_tab_color(GtkWidget *vte, GtkNotebook *notebook, GdkRGBA *color):&#160;tabs.c'],['../tabs_8h.html#a91bea056916f5b0dc2a694f5aa1fd6bf',1,'add_pango_active_tab_color(GtkWidget *, GtkNotebook *, GdkRGBA *):&#160;tabs.c']]],
   ['add_5fregexes_5fto_5ftab',['add_regexes_to_tab',['../tgregex_8c.html#a9d411137e44f94249528f2f3cdc8f0ad',1,'add_regexes_to_tab(GtkWidget *vte, backbone_t *backbone):&#160;tgregex.c'],['../tgregex_8h.html#a6f193929816f3c169fd8ad0269295cb3',1,'add_regexes_to_tab(GtkWidget *, backbone_t *):&#160;tgregex.c']]],
   ['apply_5ftab_5fconfiguration',['apply_tab_configuration',['../tabs_8h.html#ad2d7891720d539430a61936bdb979f87',1,'tabs.h']]],
   ['apply_5ftabs_5fconfiguration',['apply_tabs_configuration',['../tabs_8c.html#adb871bc296df7f7483d101d47a6bfbd6',1,'apply_tabs_configuration(backbone_t *backbone):&#160;tabs.c'],['../tabs_8h.html#a9f4d7e9c4686feaf46e2223fcca9d332',1,'apply_tabs_configuration(backbone_t *):&#160;tabs.c']]],

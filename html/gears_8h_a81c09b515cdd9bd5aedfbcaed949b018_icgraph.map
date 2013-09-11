@@ -1,3 +1,8 @@
 <map id="free_slist_and_data" name="free_slist_and_data">
 <area shape="rect" id="node2" href="$gears_8h.html#a6782d403cdad78739c810af67cfdb709" title="free_backbone" alt="" coords="189,5,296,32"/>
+<area shape="rect" id="node3" href="$gears_8h.html#a4ce796ad2aa5bbcbbe5b7851bd7fe709" title="quit_gracefully" alt="" coords="345,5,450,32"/>
+<area shape="rect" id="node4" href="$events_8h.html#a2b45201051e4603136cfca4ae05b202a" title="event_key_press" alt="" coords="747,56,866,83"/>
+<area shape="rect" id="node5" href="$tortosa_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="main" alt="" coords="915,56,965,83"/>
+<area shape="rect" id="node6" href="$tabs_8h.html#a0901fc8dd76308dd599945552a66c66d" title="close_tab" alt="" coords="499,56,578,83"/>
+<area shape="rect" id="node7" href="$tabs_8h.html#a7e9717ddf705f34fb1ecdff5f0b4365a" title="new_tab" alt="" coords="627,107,698,133"/>
 </map>

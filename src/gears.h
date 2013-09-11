@@ -7,6 +7,7 @@
 
 backbone_t * new_backbone(void);
 void free_backbone( backbone_t *);
+void quit_gracefully( backbone_t *);
 void init_vte_color( backbone_t * , int , char * );
 gboolean load_config( backbone_t*);
 void load_window_configuration(backbone_t *);

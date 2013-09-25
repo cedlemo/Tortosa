@@ -2,11 +2,10 @@
 
 Tortosa is a terminal emulator based on the vte3 library. I used gnome-terminal but after different upgrades, some functionalities were removed like background transparency or Japanese input via SCIM.
 
+
 So I decided to write my own terminal emulator. Even if it looks like a toy, Tortosa do the job of a basic terminal emulator.
 
 +    Tortosa has tabs management
-
-+    Tortosa supports transparency
 
 +    Tortosa can remove Window Manager decorations
 
@@ -26,14 +25,20 @@ So I decided to write my own terminal emulator. Even if it looks like a toy, Tor
 
 *tmux in a tortosa tab. In the top tmux pans, 2 colors schemes scripts displaying terminal color. In the bottom, Tortosa configuration and css file are opened. Just need to save after modifications in the files and use reload functions in the main menu in order to see the modifications applied*
 	
+##Versions:
+Tortosa has a first released version 1.0 which compiles only with the version of the vte3 library prior to 0.34. This version can be built with all the vte library (version >= 2.9) but some functionnalities have been removed:
+
++    setting vte opacity / transparency
++    setting background image
++    setting background tint color
++    setting background saturation
 
 ##Dependencies:
-**Note: after the release of vte-3.4, a lot of vte functions that Tortosa uses are deprecated and will not be replaced.**
-
+**Note: after the release of vte-3.4, some vte functions that Tortosa uses are deprecated and will not be replaced.**
 
 +    Gtk+ v >= 3.0
 
-+    vte3 v >= 2.9 < 3.4
++    vte3 v >= 2.9 
 
 +    autotools
 
@@ -182,10 +187,6 @@ color14=#46a4ff
 #white
 color7=#cccccc
 color15=#ffffff
-#opacity=30000
-#background_image=/home/cedlemo/Pictures/Buddha.jpg
-#background_saturation=0.1
-#background_tint_color=#00ff00
 #highlight=#00ff00
 cursor_color=#ff0000
 cursor_blink=system
@@ -199,7 +200,7 @@ bell_visible=true
 bell_audible=false
 ```
 
-With this part you can set the parameters for the VteTerminal widget. This widget can handle background transparency. If you define a background color with an alpha channel, Tortosa get the alpha value and set the corresponding opacity value. You can override this value using the opacity key (0 to 65535). User must provide a full palette color (16 colors) for the moment otherwise the value won't be used. background_saturation and background_tint_color only work with background_image. background_image key value must be a full path.
+With this part you can set the parameters for the VteTerminal widget. This widget can't handle background transparency anymore. User must provide a full palette color (16 colors) for the moment otherwise the value won't be used.
 
 ```
 ########################################

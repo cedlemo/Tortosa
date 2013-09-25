@@ -70,7 +70,6 @@ void go_to_next_tab(backbone_t * backbone)
 	gtk_widget_show_all(backbone->notebook.widget);
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(backbone->notebook.widget), next_tab_index);
 	
-	//gtk_widget_grab_focus(gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), next_tab_index));
 }
 
 void go_to_prev_tab(backbone_t * backbone)
@@ -82,7 +81,6 @@ void go_to_prev_tab(backbone_t * backbone)
 	
 	gtk_widget_show_all(backbone->notebook.widget);
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(backbone->notebook.widget), next_tab_index);
-	//gtk_widget_grab_focus(gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), next_tab_index));
 }
 
 static void set_tab_name( GtkWidget * vte, backbone_t * backbone)
@@ -134,7 +132,7 @@ void apply_vte_configuration(backbone_t *backbone, GtkWidget * vte)
 			palette[i].blue = backbone->vte.palette[i].rgba.blue;
 			palette[i].alpha = backbone->vte.palette[i].rgba.alpha;
 		}
-		vte_terminal_set_opacity (VTE_TERMINAL(vte), backbone->vte.opacity); //TODO remove for vte v >= 0.34
+		//TODO vte_terminal_set_opacity (VTE_TERMINAL(vte), backbone->vte.opacity); 
 		vte_terminal_set_colors_rgba (VTE_TERMINAL(vte),
                                      &backbone->vte.foreground.rgba,
                                      &backbone->vte.background.rgba,
@@ -144,22 +142,22 @@ void apply_vte_configuration(backbone_t *backbone, GtkWidget * vte)
 	else
 	{
 		vte_terminal_set_default_colors( VTE_TERMINAL(vte) );
-		vte_terminal_set_opacity (VTE_TERMINAL(vte), 65535); //TODO remove for vte v >= 0.34
+		//TODO vte_terminal_set_opacity (VTE_TERMINAL(vte), 65535);
 	}
 	if (backbone->vte.font != NULL && g_strcmp0( backbone->vte.font->str, "") != 0 )
 		vte_terminal_set_font_from_string( VTE_TERMINAL(vte), backbone->vte.font->str);
 	
-	if (backbone->vte.background_tint_color) //TODO remove for vte v >= 0.34
+	/*TODO if (backbone->vte.background_tint_color) 
 	{
 		vte_terminal_set_background_saturation(VTE_TERMINAL(vte), backbone->vte.background_saturation);
 		vte_terminal_set_background_tint_color(VTE_TERMINAL(vte), &backbone->vte.background_tint);
 	}
 
-	if(backbone->vte.background_image) //TODO remove for vte v >= 0.34
+	TODO if(backbone->vte.background_image)
 		vte_terminal_set_background_image_file(VTE_TERMINAL(vte), backbone->vte.background_image->str);
 	else
 		vte_terminal_set_background_image(VTE_TERMINAL(vte), NULL);
-	
+	*/
 	vte_terminal_set_scrollback_lines(VTE_TERMINAL(vte), backbone->vte.scrollback_lines);
 	if(backbone->vte.cursor_color.color)
 		vte_terminal_set_color_cursor_rgba(VTE_TERMINAL(vte), &backbone->vte.cursor_color.rgba);

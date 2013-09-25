@@ -2,7 +2,7 @@
 #include <gtk/gtk.h>
 #include "colors.h"
 #include "dbg.h"
-
+/*Code stolen and adapted from pango source code*/
 /*Stuff in order to replace gdk_color_parse*/
 #include "pango-color-table.h"
 

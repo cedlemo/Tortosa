@@ -57,6 +57,7 @@ void on_switch_tabs_signal(GtkNotebook *notebook, GtkWidget   *last_vte, guint n
 		remove_pango_active_tab_color(gtk_notebook_get_nth_page(notebook,gtk_notebook_get_current_page(notebook)), notebook);
 	}
 	add_pango_active_tab_color(gtk_notebook_get_nth_page(notebook, new_vte_index), notebook, &backbone->notebook.active_tab.rgba);
+	gtk_widget_grab_focus(gtk_notebook_get_nth_page(notebook, new_vte_index));
 }
 
 void go_to_next_tab(backbone_t * backbone)
@@ -69,7 +70,7 @@ void go_to_next_tab(backbone_t * backbone)
 	gtk_widget_show_all(backbone->notebook.widget);
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(backbone->notebook.widget), next_tab_index);
 	
-	gtk_widget_grab_focus(gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), next_tab_index));
+	//gtk_widget_grab_focus(gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), next_tab_index));
 }
 
 void go_to_prev_tab(backbone_t * backbone)
@@ -81,7 +82,7 @@ void go_to_prev_tab(backbone_t * backbone)
 	
 	gtk_widget_show_all(backbone->notebook.widget);
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(backbone->notebook.widget), next_tab_index);
-	gtk_widget_grab_focus(gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), next_tab_index));
+	//gtk_widget_grab_focus(gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), next_tab_index));
 }
 
 static void set_tab_name( GtkWidget * vte, backbone_t * backbone)
@@ -133,7 +134,7 @@ void apply_vte_configuration(backbone_t *backbone, GtkWidget * vte)
 			palette[i].blue = backbone->vte.palette[i].rgba.blue;
 			palette[i].alpha = backbone->vte.palette[i].rgba.alpha;
 		}
-		vte_terminal_set_opacity (VTE_TERMINAL(vte), backbone->vte.opacity);
+		vte_terminal_set_opacity (VTE_TERMINAL(vte), backbone->vte.opacity); //TODO remove for vte v >= 0.34
 		vte_terminal_set_colors_rgba (VTE_TERMINAL(vte),
                                      &backbone->vte.foreground.rgba,
                                      &backbone->vte.background.rgba,
@@ -143,18 +144,18 @@ void apply_vte_configuration(backbone_t *backbone, GtkWidget * vte)
 	else
 	{
 		vte_terminal_set_default_colors( VTE_TERMINAL(vte) );
-		vte_terminal_set_opacity (VTE_TERMINAL(vte), 65535);
+		vte_terminal_set_opacity (VTE_TERMINAL(vte), 65535); //TODO remove for vte v >= 0.34
 	}
 	if (backbone->vte.font != NULL && g_strcmp0( backbone->vte.font->str, "") != 0 )
 		vte_terminal_set_font_from_string( VTE_TERMINAL(vte), backbone->vte.font->str);
 	
-	if (backbone->vte.background_tint_color)
+	if (backbone->vte.background_tint_color) //TODO remove for vte v >= 0.34
 	{
 		vte_terminal_set_background_saturation(VTE_TERMINAL(vte), backbone->vte.background_saturation);
 		vte_terminal_set_background_tint_color(VTE_TERMINAL(vte), &backbone->vte.background_tint);
 	}
 
-	if(backbone->vte.background_image)
+	if(backbone->vte.background_image) //TODO remove for vte v >= 0.34
 		vte_terminal_set_background_image_file(VTE_TERMINAL(vte), backbone->vte.background_image->str);
 	else
 		vte_terminal_set_background_image(VTE_TERMINAL(vte), NULL);
@@ -195,8 +196,6 @@ gboolean reload_vte_configuration( backbone_t * backbone)
 	{	
 		/*release all preallocated colors*/
 		backbone->vte.user_valid_palette=FALSE;
-//		FREE_GSTRING(backbone->vte.foreground_color);
-//		FREE_GSTRING(backbone->vte.background_color);
 		FREE_GSTRING(backbone->vte.foreground.color);
 		FREE_GSTRING(backbone->vte.background.color);
 		FREE_GSTRING(backbone->vte.command);
@@ -263,7 +262,6 @@ gboolean reload_tabs_configuration( backbone_t * backbone)
 		/*reload css in order to get active tab color*/
 		if ( backbone->css.file != NULL)
 		{
-		  //gtk_css_provider_load_from_file( GTK_CSS_PROVIDER (backbone->provider), backbone->css.file, NULL/*&error*/);
 		  load_css_regexes_match(backbone);
 		}
 

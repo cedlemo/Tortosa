@@ -227,7 +227,6 @@ void load_vte_configuration(backbone_t *backbone)
 	get_key_string(backbone->configuration.keyfile,"Vte","background_image",&backbone->vte.background_image,NULL);
 	extended_gdk_rgba_parse( &backbone->vte.foreground.rgba, backbone->vte.foreground.color->str);
 	extended_gdk_rgba_parse( &backbone->vte.background.rgba, backbone->vte.background.color->str);
-	
 	if( backbone->vte.background_image->len == 0 )
 	{
 		g_string_free(backbone->vte.background_image, TRUE);
@@ -367,7 +366,6 @@ void load_css_regexes_match(backbone_t * backbone)
 	color = get_css_regex_match(backbone->css.window_background_color_regex, string);
 	if(color)
 	{	
-		//SENTINEL("get color %s\n", color->str);
 		FREE_GSTRING(backbone->window.background.color);
 		backbone->window.background.color = color;
 		extended_gdk_rgba_parse( &backbone->window.background.rgba, backbone->window.background.color->str);

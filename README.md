@@ -24,14 +24,16 @@ So I decided to write my own terminal emulator. Even if it looks like a toy, Tor
 
 <img src="https://raw.github.com/cedlemo/Tortosa/master/tortosa_overview.png" width="576" height="324" alt="Screenshot">	
 
-**tmux in a tortosa tab. In the top tmux pans, 2 colors schemes scripts displaying terminal color. In the bottom, Tortosa configuration and css file are opened. Just need to save after modifications in the files and use reload functions in the main menu in order to see the modifications applied**
+*tmux in a tortosa tab. In the top tmux pans, 2 colors schemes scripts displaying terminal color. In the bottom, Tortosa configuration and css file are opened. Just need to save after modifications in the files and use reload functions in the main menu in order to see the modifications applied*
 	
 
 ##Dependencies:
+**Note: after the release of vte-3.4, a lot of vte functions that Tortosa uses are deprecated and will not be replaced.**
+
 
 +    Gtk+ v >= 3.0
 
-+    vte3 v >= 2.9
++    vte3 v >= 2.9 < 3.4
 
 +    autotools
 

@@ -3,13 +3,15 @@
 Tortosa is a terminal emulator based on the vte3 library. I used gnome-terminal but after different upgrades, some functionalities were removed like background transparency or Japanese input via SCIM.
 
 
-So I decided to write my own terminal emulator. Even if it looks like a toy, Tortosa do the job of a basic terminal emulator.
+So I decided to write my own terminal emulator. Even if it looks like a toy, Tortosa does the job of a basic terminal emulator.
 
 +    Tortosa has tabs management
 
 +    Tortosa can remove Window Manager decorations
 
 +    Tortosa works with SCIM
+
++    Tortosa works with X11 and Weston
 
 +    Tortosa tabs can be themed with a css file
 

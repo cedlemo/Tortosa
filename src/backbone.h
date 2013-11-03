@@ -1,6 +1,5 @@
 #include <gtk/gtk.h>
 #include <vte/vte.h>
-//#include "tgregex.h"
 #include "colors.h"
 
 #ifndef BACKBONE_H
@@ -40,11 +39,6 @@ typedef struct vte_t
 		struct color_t background;
 		struct color_t palette[16];
 	  gboolean user_valid_palette;
-		guint16 opacity;
-		GString * background_image;
-		gdouble background_saturation;
-		GString * background_tint_color;
-		GdkColor background_tint;
 		glong scrollback_lines;
 		GString * font;
 		struct color_t highlight;

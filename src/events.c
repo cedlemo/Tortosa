@@ -35,9 +35,10 @@ gboolean event_key_press(GtkWidget *widget, GdkEventKey *event, backbone_t * bac
       return TRUE;
     }
 		if (g == GDK_KEY_R) {
-		 backbone->time = event->time;
-		 display_resize_menu(event->time, backbone);
-     return TRUE;
+		 //backbone->time = event->time;
+		 //display_resize_menu(event->time, backbone);
+     reload_tortosa_configuration(backbone);
+		 return TRUE;
     }
 		if (g == GDK_KEY_G) {
 		 backbone->time = event->time;
@@ -49,21 +50,6 @@ gboolean event_key_press(GtkWidget *widget, GdkEventKey *event, backbone_t * bac
 		 toggle_fullscreen(backbone);
      return TRUE;
     }
-		//if (g == GDK_KEY_A) {
-		// backbone->time = event->time;
-		// toggle_above_below(backbone);
-    // return TRUE;
-    //}
-		//if (g == GDK_KEY_I) {
-		// backbone->time = event->time;
-		// toggle_iconify(backbone);
-    // return TRUE;
-    //}
-		//if (g == GDK_KEY_S) {
-		// backbone->time = event->time;
-		// toggle_stick(backbone);
-    // return TRUE;
-    //}
 		if (g == GDK_KEY_Down) {
 		 backbone->time = event->time;
 		 toggle_maximize(backbone);
@@ -89,10 +75,6 @@ gboolean event_key_press(GtkWidget *widget, GdkEventKey *event, backbone_t * bac
      return TRUE;
 		}
 }
-	//else if ((event->state &(GDK_CONTROL_MASK|GDK_SHIFT_MASK|GDK_BUTTON1_MASK) ) == (GDK_CONTROL_MASK|GDK_SHIFT_MASK|GDK_BUTTON1_MASK))
-	//{
-	//	SENTINEL("resize");
-	//}
 	/*nothing handled*/
 	return FALSE;
 }

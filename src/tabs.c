@@ -132,7 +132,6 @@ void apply_vte_configuration(backbone_t *backbone, GtkWidget * vte)
 			palette[i].blue = backbone->vte.palette[i].rgba.blue;
 			palette[i].alpha = backbone->vte.palette[i].rgba.alpha;
 		}
-		//TODO vte_terminal_set_opacity (VTE_TERMINAL(vte), backbone->vte.opacity); 
 		vte_terminal_set_colors_rgba (VTE_TERMINAL(vte),
                                      &backbone->vte.foreground.rgba,
                                      &backbone->vte.background.rgba,
@@ -142,22 +141,10 @@ void apply_vte_configuration(backbone_t *backbone, GtkWidget * vte)
 	else
 	{
 		vte_terminal_set_default_colors( VTE_TERMINAL(vte) );
-		//TODO vte_terminal_set_opacity (VTE_TERMINAL(vte), 65535);
 	}
 	if (backbone->vte.font != NULL && g_strcmp0( backbone->vte.font->str, "") != 0 )
 		vte_terminal_set_font_from_string( VTE_TERMINAL(vte), backbone->vte.font->str);
 	
-	/*TODO if (backbone->vte.background_tint_color) 
-	{
-		vte_terminal_set_background_saturation(VTE_TERMINAL(vte), backbone->vte.background_saturation);
-		vte_terminal_set_background_tint_color(VTE_TERMINAL(vte), &backbone->vte.background_tint);
-	}
-
-	TODO if(backbone->vte.background_image)
-		vte_terminal_set_background_image_file(VTE_TERMINAL(vte), backbone->vte.background_image->str);
-	else
-		vte_terminal_set_background_image(VTE_TERMINAL(vte), NULL);
-	*/
 	vte_terminal_set_scrollback_lines(VTE_TERMINAL(vte), backbone->vte.scrollback_lines);
 	if(backbone->vte.cursor_color.color)
 		vte_terminal_set_color_cursor_rgba(VTE_TERMINAL(vte), &backbone->vte.cursor_color.rgba);
@@ -197,14 +184,12 @@ gboolean reload_vte_configuration( backbone_t * backbone)
 		FREE_GSTRING(backbone->vte.foreground.color);
 		FREE_GSTRING(backbone->vte.background.color);
 		FREE_GSTRING(backbone->vte.command);
-		FREE_GSTRING(backbone->vte.background_image);
 		int i =0;
 		for( i =0; i<16; i++)
 		{
 			FREE_GSTRING(backbone->vte.palette[i].color);
 		}
 		FREE_GSTRING(backbone->vte.font);
-		FREE_GSTRING(backbone->vte.background_tint_color);
 		load_vte_configuration(backbone);
 		
 		gint nb_vte=gtk_notebook_get_n_pages(GTK_NOTEBOOK(backbone->notebook.widget));

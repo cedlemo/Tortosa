@@ -46,7 +46,6 @@ void free_backbone( backbone_t * backbone)
 	//SENTINEL("Free vte stuff\n");
 	FREE_GSTRING(backbone->vte.foreground.color);
 	FREE_GSTRING(backbone->vte.background.color);
-	FREE_GSTRING(backbone->vte.background_image);
 	FREE_GSTRING(backbone->vte.command);
 	int i =0;
 	for( i =0; i<16; i++)
@@ -110,10 +109,8 @@ static void set_default_config(backbone_t *backbone)
 	
 	backbone->vte.command=g_string_new(g_getenv("SHELL"));
 	backbone->vte.user_valid_palette=FALSE;
-	backbone->vte.opacity=65535;
 	backbone->vte.foreground.color=NULL;
 	backbone->vte.background.color=NULL;
-	backbone->vte.background_image=NULL;
 	backbone->vte.palette[0].color=NULL;
 	backbone->vte.palette[1].color=NULL;
 	backbone->vte.palette[2].color=NULL;
@@ -131,8 +128,6 @@ static void set_default_config(backbone_t *backbone)
 	backbone->vte.palette[14].color=NULL;
 	backbone->vte.palette[15].color=NULL;
 	backbone->vte.scrollback_lines=-1;
-	backbone->vte.background_saturation=1.0;
-	backbone->vte.background_tint_color=NULL;
 	backbone->vte.highlight.color= NULL;
 	backbone->vte.cursor_color.color=NULL;
 	backbone->vte.cursor_blink=VTE_CURSOR_BLINK_SYSTEM;
@@ -224,31 +219,12 @@ void load_vte_configuration(backbone_t *backbone)
 {
 	get_key_string(backbone->configuration.keyfile,"Vte","foreground",&backbone->vte.foreground.color, "#ffffff");
 	get_key_string(backbone->configuration.keyfile,"Vte","background",&backbone->vte.background.color, "#000000");
-	get_key_string(backbone->configuration.keyfile,"Vte","background_image",&backbone->vte.background_image,NULL);
 	extended_gdk_rgba_parse( &backbone->vte.foreground.rgba, backbone->vte.foreground.color->str);
 	extended_gdk_rgba_parse( &backbone->vte.background.rgba, backbone->vte.background.color->str);
-	if( backbone->vte.background_image->len == 0 )
-	{
-		g_string_free(backbone->vte.background_image, TRUE);
-		backbone->vte.background_image = NULL;
-	}
-	else if (g_file_test(backbone->vte.background_image->str, G_FILE_TEST_EXISTS | G_FILE_TEST_IS_REGULAR) == FALSE)
-	{
-		LOG_WARN("Vte image file %s doesn\'t exist\n", backbone->vte.background_image->str);
-		g_string_free(backbone->vte.background_image, TRUE);
-		backbone->vte.background_image = NULL;
-	}		
+		
 	get_key_string(backbone->configuration.keyfile,"Vte","command",&backbone->vte.command,g_getenv("SHELL"));
 	get_key_string(backbone->configuration.keyfile,"Vte","font",&backbone->vte.font,NULL);
 
-	/*vte opacity is taken first from the alpha channel of the background*/
-	backbone->vte.opacity = ( (guint16) (backbone->vte.background.rgba.alpha * 65535) <= 65535) ? (guint16) (backbone->vte.background.rgba.alpha * 65535) : 65535; 
-	GError *error=NULL;
-	guint64 tmp_opacity = 	g_key_file_get_uint64(backbone->configuration.keyfile,"Vte","opacity",&error);
-	if (!error)
-		backbone->vte.opacity = ( (guint16) (tmp_opacity) <= 65535) ? (guint16) (tmp_opacity) : 65535; 
-	else
-		g_error_free(error);
 	backbone->vte.user_valid_palette = TRUE;
 	gchar * color_value;
 
@@ -280,21 +256,6 @@ else\
 	LOAD_KEY_COLOR(15)
 #undef LOAD_KEY_COLOR
 	backbone->vte.scrollback_lines = (glong) g_key_file_get_uint64(backbone->configuration.keyfile,"Vte","scrollback_lines", NULL);
-	error = NULL;
-	backbone->vte.background_saturation = g_key_file_get_double(backbone->configuration.keyfile,"Vte","background_saturation", &error);	
-	if (error)
-		backbone->vte.background_saturation = 1.0;
-	
-	get_key_string(backbone->configuration.keyfile,"Vte","background_tint_color",&backbone->vte.background_tint_color, NULL);
-	if (backbone->vte.background_tint_color->len == 0)
-	{	
-		FREE_GSTRING(backbone->vte.background_tint_color);
-		backbone->vte.background_tint_color=NULL;
-	}
-	else
-	{
-		gdk_color_parse(backbone->vte.background_tint_color->str, &backbone->vte.background_tint);
-	}
 	
 	get_key_string(backbone->configuration.keyfile,"Vte","highlight",&backbone->vte.highlight.color,NULL);
 	if( backbone->vte.highlight.color->len == 0 )
@@ -452,7 +413,6 @@ gboolean reload_tortosa_configuration(backbone_t * backbone)
 		FREE_GSTRING(backbone->vte.foreground.color);
 		FREE_GSTRING(backbone->vte.background.color);
 		FREE_GSTRING(backbone->vte.command);
-		FREE_GSTRING(backbone->vte.background_image);
 		int i =0;
 		for( i =0; i<16; i++)
 		{
@@ -461,7 +421,6 @@ gboolean reload_tortosa_configuration(backbone_t * backbone)
 		FREE_GSTRING(backbone->vte.highlight.color);
 		FREE_GSTRING(backbone->vte.cursor_color.color);
 		FREE_GSTRING(backbone->vte.font);
-		FREE_GSTRING(backbone->vte.background_tint_color);
 		load_vte_configuration(backbone);
 		
 		gint nb_vte=gtk_notebook_get_n_pages(GTK_NOTEBOOK(backbone->notebook.widget));

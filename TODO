@@ -1,4 +1,6 @@
 //TODO clean code
+//solve pb: when switching tab with keyboard shortcuts no input focus on current vte
+//DONE clean on_switch_signal
 //Release v1
 //TODO create .pc file with autotools
 //TODO write indication to stolen code from gnome-terminal and pango

@@ -13,7 +13,7 @@ void close_tab(GtkWidget * vte, backbone_t * backbone)
 	gint current = gtk_notebook_get_current_page (GTK_NOTEBOOK(backbone->notebook.widget));
 	if (gtk_notebook_get_n_pages (GTK_NOTEBOOK(backbone->notebook.widget)) > 1)
 	{
-		/*Remove from GSList backbone->tabs_data*/
+    /*Remove from GSList backbone->tabs_data*/
 		remove_node_by_widget(backbone->tabs_data, gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), gtk_notebook_get_current_page (GTK_NOTEBOOK(backbone->notebook.widget))));
 		
 		gtk_notebook_remove_page (GTK_NOTEBOOK(backbone->notebook.widget), current );
@@ -24,8 +24,7 @@ void close_tab(GtkWidget * vte, backbone_t * backbone)
 	}
 	else
 	{
-		quit_gracefully(backbone);
-		//gtk_main_quit();
+    quit_gracefully(backbone);
 	}
 }
 
@@ -49,15 +48,16 @@ void add_pango_active_tab_color(GtkWidget * vte, GtkNotebook * notebook, GdkRGBA
 
 }
 
-void on_switch_tabs_signal(GtkNotebook *notebook, GtkWidget   *last_vte, guint new_vte_index, backbone_t * backbone)
+void on_switch_tabs_signal(GtkNotebook *notebook, GtkWidget   *new_vte, guint new_vte_index, backbone_t * backbone)
 {
 	
 	if(gtk_notebook_get_current_page(notebook) != -1 )
 	{	
 		remove_pango_active_tab_color(gtk_notebook_get_nth_page(notebook,gtk_notebook_get_current_page(notebook)), notebook);
 	}
-	add_pango_active_tab_color(gtk_notebook_get_nth_page(notebook, new_vte_index), notebook, &backbone->notebook.active_tab.rgba);
-	gtk_widget_grab_focus(gtk_notebook_get_nth_page(notebook, new_vte_index));
+ 	add_pango_active_tab_color(new_vte, notebook, &backbone->notebook.active_tab.rgba);
+
+  gtk_widget_grab_focus(new_vte);
 }
 
 void go_to_next_tab(backbone_t * backbone)
@@ -67,9 +67,8 @@ void go_to_next_tab(backbone_t * backbone)
 	num_of_tabs = gtk_notebook_get_n_pages(GTK_NOTEBOOK(backbone->notebook.widget)) - 1;
 	next_tab_index = current_tab < num_of_tabs ? current_tab + 1 : 0;
 
-	gtk_widget_show_all(backbone->notebook.widget);
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(backbone->notebook.widget), next_tab_index);
-	
+	gtk_widget_grab_focus( gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), next_tab_index) );
 }
 
 void go_to_prev_tab(backbone_t * backbone)
@@ -79,8 +78,14 @@ void go_to_prev_tab(backbone_t * backbone)
 	num_of_tabs = gtk_notebook_get_n_pages(GTK_NOTEBOOK(backbone->notebook.widget)) - 1;
 	next_tab_index = current_tab > 0 ? current_tab -1 : num_of_tabs;
 	
-	gtk_widget_show_all(backbone->notebook.widget);
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(backbone->notebook.widget), next_tab_index);
+	gtk_widget_grab_focus( gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), next_tab_index) );
+}
+
+void on_closed_tab_signal(GtkNotebook *notebook, GtkWidget *child, guint page_num, backbone_t * backbone)
+{
+  SENTINEL("caught signal\n");
+  //close_tab(child, backbone);
 }
 
 static void set_tab_name( GtkWidget * vte, backbone_t * backbone)

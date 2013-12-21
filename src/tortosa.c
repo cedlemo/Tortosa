@@ -117,7 +117,8 @@ int main(int argc, char ** argv)
 	backbone->notebook.widget = gtk_notebook_new();
 	gtk_notebook_set_scrollable(GTK_NOTEBOOK(backbone->notebook.widget), TRUE);
 	g_signal_connect(backbone->notebook.widget, "switch-page", G_CALLBACK(on_switch_tabs_signal), backbone);
-	apply_tabs_configuration(backbone);
+	//g_signal_connect(backbone->notebook.widget, "page-removed", G_CALLBACK(on_closed_tab_signal), backbone);
+  apply_tabs_configuration(backbone);
 	gtk_container_add (GTK_CONTAINER (backbone->window.widget), backbone->notebook.widget);
 
 	/********************/

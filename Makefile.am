@@ -1,3 +1,5 @@
+AUTOMAKE_OPTIONS = 1.4 foreign
+MAINTAINERCLEANFILES = Makefile.in aclocal.m4 config.h.in configure depcomp install-sh missing compile
 AM_CPPFLAGS = -DDATADIR=\"$(datadir)\"
 SUBDIRS=src
 datadir=@prefix@/share/@PACKAGE@

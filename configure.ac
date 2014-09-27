@@ -1,15 +1,8 @@
-#                                               -*- Autoconf -*-
-# Process this file with autoconf to produce a configure script.
-
-AC_PREREQ([2.69])
 AC_INIT(tortosa, 0.1, cedlemo@gmx.com)
-AM_INIT_AUTOMAKE
+AC_PREREQ([2.69])
+AC_CONFIG_SRCDIR(configure.ac)
 
-
-#AC_CONFIG_SRCDIR([src/gears.h])
-#AC_CONFIG_HEADERS([config.h])
-
-# Checks for programs.
+AM_CONFIG_HEADER(config.h)
 AC_PROG_CC
 AC_PROG_INSTALL
 AM_PROG_CC_C_O
@@ -26,6 +19,7 @@ PKG_CHECK_MODULES([DEPS], [vte-2.90 gtk+-3.0 cairo])
 
 # Checks for library functions.
 AC_FUNC_MALLOC
+AM_INIT_AUTOMAKE
 
 AC_CONFIG_FILES([
 								Makefile

@@ -181,14 +181,14 @@ gboolean extended_gdk_rgba_parse (GdkRGBA *rgba,  const gchar *spec)
 	if (strncmp (str, "rgba", 4) == 0)
     {
       has_alpha = TRUE;
-      str += 4;
+      str += 5;
     }
   /*str start with rgb*/
   else if (strncmp (str, "rgb", 3) == 0)
     {
       has_alpha = FALSE;
       a = 1;
-      str += 3;
+      str += 4;
     }
   /* parse rgb.txt color  map and '#' prefixed colors */
 	else

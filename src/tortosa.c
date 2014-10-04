@@ -10,6 +10,17 @@
 #include "backbone.h"
 #include "dbg.h"
 #include "tgregex.h"
+static print_help()
+{
+  printf("✔ Tortosa Terminal Beta usage:\n");
+  printf("\ttortosa [options]\n");
+  printf("\tWith options:\n");
+  printf("\t\t» --help or -v: displays this help\n");
+  printf("\t\t» --version or -v: displays the version of this software \n");
+  printf("\t\t» --config [file] or -c [file]: use file as the main configuration file\n");
+  printf("\t\t\t tortosa search for $HOME/.config/tortosa/tortosarc as default configuration file\n");
+  printf("\t\t» --execute [command] or -e [command]: execute the command given in parameter\n");
+}
 
 int main(int argc, char ** argv)
 {
@@ -30,12 +41,12 @@ int main(int argc, char ** argv)
 		switch(opt)
 		{
 			case 'v':
-				printf("✔ Tortosa Terminal Beta\n");
+				printf("✔ Tortosa Terminal Beta (use -h or --help for help)\n");
 				exit(EXIT_SUCCESS);
 				break;
 			case 'h':
-				printf("✔ Tortosa Terminal Beta help:\n");
-				exit(EXIT_SUCCESS);
+				print_help();
+        exit(EXIT_SUCCESS);
 				break;
 			case 'e':
 				printf("Execute :%s\n",optarg);
@@ -124,10 +135,10 @@ int main(int argc, char ** argv)
 	/********************/
 	/* Create first tab */
 	/********************/
-
 	new_tab(backbone);
 	gtk_widget_show_all(backbone->window.widget);
-	/**********************/
+	
+  /**********************/
 	/* Create menus */
 	/**********************/
 

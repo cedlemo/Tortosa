@@ -9,7 +9,8 @@ AM_PROG_CC_C_O
 
 # Checks for libraries.
 #AC_SEARCH_LIBS(vte-2.90,gtk+-3.0, [],AC_MSG_ERROR([missing libs]))
-PKG_CHECK_MODULES([DEPS], [vte-2.90 gtk+-3.0 cairo])
+#PKG_CHECK_MODULES([DEPS], [vte-2.90 gtk+-3.0 cairo])
+PKG_CHECK_MODULES([DEPS], [vte-2.91 gtk+-3.0 cairo])
 #PKG_CHECK_MODULES([GTK3], [gtk+-3.0])
 
 # Checks for header files.

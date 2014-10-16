@@ -137,7 +137,7 @@ void apply_vte_configuration(backbone_t *backbone, GtkWidget * vte)
 			palette[i].blue = backbone->vte.palette[i].rgba.blue;
 			palette[i].alpha = backbone->vte.palette[i].rgba.alpha;
 		}
-		vte_terminal_set_colors_rgba (VTE_TERMINAL(vte),
+		vte_terminal_set_colors(VTE_TERMINAL(vte),
                                      &backbone->vte.foreground.rgba,
                                      &backbone->vte.background.rgba,
                                      palette,
@@ -148,21 +148,20 @@ void apply_vte_configuration(backbone_t *backbone, GtkWidget * vte)
 		vte_terminal_set_default_colors( VTE_TERMINAL(vte) );
 	}
 	if (backbone->vte.font != NULL && g_strcmp0( backbone->vte.font->str, "") != 0 )
-		vte_terminal_set_font_from_string( VTE_TERMINAL(vte), backbone->vte.font->str);
+		vte_terminal_set_font( VTE_TERMINAL(vte), pango_font_description_from_string(backbone->vte.font->str));
 	
 	vte_terminal_set_scrollback_lines(VTE_TERMINAL(vte), backbone->vte.scrollback_lines);
 	if(backbone->vte.cursor_color.color)
-		vte_terminal_set_color_cursor_rgba(VTE_TERMINAL(vte), &backbone->vte.cursor_color.rgba);
+		vte_terminal_set_color_cursor(VTE_TERMINAL(vte), &backbone->vte.cursor_color.rgba);
 	else
-		vte_terminal_set_color_cursor_rgba(VTE_TERMINAL(vte), NULL);
+		vte_terminal_set_color_cursor(VTE_TERMINAL(vte), NULL);
 	vte_terminal_set_cursor_shape(VTE_TERMINAL(vte), backbone->vte.cursor_shape);
 	vte_terminal_set_cursor_blink_mode(VTE_TERMINAL(vte), backbone->vte.cursor_blink);
 	if(backbone->vte.highlight.color)
-		vte_terminal_set_color_highlight_rgba(VTE_TERMINAL(vte), &backbone->vte.highlight.rgba);
+		vte_terminal_set_color_highlight(VTE_TERMINAL(vte), &backbone->vte.highlight.rgba);
 	else
-		vte_terminal_set_color_highlight_rgba(VTE_TERMINAL(vte), NULL);
+		vte_terminal_set_color_highlight(VTE_TERMINAL(vte), NULL);
 	
-	vte_terminal_set_visible_bell(VTE_TERMINAL(vte), backbone->vte.bell_visible);
 	vte_terminal_set_audible_bell(VTE_TERMINAL(vte), backbone->vte.bell_audible);
 }
 
@@ -317,9 +316,9 @@ void new_tab( backbone_t * backbone)
 		}
 	}
 
-	GError *error = NULL;
-	vte = vte_terminal_new();
-	if( !vte_terminal_fork_command_full( VTE_TERMINAL(vte),
+	GError *error = NULL; 
+  vte = vte_terminal_new();
+	if( !vte_terminal_spawn_sync( VTE_TERMINAL(vte),
 																	VTE_PTY_DEFAULT,
 																	working_directory,
 																	argvp,
@@ -328,7 +327,8 @@ void new_tab( backbone_t * backbone)
 																	NULL,
 																	NULL,
 																	&pid,
-																	&error))
+																	NULL,
+                                  &error))
 	{
 		LOG_ERR("%s\n", error->message);
 		g_strfreev(argvp);

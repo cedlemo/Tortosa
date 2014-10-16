@@ -43,9 +43,8 @@ typedef struct vte_t
 		GString * font;
 		struct color_t highlight;
 		struct color_t cursor_color;
-		VteTerminalCursorBlinkMode cursor_blink;
-		VteTerminalCursorShape cursor_shape;
-		gboolean bell_visible;
+		VteCursorBlinkMode cursor_blink;
+		VteCursorShape cursor_shape;
 		gboolean bell_audible;
 }vte_t;
 

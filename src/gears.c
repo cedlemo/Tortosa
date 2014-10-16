@@ -133,7 +133,6 @@ static void set_default_config(backbone_t *backbone)
 	backbone->vte.cursor_blink=VTE_CURSOR_BLINK_SYSTEM;
 	backbone->vte.cursor_shape=VTE_CURSOR_SHAPE_BLOCK;
 	backbone->vte.bell_audible = FALSE;
-	backbone->vte.bell_visible = FALSE;
 	backbone->vte.font = NULL;
 	backbone->css.path=NULL;
 	backbone->css.file=NULL;
@@ -290,7 +289,6 @@ else\
 	g_string_free(cursor_blink, TRUE);
 	
 	get_key_bool(backbone->configuration.keyfile, "Vte","bell_audible",&backbone->vte.bell_audible ,FALSE);
-	get_key_bool(backbone->configuration.keyfile, "Vte","bell_visible",&backbone->vte.bell_visible ,FALSE);
 	
 	GString * cursor_shape;
 	get_key_string(backbone->configuration.keyfile,"Vte","cursor_shape",&cursor_shape, "block");

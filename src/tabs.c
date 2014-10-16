@@ -248,10 +248,10 @@ gboolean reload_tabs_configuration( backbone_t * backbone)
 		apply_tabs_configuration(backbone);
 		
 		/*reload css in order to get active tab color*/
-		if ( backbone->css.file != NULL)
-		{
-		  load_css_regexes_match(backbone);
-		}
+		//if ( backbone->css.file != NULL)
+		//{
+		//  load_css_regexes_match(backbone);
+		//}
 
 		GtkWidget * current_vte = gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), gtk_notebook_get_current_page(GTK_NOTEBOOK(backbone->notebook.widget)));
 		remove_pango_active_tab_color(current_vte, GTK_NOTEBOOK(backbone->notebook.widget));
@@ -338,38 +338,38 @@ void new_tab( backbone_t * backbone)
 	g_strfreev(argvp);
 
 	/*register our tabs data in the tabs_data GSList*/
-	tab_data_t * tab_data = g_new0(tab_data_t, 1);
-	tab_data->widget = vte;
-	tab_data->pid = pid;
-	tab_data->match_tags = NULL;
-	tab_data->current_match = NULL;
-	tab_data->current_flavor = 666; /*a number not in the enum range*/
+//	tab_data_t * tab_data = g_new0(tab_data_t, 1);
+//	tab_data->widget = vte;
+//	tab_data->pid = pid;
+//	tab_data->match_tags = NULL;
+//	tab_data->current_match = NULL;
+//	tab_data->current_flavor = 666; /*a number not in the enum range*/
 
-	int i;
-  for (i = 0; i < backbone->regexes.number; ++i)
-  {
-		TagData *tag_data;
-		tag_data = g_slice_new (TagData);
-		tag_data->flavor = backbone->regexes.flavors[i];
-		tag_data->tag = vte_terminal_match_add_gregex(VTE_TERMINAL(vte), backbone->regexes.g_regexes[i], 0);
-		tab_data->match_tags = g_slist_prepend( tab_data->match_tags, tag_data);
-	}
-	backbone->tabs_data = g_slist_append(backbone->tabs_data, tab_data);
+//	int i;
+//  for (i = 0; i < backbone->regexes.number; ++i)
+//  {
+//		TagData *tag_data;
+//		tag_data = g_slice_new (TagData);
+//		tag_data->flavor = backbone->regexes.flavors[i];
+//		tag_data->tag = vte_terminal_match_add_gregex(VTE_TERMINAL(vte), backbone->regexes.g_regexes[i], 0);
+//		tab_data->match_tags = g_slist_prepend( tab_data->match_tags, tag_data);
+//	}
+//	backbone->tabs_data = g_slist_append(backbone->tabs_data, tab_data);
 
 
 	g_signal_connect(vte, "child-exited", G_CALLBACK(close_tab), backbone);
-	g_signal_connect(vte, "button-press-event", G_CALLBACK(event_button_press), backbone);	
+//	g_signal_connect(vte, "button-press-event", G_CALLBACK(event_button_press), backbone);	
 
-	apply_vte_configuration(backbone, vte);
+//	apply_vte_configuration(backbone, vte);
 
 	int index = gtk_notebook_append_page(GTK_NOTEBOOK(backbone->notebook.widget), vte, NULL);
 	gtk_notebook_set_tab_reorderable(	GTK_NOTEBOOK(backbone->notebook.widget),
 																		vte, 
 																		TRUE);
 	
-	set_tab_name(vte, backbone);
+//	set_tab_name(vte, backbone);
 	
-	g_signal_connect(vte, "window-title-changed", G_CALLBACK(set_tab_name),backbone);
+//	g_signal_connect(vte, "window-title-changed", G_CALLBACK(set_tab_name),backbone);
 
 	gtk_widget_show_all(backbone->notebook.widget);
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(backbone->notebook.widget), index);

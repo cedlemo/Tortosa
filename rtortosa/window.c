@@ -114,7 +114,8 @@ gboolean get_window_state(GtkWidget * widget, GdkEventWindowState *event, backbo
 void apply_window_configuration(GtkWidget * window, backbone_t * backbone)
 {
 	gtk_window_set_title(GTK_WINDOW(window), backbone->window.title->str);
-	gtk_window_set_role(GTK_WINDOW(window), backbone->window.role->str);
+	gtk_window_set_wmclass(GTK_WINDOW(backbone->window.widget), backbone->window.wm_name->str, backbone->window.wm_class->str); 
+  gtk_window_set_role(GTK_WINDOW(window), backbone->window.role->str);
 	if ( backbone->window.width != 0 && backbone->window.height != 0)
 		gtk_window_resize (GTK_WINDOW(window), backbone->window.width, backbone->window.height);
 	//Remove window decoration caution !! remove resize controls too

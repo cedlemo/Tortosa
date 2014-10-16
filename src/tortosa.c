@@ -3,13 +3,9 @@
 #include <gtk/gtk.h>
 #include <cairo.h>
 #include "window.h"
-#include "tabs.h"
-#include "menus.h"
-#include "events.h"
 #include "gears.h"
 #include "backbone.h"
 #include "dbg.h"
-#include "tgregex.h"
 static print_help()
 {
   printf("✔ Tortosa Terminal Beta usage:\n");
@@ -51,15 +47,12 @@ int main(int argc, char ** argv)
 			case 'e':
 				printf("Execute :%s\n",optarg);
 				arg_command_to_execute = g_string_new(optarg);
-				//exit(EXIT_SUCCESS);
 				break;
 			case 'c':
 				printf("Fichier de configuration :%s\n",optarg);
 				arg_configuration_file = g_string_new(optarg);
-				//exit(EXIT_SUCCESS);
 				break;
 		}
-
 	
 	gtk_init(&argc, &argv);
 	
@@ -80,17 +73,16 @@ int main(int argc, char ** argv)
 	
 	g_string_free(home, TRUE);
 	
-	load_config(backbone);
-	//TODO rename	
-	precompile_regex(backbone);
+	set_default_config(backbone);
 	
 	backbone->display = gdk_display_get_default ();
 	backbone->screen = gdk_display_get_default_screen (backbone->display);
 
-	backbone->provider = gtk_css_provider_new ();
-	gtk_style_context_add_provider_for_screen (	backbone->screen, 
-																							GTK_STYLE_PROVIDER (backbone->provider), 
-																							GTK_STYLE_PROVIDER_PRIORITY_USER);
+	//backbone->provider = gtk_css_provider_new ();
+	//gtk_style_context_add_provider_for_screen (	backbone->screen, 
+	//																						GTK_STYLE_PROVIDER (backbone->provider), 
+	//
+	//																					GTK_STYLE_PROVIDER_PRIORITY_USER);
 	/***************/	
 	/* Main Window */
 	/***************/
@@ -106,45 +98,24 @@ int main(int argc, char ** argv)
 	g_signal_connect(backbone->window.widget, "window-state-event", G_CALLBACK(get_window_state), backbone); //get window state events, this is used by fullscreen, above/below, iconify, maximize ... actions	
 	g_signal_connect(G_OBJECT(backbone->window.widget), "draw", G_CALLBACK(draw_window_background), backbone); //redraw window background when needed
 	g_signal_connect(backbone->window.widget, "screen-changed", G_CALLBACK(init_window_visual_with_alpha), backbone); //re-define the visual of the window if this one move to another screen
-	g_signal_connect(backbone->provider, "parsing-error", G_CALLBACK(display_css_error_parsing), backbone); //display a warning if there are errors in the css file when loading/re-loading it.
-	g_signal_connect(backbone->window.widget, "key-press-event", G_CALLBACK(event_key_press), backbone);
+	//g_signal_connect(backbone->provider, "parsing-error", G_CALLBACK(display_css_error_parsing), backbone); //display a warning if there are errors in the css file when loading/re-loading it.
+	//g_signal_connect(backbone->window.widget, "key-press-event", G_CALLBACK(event_key_press), backbone);
 	
-	/*css*/
-	if ( backbone->css.file != NULL)
-	{
-		/*load css*/
-		gtk_css_provider_load_from_file( GTK_CSS_PROVIDER (backbone->provider), backbone->css.file, NULL);
-		/*compile css regexes for window background, notebook tab active color*/
-		compile_css_regexes(backbone);
-		/*get matches*/
-		load_css_regexes_match(backbone);
-		gtk_widget_queue_draw(backbone->window.widget);
-	}
 	
 	/**********************/
 	/* Notebook container */
 	/**********************/
 
-	backbone->notebook.widget = gtk_notebook_new();
-	gtk_notebook_set_scrollable(GTK_NOTEBOOK(backbone->notebook.widget), TRUE);
-	g_signal_connect(backbone->notebook.widget, "switch-page", G_CALLBACK(on_switch_tabs_signal), backbone);
+//	backbone->notebook.widget = gtk_notebook_new();
+//	gtk_notebook_set_scrollable(GTK_NOTEBOOK(backbone->notebook.widget), TRUE);
+//	g_signal_connect(backbone->notebook.widget, "switch-page", G_CALLBACK(on_switch_tabs_signal), backbone);
 	//g_signal_connect(backbone->notebook.widget, "page-removed", G_CALLBACK(on_closed_tab_signal), backbone);
-  apply_tabs_configuration(backbone);
-	gtk_container_add (GTK_CONTAINER (backbone->window.widget), backbone->notebook.widget);
-
-	/********************/
-	/* Create first tab */
-	/********************/
-	new_tab(backbone);
+//  apply_tabs_configuration(backbone);
+//	gtk_container_add (GTK_CONTAINER (backbone->window.widget), backbone->notebook.widget);
+//
+//	new_tab(backbone);
 	gtk_widget_show_all(backbone->window.widget);
 	
-  /**********************/
-	/* Create menus */
-	/**********************/
-
-	create_resize_menu(backbone);
-	create_reload_menu(backbone);
-	create_main_menu(backbone);	
 	gtk_main();
 	return EXIT_SUCCESS;
 }

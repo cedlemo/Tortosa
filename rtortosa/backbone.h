@@ -50,4 +50,5 @@ typedef struct
 	} state;
 } backbone_t ;
 
+extern backbone_t backbone;
 #endif

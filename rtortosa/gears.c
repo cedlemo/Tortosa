@@ -47,7 +47,6 @@ void free_backbone( backbone_t * backbone)
 
 void quit_gracefully(backbone_t * backbone)
 {
-	free_backbone(backbone);
 	gtk_main_quit();
 }
 
@@ -65,12 +64,12 @@ void set_default_config(backbone_t *backbone)
 }
 
 /*Check the window manager*/
-gboolean window_manager_is_gnome_like(GdkScreen * screen)
+/*gboolean window_manager_is_gnome_like(GdkScreen * screen)
 {
 	const char cinnamon[]="Mutter (Muffin)";
 	const char gnomeshell[]="GNOME Shell";
-	char * current_WM = gdk_x11_screen_get_window_manager_name(screen);
-	//SENTINEL("%s\n", current_WM);
+	const char * current_WM = gdk_x11_screen_get_window_manager_name(screen);
+	SENTINEL("%s\n", current_WM);
 	gboolean is_gnome_like = FALSE;
 
 	if ( g_strcmp0(current_WM, cinnamon) == 0)
@@ -79,4 +78,4 @@ gboolean window_manager_is_gnome_like(GdkScreen * screen)
 		is_gnome_like = TRUE;
 
 	return is_gnome_like;
-}
+}*/

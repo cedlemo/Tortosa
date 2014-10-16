@@ -1,3 +1,10 @@
+//see memory leak problem
+  remove css support
+  remove tab text color support
+  remove regex support
+
+
+
 //TODO clean code
 //solve pb: when switching tab with keyboard shortcuts no input focus on current vte
 //DONE clean on_switch_signal

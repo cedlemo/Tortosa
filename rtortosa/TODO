@@ -1,0 +1,3 @@
+create class Rtortosa::Color
+
+manage key events for the main window

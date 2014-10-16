@@ -4,7 +4,7 @@
 #include "window.h"
 #include "gears.h"
 #include "tabs.h"
-#include "menus.h"
+//#include "menus.h"
 #include "dbg.h"
 #include "tgregex.h"
 
@@ -55,21 +55,21 @@ gboolean event_key_press(GtkWidget *widget, GdkEventKey *event, backbone_t * bac
 		 toggle_maximize(backbone);
      return TRUE;
     }
-		if (g == GDK_KEY_Z) {
+		/*if (g == GDK_KEY_Z) {
 		 backbone->time = event->time;
 		 reload_css_theme(backbone);
      return TRUE;
-    }
+    }*/
 		if (g == GDK_KEY_Y) {
 		 backbone->time = event->time;
 		 reload_vte_configuration(backbone);
      return TRUE;
     }	
-			if (g == GDK_KEY_M) {
+		/*	if (g == GDK_KEY_M) {
 		 backbone->time = event->time;
 		 display_main_menu(event->time, backbone, NULL, 666);
      return TRUE;
-		}
+		}*/
 			if (g == GDK_KEY_Q) {
 		 quit_gracefully(backbone);
      return TRUE;
@@ -106,67 +106,6 @@ gboolean event_button_press(GtkWidget *widget, GdkEventButton *event, backbone_t
 		return TRUE;
 	}
 	/*nothing handled*/
-	return FALSE;
-}
-
-gboolean get_window_state(GtkWidget * widget, GdkEventWindowState *event, backbone_t * backbone)
-{
-	if ( event->new_window_state &GDK_WINDOW_STATE_WITHDRAWN)
-	{
-		backbone->state.withdrawn = TRUE;
-		//SENTINEL("withdraw\n");
-	}
-	else
-		backbone->state.withdrawn = FALSE;
-	
-	if ( event->new_window_state &GDK_WINDOW_STATE_ICONIFIED)
-	{
-		backbone->state.iconified = TRUE;
-		//SENTINEL("iconified\n");
-	}
-	else
-		backbone->state.iconified = FALSE;
-	
-	if ( event->new_window_state &GDK_WINDOW_STATE_MAXIMIZED)
-	{
-		backbone->state.maximized = TRUE;
-		//SENTINEL("maximized\n");
-	}
-	else
-		backbone->state.maximized = FALSE;
-	
-	if ( event->new_window_state &GDK_WINDOW_STATE_STICKY)
-	{
-		backbone->state.sticky = TRUE;
-		//SENTINEL("sticky\n");
-	}
-	else
-		backbone->state.sticky = FALSE;
-	
-	if ( event->new_window_state &GDK_WINDOW_STATE_FULLSCREEN)
-	{
-		backbone->state.fullscreen = TRUE;
-		//SENTINEL("fullscreen\n");
-	}
-	else
-		backbone->state.fullscreen = FALSE;
-	
-	if ( event->new_window_state &GDK_WINDOW_STATE_ABOVE)
-	{
-		backbone->state.above = TRUE;
-		//SENTINEL("above\n");
-	}
-	else
-		backbone->state.above = FALSE;
-	
-	if ( event->new_window_state &GDK_WINDOW_STATE_BELOW)
-	{
-		backbone->state.below = TRUE;
-		//SENTINEL("below\n");
-	}
-	else
-		backbone->state.below = FALSE;
-	
 	return FALSE;
 }
 

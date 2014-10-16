@@ -91,10 +91,8 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_tortosa_OBJECTS = tortosa-tortosa.$(OBJEXT) \
-	tortosa-window.$(OBJEXT) tortosa-tabs.$(OBJEXT) \
-	tortosa-events.$(OBJEXT) tortosa-gears.$(OBJEXT) \
-	tortosa-menus.$(OBJEXT) tortosa-colors.$(OBJEXT) \
-	tortosa-tgregex.$(OBJEXT)
+	tortosa-window.$(OBJEXT) tortosa-gears.$(OBJEXT) \
+	tortosa-colors.$(OBJEXT)
 tortosa_OBJECTS = $(am_tortosa_OBJECTS)
 tortosa_LDADD = $(LDADD)
 tortosa_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(tortosa_LDFLAGS) \
@@ -252,7 +250,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 tortosa_LDFLAGS = $(DEPS_LIBS) 
 tortosa_CPPFLAGS = $(DEPS_CFLAGS) -DDATADIR=\"$(datadir)\"
-tortosa_SOURCES = tortosa.c  window.c tabs.c events.c  gears.c menus.c colors.c tgregex.c
+tortosa_SOURCES = tortosa.c  window.c gears.c colors.c
 all: all-am
 
 .SUFFIXES:
@@ -341,11 +339,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tortosa-colors.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tortosa-events.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tortosa-gears.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tortosa-menus.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tortosa-tabs.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tortosa-tgregex.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tortosa-tortosa.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tortosa-window.Po@am__quote@
 
@@ -391,34 +385,6 @@ tortosa-window.obj: window.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tortosa-window.obj `if test -f 'window.c'; then $(CYGPATH_W) 'window.c'; else $(CYGPATH_W) '$(srcdir)/window.c'; fi`
 
-tortosa-tabs.o: tabs.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tortosa-tabs.o -MD -MP -MF $(DEPDIR)/tortosa-tabs.Tpo -c -o tortosa-tabs.o `test -f 'tabs.c' || echo '$(srcdir)/'`tabs.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/tortosa-tabs.Tpo $(DEPDIR)/tortosa-tabs.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='tabs.c' object='tortosa-tabs.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tortosa-tabs.o `test -f 'tabs.c' || echo '$(srcdir)/'`tabs.c
-
-tortosa-tabs.obj: tabs.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tortosa-tabs.obj -MD -MP -MF $(DEPDIR)/tortosa-tabs.Tpo -c -o tortosa-tabs.obj `if test -f 'tabs.c'; then $(CYGPATH_W) 'tabs.c'; else $(CYGPATH_W) '$(srcdir)/tabs.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/tortosa-tabs.Tpo $(DEPDIR)/tortosa-tabs.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='tabs.c' object='tortosa-tabs.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tortosa-tabs.obj `if test -f 'tabs.c'; then $(CYGPATH_W) 'tabs.c'; else $(CYGPATH_W) '$(srcdir)/tabs.c'; fi`
-
-tortosa-events.o: events.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tortosa-events.o -MD -MP -MF $(DEPDIR)/tortosa-events.Tpo -c -o tortosa-events.o `test -f 'events.c' || echo '$(srcdir)/'`events.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/tortosa-events.Tpo $(DEPDIR)/tortosa-events.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='events.c' object='tortosa-events.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tortosa-events.o `test -f 'events.c' || echo '$(srcdir)/'`events.c
-
-tortosa-events.obj: events.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tortosa-events.obj -MD -MP -MF $(DEPDIR)/tortosa-events.Tpo -c -o tortosa-events.obj `if test -f 'events.c'; then $(CYGPATH_W) 'events.c'; else $(CYGPATH_W) '$(srcdir)/events.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/tortosa-events.Tpo $(DEPDIR)/tortosa-events.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='events.c' object='tortosa-events.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tortosa-events.obj `if test -f 'events.c'; then $(CYGPATH_W) 'events.c'; else $(CYGPATH_W) '$(srcdir)/events.c'; fi`
-
 tortosa-gears.o: gears.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tortosa-gears.o -MD -MP -MF $(DEPDIR)/tortosa-gears.Tpo -c -o tortosa-gears.o `test -f 'gears.c' || echo '$(srcdir)/'`gears.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/tortosa-gears.Tpo $(DEPDIR)/tortosa-gears.Po
@@ -433,20 +399,6 @@ tortosa-gears.obj: gears.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tortosa-gears.obj `if test -f 'gears.c'; then $(CYGPATH_W) 'gears.c'; else $(CYGPATH_W) '$(srcdir)/gears.c'; fi`
 
-tortosa-menus.o: menus.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tortosa-menus.o -MD -MP -MF $(DEPDIR)/tortosa-menus.Tpo -c -o tortosa-menus.o `test -f 'menus.c' || echo '$(srcdir)/'`menus.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/tortosa-menus.Tpo $(DEPDIR)/tortosa-menus.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='menus.c' object='tortosa-menus.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tortosa-menus.o `test -f 'menus.c' || echo '$(srcdir)/'`menus.c
-
-tortosa-menus.obj: menus.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tortosa-menus.obj -MD -MP -MF $(DEPDIR)/tortosa-menus.Tpo -c -o tortosa-menus.obj `if test -f 'menus.c'; then $(CYGPATH_W) 'menus.c'; else $(CYGPATH_W) '$(srcdir)/menus.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/tortosa-menus.Tpo $(DEPDIR)/tortosa-menus.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='menus.c' object='tortosa-menus.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tortosa-menus.obj `if test -f 'menus.c'; then $(CYGPATH_W) 'menus.c'; else $(CYGPATH_W) '$(srcdir)/menus.c'; fi`
-
 tortosa-colors.o: colors.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tortosa-colors.o -MD -MP -MF $(DEPDIR)/tortosa-colors.Tpo -c -o tortosa-colors.o `test -f 'colors.c' || echo '$(srcdir)/'`colors.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/tortosa-colors.Tpo $(DEPDIR)/tortosa-colors.Po
@@ -460,20 +412,6 @@ tortosa-colors.obj: colors.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='colors.c' object='tortosa-colors.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tortosa-colors.obj `if test -f 'colors.c'; then $(CYGPATH_W) 'colors.c'; else $(CYGPATH_W) '$(srcdir)/colors.c'; fi`
-
-tortosa-tgregex.o: tgregex.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tortosa-tgregex.o -MD -MP -MF $(DEPDIR)/tortosa-tgregex.Tpo -c -o tortosa-tgregex.o `test -f 'tgregex.c' || echo '$(srcdir)/'`tgregex.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/tortosa-tgregex.Tpo $(DEPDIR)/tortosa-tgregex.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='tgregex.c' object='tortosa-tgregex.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tortosa-tgregex.o `test -f 'tgregex.c' || echo '$(srcdir)/'`tgregex.c
-
-tortosa-tgregex.obj: tgregex.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tortosa-tgregex.obj -MD -MP -MF $(DEPDIR)/tortosa-tgregex.Tpo -c -o tortosa-tgregex.obj `if test -f 'tgregex.c'; then $(CYGPATH_W) 'tgregex.c'; else $(CYGPATH_W) '$(srcdir)/tgregex.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/tortosa-tgregex.Tpo $(DEPDIR)/tortosa-tgregex.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='tgregex.c' object='tortosa-tgregex.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tortosa_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tortosa-tgregex.obj `if test -f 'tgregex.c'; then $(CYGPATH_W) 'tgregex.c'; else $(CYGPATH_W) '$(srcdir)/tgregex.c'; fi`
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique

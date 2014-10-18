@@ -35,19 +35,21 @@ void free_backbone( backbone_t * backbone)
 	FREE_GSTRING(backbone->window.wm_name);
 	FREE_GSTRING(backbone->window.role);
 	FREE_GSTRING(backbone->window.background.color);
-	
-	FREE_GSTRING(backbone->configuration.dir_path);
-	FREE_GSTRING(backbone->configuration.file_path);
+
+  FREE_GSTRING(backbone->command.line);	
+	//FREE_GSTRING(backbone->configuration.dir_path);
+	//FREE_GSTRING(backbone->configuration.file_path);
 	/*no need to free args.configuration_file (already freed with FREE_GSTRING(backbone->configuration.file_path);*/
-	FREE_GSTRING(backbone->args.command_to_execute);
+	//FREE_GSTRING(backbone->args.command_to_execute);
 
 	//SENTINEL("Free main backbone\n");
-	free((void *) backbone);
+	//free((void *) backbone);
 }
 
 void quit_gracefully(backbone_t * backbone)
 {
-	gtk_main_quit();
+	free_backbone(backbone);
+  gtk_main_quit();
 }
 
 void set_default_config(backbone_t *backbone)

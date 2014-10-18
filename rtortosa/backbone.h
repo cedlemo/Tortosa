@@ -27,6 +27,13 @@ typedef struct conf_t
 	GKeyFile * keyfile;
 }conf_t;
 
+/*Command mode helper*/
+typedef struct command_t
+{
+  GString * line;
+  gboolean mode;
+} command_t;
+
 typedef struct  
 {
 	struct {
@@ -48,6 +55,7 @@ typedef struct
 		gboolean above;
 		gboolean below;
 	} state;
+  struct command_t command;
 } backbone_t ;
 
 extern backbone_t backbone;

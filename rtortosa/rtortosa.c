@@ -75,6 +75,8 @@ static VALUE rtortosa_set_background_color( VALUE self, VALUE color)
 {
   color_t *c;
   Data_Get_Struct(color, color_t, c);
+  if(backbone.window.background.color)
+    g_string_free(backbone.window.background.color, TRUE);
   backbone.window.background.color = g_string_new(c->color->str);
   backbone.window.background.rgba.red = c->rgba.red;
   backbone.window.background.rgba.green = c->rgba.green;

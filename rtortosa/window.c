@@ -44,12 +44,13 @@ gboolean draw_window_background(GtkWidget *widget, cairo_t *cr, backbone_t * bac
 		cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
 		cairo_paint(cr);
 		cairo_set_operator(cr, CAIRO_OPERATOR_OVER);
-		return FALSE;
+		//pango_cairo_show_layout (cr, backbone->window.layout);
+    return FALSE;
 	}
   return FALSE;
 /*Must always return false otherwise tabs are not displayed don't know why*/
 }
-
+/*
 gboolean get_window_state(GtkWidget * widget, GdkEventWindowState *event, backbone_t * backbone)
 {
 	if ( event->new_window_state &GDK_WINDOW_STATE_WITHDRAWN)
@@ -110,8 +111,8 @@ gboolean get_window_state(GtkWidget * widget, GdkEventWindowState *event, backbo
 	
 	return FALSE;
 }
-
-void apply_window_configuration(GtkWidget * window, backbone_t * backbone)
+*/
+/*void apply_window_configuration(GtkWidget * window, backbone_t * backbone)
 {
 	gtk_window_set_title(GTK_WINDOW(window), backbone->window.title->str);
 	gtk_window_set_wmclass(GTK_WINDOW(backbone->window.widget), backbone->window.wm_name->str, backbone->window.wm_class->str); 
@@ -121,4 +122,4 @@ void apply_window_configuration(GtkWidget * window, backbone_t * backbone)
 	//Remove window decoration caution !! remove resize controls too
 	gtk_window_set_decorated (GTK_WINDOW(window), backbone->window.decorated);
 }
-
+*/

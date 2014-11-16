@@ -2,7 +2,6 @@
 require "../rtortosa"
 
 win = Rtortosa::init()
-win::height = 100 
-win::width = 800
+win::set_default_size(800, 100) 
 win::background_color = Rtortosa::Color.new("#333333ff") 
 win::run

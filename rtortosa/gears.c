@@ -6,7 +6,7 @@
 #include "dbg.h"
 
 /*Stuff for creating and freeing backbone*/
-backbone_t * new_backbone( void)
+/*backbone_t * new_backbone( void)
 {
 	backbone_t * backbone;
 	backbone = (backbone_t *) malloc( sizeof(backbone_t) );
@@ -26,14 +26,14 @@ backbone_t * new_backbone( void)
 	backbone->args.command_to_execute = NULL;
 	return backbone;
 }
-
+*/
 void free_backbone( backbone_t * backbone)
 {
 	//SENTINEL("Free window stuff\n");
-	FREE_GSTRING(backbone->window.title);
-	FREE_GSTRING(backbone->window.wm_class);
-	FREE_GSTRING(backbone->window.wm_name);
-	FREE_GSTRING(backbone->window.role);
+//	FREE_GSTRING(backbone->window.title);
+//	FREE_GSTRING(backbone->window.wm_class);
+//	FREE_GSTRING(backbone->window.wm_name);
+//	FREE_GSTRING(backbone->window.role);
 	FREE_GSTRING(backbone->window.background.color);
 
   FREE_GSTRING(backbone->command.line);	
@@ -52,7 +52,7 @@ void quit_gracefully(backbone_t * backbone)
   gtk_main_quit();
 }
 
-void set_default_config(backbone_t *backbone)
+/*void set_default_config(backbone_t *backbone)
 {
 	backbone->window.title=g_string_new("Tortosa");
 	backbone->window.wm_class=g_string_new("Tortosa");
@@ -64,7 +64,7 @@ void set_default_config(backbone_t *backbone)
 	backbone->window.background.color=g_string_new("#00000000");
 	extended_gdk_rgba_parse( &backbone->window.background.rgba, backbone->window.background.color->str);
 }
-
+*/
 /*Check the window manager*/
 /*gboolean window_manager_is_gnome_like(GdkScreen * screen)
 {

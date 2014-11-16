@@ -2,8 +2,7 @@
 require "../rtortosa"
 
 win = Rtortosa::init()
-win::height = 400 
-win::width = 800
+win::set_default_size(800, 400) 
 win::background_color = Rtortosa::Color.new("#333333ff") 
 cb = Proc.new{ |event, userdata|
   puts "-->userdata : #{userdata}"

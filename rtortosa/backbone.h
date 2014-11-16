@@ -8,13 +8,12 @@
 typedef struct window_t
 {
 		GtkWidget *	widget;
-		GString * title;
-		GString * wm_class;
-		GString * wm_name;
-		GString * role;
-		gint width;
-		gint height;
-		gboolean decorated;
+    GtkWidget * entry;
+    GtkWidget * vbox;
+//		GString * title;
+//		GString * wm_class;
+//		GString * wm_name;
+//		GString * role;
 		gboolean transparency;
 		struct color_t background;
 }window_t;
@@ -46,15 +45,6 @@ typedef struct
 	struct window_t window;
 	struct conf_t configuration;
 	guint32 time;
-	struct {
-		gboolean withdrawn;
-		gboolean iconified;
-		gboolean maximized;
-		gboolean sticky;
-		gboolean fullscreen;
-		gboolean above;
-		gboolean below;
-	} state;
   struct command_t command;
 } backbone_t ;
 

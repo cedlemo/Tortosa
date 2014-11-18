@@ -29,10 +29,12 @@ command_cb = Proc.new{ |command, userdata|
     userdata::set_decorated(false)
   when 'with border'
     userdata::set_decorated(true)
+  when 'quit'
+    userdata::quit
   else
     puts "Unknow command : #{command}"
   end
 }
-win::on_key_press_event( nil, nil)
+##win::on_key_press_event( nil, nil)
 win::on_command_line_event( command_cb,  win)
 win::run

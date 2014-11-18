@@ -6,6 +6,7 @@
 #include "backbone.h"
 #include "stdio.h"
 #include "gtk_window_methods.h"
+#include "gtk_notebook_methods.h"
 backbone_t backbone;
 
 /*static ID rb_intern_wrapper( char* str) {
@@ -49,11 +50,11 @@ gboolean event_key_press(GtkWidget *widget, GdkEventKey *event, void * userdata)
       return TRUE;
     }
   }
-  if( backbone.command.mode)
+  else 
   {
-    if(g == GDK_KEY_Escape){
-      gtk_widget_grab_focus(backbone.window.widget);
+    if(g == GDK_KEY_Escape && backbone.command.mode){
       gtk_widget_hide(backbone.window.entry);
+      gtk_widget_grab_focus(backbone.window.widget);
       backbone.command.mode = FALSE;
       return TRUE;
     }
@@ -93,20 +94,32 @@ static  VALUE rtortosa_initialize( VALUE self, VALUE args)
  // rb_ary_store(passthrough, 0, Qnil);
  // rb_ary_store(passthrough, 1, Qnil);  
   g_signal_connect( backbone.window.widget, "key-press-event", G_CALLBACK(event_key_press), NULL);
-/* Test with GtkEntry*/
+
+  /***********/
+  /* Vbox*/
+  /***********/
   backbone.window.vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-  backbone.window.entry = gtk_entry_new();
-  gtk_entry_set_has_frame(GTK_ENTRY(backbone.window.entry),FALSE);
-  gtk_entry_set_activates_default(GTK_ENTRY(backbone.window.entry),TRUE);  
-  //g_signal_connect(G_OBJECT(backbone.window.entry), "activate", G_CALLBACK(launch_command), &backbone);
-  gtk_container_add(GTK_CONTAINER(backbone.window.widget), backbone.window.vbox);
-  gtk_box_pack_end(GTK_BOX(backbone.window.vbox), backbone.window.entry, FALSE, FALSE, 0);
   GdkRGBA transparent;
   transparent.red =0;
   transparent.green = 0;
   transparent.blue = 0;
   transparent.alpha = 0;
   gtk_widget_override_background_color(backbone.window.vbox,GTK_STATE_FLAG_NORMAL,&transparent);
+  gtk_container_add(GTK_CONTAINER(backbone.window.widget), backbone.window.vbox);
+  /**************/
+  /*GtkNotebook */
+  /**************/
+  backbone.window.notebook = gtk_notebook_new(); 
+
+  /***********/
+  /* GtkEntry*/
+  /***********/
+  backbone.window.entry = gtk_entry_new();
+  gtk_entry_set_has_frame(GTK_ENTRY(backbone.window.entry),FALSE);
+  gtk_entry_set_activates_default(GTK_ENTRY(backbone.window.entry),TRUE);
+  gtk_box_pack_end(GTK_BOX(backbone.window.vbox), backbone.window.entry, FALSE, FALSE, 0);
+  
+
   /* Test with pango layout*/
  /* PangoContext *context;
   //PangoLayout *layout;
@@ -126,6 +139,11 @@ static VALUE rtortosa_run( VALUE self)
   gtk_widget_hide(backbone.window.entry);
   gtk_main();
 
+  return Qnil;
+}
+static VALUE rtortosa_quit(VALUE self)
+{
+  quit_gracefully(&backbone);
   return Qnil;
 }
 static VALUE rtortosa_set_background_color( VALUE self, VALUE color)
@@ -287,11 +305,13 @@ void Init_rtortosa()
   m_rtortosa = rb_define_module("Rtortosa");
   rb_define_module_function(m_rtortosa, "init", rtortosa_initialize, 0); 
   rb_define_module_function(m_rtortosa, "run", rtortosa_run, 0);
+  rb_define_module_function(m_rtortosa, "quit", rtortosa_quit, 0);
   rb_define_module_function(m_rtortosa, "background_color=", rtortosa_set_background_color, 1);
-  rb_define_module_function(m_rtortosa, "on_key_press_event", rtortosa_on_key_press_event, 2);
+//  rb_define_module_function(m_rtortosa, "on_key_press_event", rtortosa_on_key_press_event, 2);
   rb_define_module_function(m_rtortosa, "on_command_line_event", rtortosa_on_entry_validate_event, 2);
   rb_define_module_function(m_rtortosa, "pick_a_color", rtortosa_pick_a_color, 0);
   gtk_window_wrapper(m_rtortosa);
+  gtk_notebook_wrapper(m_rtortosa);
   
   VALUE c_color = rb_define_class_under(m_rtortosa, "Color", rb_cObject);
   rb_define_alloc_func(c_color, c_color_struct_alloc);

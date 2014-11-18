@@ -9,36 +9,8 @@
 #include "gtk_notebook_methods.h"
 backbone_t backbone;
 
-/*static ID rb_intern_wrapper( char* str) {
-  return rb_intern(str);
-}
-static VALUE build_event_hash(GdkEventKey *event)
-{
-  ID etime = rb_intern_wrapper("time");
-  ID state = rb_intern_wrapper("state");
-  ID keyval = rb_intern_wrapper("keyval");
-  ID keyname = rb_intern_wrapper("keyname");
-  VALUE time_sym = ID2SYM(etime);
-  VALUE state_sym = ID2SYM(state);
-  VALUE keyval_sym = ID2SYM(keyval);
-  VALUE keyname_sym = ID2SYM(keyname);
-  VALUE e = rb_hash_new();
-  rb_hash_aset(e, keyname_sym, rb_str_new2(gdk_keyval_name(event->keyval)));
-  rb_hash_aset(e, time_sym, UINT2NUM(event->time));   
-  rb_hash_aset(e, state_sym, UINT2NUM(event->state));   
-  rb_hash_aset(e, keyval_sym, UINT2NUM(event->keyval));   
-  
-  return e;
-}*/
-
 gboolean event_key_press(GtkWidget *widget, GdkEventKey *event, void * userdata)
 {
-/*  VALUE passthrough = (VALUE) userdata;
-  VALUE callback;
-  VALUE callback_data;
-  callback = rb_ary_entry(passthrough, 0);
-  callback_data = rb_ary_entry(passthrough, 1);
-  VALUE e = build_event_hash(event);*/
   guint(g) = event->keyval;
 
   if ((event->state & (GDK_CONTROL_MASK|GDK_SHIFT_MASK)) == (GDK_CONTROL_MASK|GDK_SHIFT_MASK)) 
@@ -89,10 +61,6 @@ static  VALUE rtortosa_initialize( VALUE self, VALUE args)
   g_signal_connect_swapped(backbone.window.widget, "destroy", G_CALLBACK(quit_gracefully), &backbone); 
   g_signal_connect(G_OBJECT(backbone.window.widget), "draw", G_CALLBACK(draw_window_background), &backbone); //redraw window background when needed
   g_signal_connect(backbone.window.widget, "screen-changed", G_CALLBACK(init_window_visual_with_alpha), &backbone); //re-define the visual of the window if this one move to another screen
- // VALUE passthrough;
- // passthrough = rb_ary_new();
- // rb_ary_store(passthrough, 0, Qnil);
- // rb_ary_store(passthrough, 1, Qnil);  
   g_signal_connect( backbone.window.widget, "key-press-event", G_CALLBACK(event_key_press), NULL);
 
   /***********/
@@ -119,19 +87,7 @@ static  VALUE rtortosa_initialize( VALUE self, VALUE args)
   gtk_entry_set_activates_default(GTK_ENTRY(backbone.window.entry),TRUE);
   gtk_box_pack_end(GTK_BOX(backbone.window.vbox), backbone.window.entry, FALSE, FALSE, 0);
   
-
-  /* Test with pango layout*/
- /* PangoContext *context;
-  //PangoLayout *layout;
-  PangoFontDescription *desc;
-  //context = gtk_widget_get_pango_context(backbone.window.widget);
-  context = gtk_widget_create_pango_context(backbone.window.widget);
-  backbone.window.layout = pango_layout_new (context);
-  pango_layout_set_text (backbone.window.layout, "Text", -1);
-  desc = pango_font_description_from_string (FONT);
-  pango_layout_set_font_description (backbone.window.layout, desc);
-  pango_font_description_free (desc);*/
-  return self;
+   return self;
 }
 static VALUE rtortosa_run( VALUE self)
 {
@@ -307,7 +263,6 @@ void Init_rtortosa()
   rb_define_module_function(m_rtortosa, "run", rtortosa_run, 0);
   rb_define_module_function(m_rtortosa, "quit", rtortosa_quit, 0);
   rb_define_module_function(m_rtortosa, "background_color=", rtortosa_set_background_color, 1);
-//  rb_define_module_function(m_rtortosa, "on_key_press_event", rtortosa_on_key_press_event, 2);
   rb_define_module_function(m_rtortosa, "on_command_line_event", rtortosa_on_entry_validate_event, 2);
   rb_define_module_function(m_rtortosa, "pick_a_color", rtortosa_pick_a_color, 0);
   gtk_window_wrapper(m_rtortosa);

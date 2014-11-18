@@ -11,10 +11,6 @@ typedef struct window_t
     GtkWidget * entry;
     GtkWidget * vbox;
     GtkWidget * notebook;
-//		GString * title;
-//		GString * wm_class;
-//		GString * wm_name;
-//		GString * role;
 		gboolean transparency;
 		struct color_t background;
 }window_t;

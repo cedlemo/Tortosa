@@ -2,7 +2,7 @@
 require "../rtortosa"
 
 c = Rtortosa::Color.new("#333333")
-puts c.get_color
+puts c.get_hex_color
 puts c.get_rgb_color
 puts "red : #{c.get_red} -> #{255 * c.get_red}"
 puts "green : #{c.get_green} -> #{255 * c.get_green}"

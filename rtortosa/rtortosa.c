@@ -36,13 +36,27 @@ gboolean event_key_press(GtkWidget *widget, GdkEventKey *event, void * userdata)
 static  VALUE rtortosa_initialize( VALUE self, VALUE args)
 {
   // TODO try to handle args gtk_init(&argc, &argv);
-  //if(TYPE(args) != T_ARRAY)
+  if(TYPE(args) != T_ARRAY)
     gtk_init(NULL, NULL);
-  //else
-  //{
-  //  int argc = ;
-  //  char * argv;  
-  //}
+  else
+  {
+    if(RARRAY_LEN(args) == 0)
+      gtk_init(NULL, NULL);
+    else
+    {
+      int i;
+      int argc = RARRAY_LEN(args);
+      char * argv[argc];
+      for(i=0; i<argc; i++)
+      {
+        if(TYPE(*(RARRAY_PTR(args)+i)) == T_STRING){
+          argv[i] = RSTRING_PTR(*(RARRAY_PTR(args) + i));
+        }
+      }
+      argc = i - 1;
+      gtk_init(&argc,(char ***) &argv);
+    }
+  }
   backbone.display = gdk_display_get_default ();
   backbone.screen = gdk_display_get_default_screen (backbone.display);
   backbone.command.mode = FALSE;
@@ -175,11 +189,21 @@ static VALUE c_color_initialize(VALUE self, VALUE color)
     return Qnil;
   }
 }
-static VALUE c_color_get_color(VALUE self)
+static VALUE c_color_get_hex_color(VALUE self)
 {
   color_t *c;
+  gchar *hexcolor;
   Data_Get_Struct(self, color_t, c);
-  return rb_str_new2(c->color->str);
+  int red,green,blue,alpha;
+  red = c->rgba.red*255;
+  green = c->rgba.green*255;
+  blue = c->rgba.blue*255;
+  alpha = c->rgba.alpha*255;
+  if(alpha == 255)
+    hexcolor = g_strdup_printf("#%2.02X%2.02X%2.02X", red, green, blue);
+  else
+    hexcolor = g_strdup_printf("#%2.02X%2.02X%2.02X%2.02X", red, green, blue, alpha);
+  return rb_str_new2(hexcolor);
 }
 static VALUE c_color_get_rgb_color(VALUE self)
 {
@@ -259,7 +283,7 @@ void Init_rtortosa()
 {
   VALUE m_rtortosa;
   m_rtortosa = rb_define_module("Rtortosa");
-  rb_define_module_function(m_rtortosa, "init", rtortosa_initialize, 0); 
+  rb_define_module_function(m_rtortosa, "init", rtortosa_initialize, 1); 
   rb_define_module_function(m_rtortosa, "run", rtortosa_run, 0);
   rb_define_module_function(m_rtortosa, "quit", rtortosa_quit, 0);
   rb_define_module_function(m_rtortosa, "background_color=", rtortosa_set_background_color, 1);
@@ -271,7 +295,7 @@ void Init_rtortosa()
   VALUE c_color = rb_define_class_under(m_rtortosa, "Color", rb_cObject);
   rb_define_alloc_func(c_color, c_color_struct_alloc);
   rb_define_method(c_color, "initialize", RUBY_METHOD_FUNC(c_color_initialize), 1);
-  rb_define_method(c_color, "get_color", RUBY_METHOD_FUNC(c_color_get_color), 0);
+  rb_define_method(c_color, "get_hex_color", RUBY_METHOD_FUNC(c_color_get_hex_color), 0);
   rb_define_method(c_color, "get_rgb_color", RUBY_METHOD_FUNC(c_color_get_rgb_color), 0);
   rb_define_method(c_color, "get_red", RUBY_METHOD_FUNC(c_color_get_red), 0);
   rb_define_method(c_color, "get_green", RUBY_METHOD_FUNC(c_color_get_green), 0);

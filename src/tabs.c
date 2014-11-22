@@ -7,7 +7,25 @@
 #include "events.h"
 #include "tgregex.h"
 #include "dbg.h"
-
+static void close_tab_on_exit(GtkWidget * vte, gint status, backbone_t * backbone)
+{
+	gint current = gtk_notebook_get_current_page (GTK_NOTEBOOK(backbone->notebook.widget));
+	if (gtk_notebook_get_n_pages (GTK_NOTEBOOK(backbone->notebook.widget)) > 1)
+	{
+    /*Remove from GSList backbone->tabs_data*/
+		remove_node_by_widget(backbone->tabs_data, gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget), gtk_notebook_get_current_page (GTK_NOTEBOOK(backbone->notebook.widget))));
+		
+		gtk_notebook_remove_page (GTK_NOTEBOOK(backbone->notebook.widget), current );
+		gtk_widget_grab_focus(
+		  gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->notebook.widget),
+			 gtk_notebook_get_current_page(GTK_NOTEBOOK(backbone->notebook.widget))));
+	
+	}
+	else
+	{
+    quit_gracefully(backbone);
+	}
+}
 void close_tab(GtkWidget * vte, backbone_t * backbone)
 {
 	gint current = gtk_notebook_get_current_page (GTK_NOTEBOOK(backbone->notebook.widget));
@@ -357,7 +375,7 @@ void new_tab( backbone_t * backbone)
 //	backbone->tabs_data = g_slist_append(backbone->tabs_data, tab_data);
 
 
-	g_signal_connect(vte, "child-exited", G_CALLBACK(close_tab), backbone);
+	g_signal_connect(vte, "child-exited", G_CALLBACK(close_tab_on_exit), backbone);
 //	g_signal_connect(vte, "button-press-event", G_CALLBACK(event_button_press), backbone);	
 
 //	apply_vte_configuration(backbone, vte);

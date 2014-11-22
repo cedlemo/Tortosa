@@ -6,8 +6,8 @@
 /*Stuff in order to replace gdk_color_parse*/
 #include "pango-color-table.h"
 
-#define ISUPPER(c)              ((c) >= 'A' && (c) <= 'Z')
-#define TOLOWER(c)              (ISUPPER (c) ? (c) - 'A' + 'a' : (c))
+#define MY_ISUPPER(c)              ((c) >= 'A' && (c) <= 'Z')
+#define MY_TOLOWER(c)              (MY_ISUPPER (c) ? (c) - 'A' + 'a' : (c))
 
 static int compare_xcolor_entries (const void *a, const void *b)
 {
@@ -19,8 +19,8 @@ static int compare_xcolor_entries (const void *a, const void *b)
       int c1, c2;
       while (*s1 == ' ') s1++;
       while (*s2 == ' ') s1++;
-      c1 = (gint)(guchar) TOLOWER (*s1);
-      c2 = (gint)(guchar) TOLOWER (*s2);
+      c1 = (gint)(guchar) MY_TOLOWER (*s1);
+      c2 = (gint)(guchar) MY_TOLOWER (*s2);
       if (c1 != c2)
         return (c1 - c2);
       s1++; s2++;
@@ -282,3 +282,94 @@ gboolean extended_gdk_rgba_parse (GdkRGBA *rgba,  const gchar *spec)
 	return TRUE;
 }
 #undef SKIP_WHITESPACES
+
+/*color ruby classe*/
+static void c_color_struct_free(color_t *c)
+{
+  if(c)
+  {
+    if(c->color) {g_string_free(c->color, TRUE);}
+    ruby_xfree(c);
+  }
+}
+static VALUE c_color_struct_alloc( VALUE klass)
+{
+  return Data_Wrap_Struct(klass, NULL, c_color_struct_free, ruby_xmalloc(sizeof(color_t)));
+}
+static VALUE c_color_initialize(VALUE self, VALUE color)
+{
+  color_t *c;
+  Data_Get_Struct(self, color_t, c);
+  if(TYPE(color) != T_STRING)
+    return Qnil;
+
+  if( extended_gdk_rgba_parse(&c->rgba, RSTRING_PTR(color)) )
+  {
+    c->color = g_string_new(StringValueCStr(color));
+    return self;
+  }
+  else
+  {
+    c->color = NULL;
+    return Qnil;
+  }
+}
+static VALUE c_color_get_hex_color(VALUE self)
+{
+  color_t *c;
+  gchar *hexcolor;
+  Data_Get_Struct(self, color_t, c);
+  int red,green,blue,alpha;
+  red = c->rgba.red*255;
+  green = c->rgba.green*255;
+  blue = c->rgba.blue*255;
+  alpha = c->rgba.alpha*255;
+  if(alpha == 255)
+    hexcolor = g_strdup_printf("#%2.02X%2.02X%2.02X", red, green, blue);
+  else
+    hexcolor = g_strdup_printf("#%2.02X%2.02X%2.02X%2.02X", red, green, blue, alpha);
+  return rb_str_new2(hexcolor);
+}
+static VALUE c_color_get_rgb_color(VALUE self)
+{
+  color_t *c;
+  Data_Get_Struct(self, color_t, c);
+  return rb_str_new2(gdk_rgba_to_string(&c->rgba));
+}
+static VALUE c_color_get_red(VALUE self)
+{
+  color_t *c;
+  Data_Get_Struct(self, color_t, c);
+  return DBL2NUM(c->rgba.red);
+}
+static VALUE c_color_get_green(VALUE self)
+{
+  color_t *c;
+  Data_Get_Struct(self, color_t, c);
+  return DBL2NUM(c->rgba.green);
+}
+static VALUE c_color_get_blue(VALUE self)
+{
+  color_t *c;
+  Data_Get_Struct(self, color_t, c);
+  return DBL2NUM(c->rgba.blue);
+}
+static VALUE c_color_get_alpha(VALUE self)
+{
+  color_t *c;
+  Data_Get_Struct(self, color_t, c);
+  return DBL2NUM(c->rgba.alpha);
+}
+VALUE generate_color_ruby_class_under(VALUE module)
+{
+  VALUE c_color = rb_define_class_under(module, "Color", rb_cObject);
+  rb_define_alloc_func(c_color, c_color_struct_alloc);
+  rb_define_method(c_color, "initialize", RUBY_METHOD_FUNC(c_color_initialize), 1);
+  rb_define_method(c_color, "get_hex_color", RUBY_METHOD_FUNC(c_color_get_hex_color), 0);
+  rb_define_method(c_color, "get_rgb_color", RUBY_METHOD_FUNC(c_color_get_rgb_color), 0);
+  rb_define_method(c_color, "get_red", RUBY_METHOD_FUNC(c_color_get_red), 0);
+  rb_define_method(c_color, "get_green", RUBY_METHOD_FUNC(c_color_get_green), 0);
+  rb_define_method(c_color, "get_blue", RUBY_METHOD_FUNC(c_color_get_blue), 0);
+  rb_define_method(c_color, "get_alpha", RUBY_METHOD_FUNC(c_color_get_alpha), 0);
+  return c_color;
+}

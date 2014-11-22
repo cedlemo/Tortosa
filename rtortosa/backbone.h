@@ -13,6 +13,7 @@ typedef struct window_t
     GtkWidget * notebook;
 		gboolean transparency;
 		struct color_t background;
+    gulong key_event_handler_id;
 }window_t;
 
 /*configuration file path*/

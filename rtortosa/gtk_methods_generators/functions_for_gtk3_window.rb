@@ -194,6 +194,14 @@ wrapper_h.puts('#endif')
 wrapper_c.puts('#include "gtk_window_methods.h"')
 functions_to_parse.each {|f| wrapper_c.puts(build_ruby_wrapper(f))}
 wrapper_c.puts(write_gtkwindow_wrapper(functions_to_parse))
+wrapper_h.puts('/*|--------------------------------------->>*/')
+wrapper_h.puts('/* functions wrapped                        */')
+wrapper_h.puts('/*<<---------------------------------------|*/')
+functions_to_parse.each {|f| wrapper_h.puts('//' + f.getName)}
+wrapper_h.puts('/*|--------------------------------------->>*/')
+wrapper_h.puts('/* functions ignored                        */')
+wrapper_h.puts('/*<<---------------------------------------|*/')
+functions_rejected.each {|f| wrapper_h.puts('//' + f.getName)}
 
 wrapper_c.close
 wrapper_h.close

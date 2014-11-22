@@ -7,9 +7,10 @@
 #include "stdio.h"
 #include "gtk_window_methods.h"
 #include "gtk_notebook_methods.h"
+#include "terminal.h"
 backbone_t backbone;
 
-gboolean event_key_press(GtkWidget *widget, GdkEventKey *event, void * userdata)
+static gboolean default_event_key_press(GtkWidget *widget, GdkEventKey *event, void * userdata)
 {
   guint(g) = event->keyval;
 
@@ -75,7 +76,9 @@ static  VALUE rtortosa_initialize( VALUE self, VALUE args)
   g_signal_connect_swapped(backbone.window.widget, "destroy", G_CALLBACK(quit_gracefully), &backbone); 
   g_signal_connect(G_OBJECT(backbone.window.widget), "draw", G_CALLBACK(draw_window_background), &backbone); //redraw window background when needed
   g_signal_connect(backbone.window.widget, "screen-changed", G_CALLBACK(init_window_visual_with_alpha), &backbone); //re-define the visual of the window if this one move to another screen
-  g_signal_connect( backbone.window.widget, "key-press-event", G_CALLBACK(event_key_press), NULL);
+  backbone.window.key_event_handler_id = g_signal_connect(backbone.window.widget, 
+                                    "key-press-event", 
+                                    G_CALLBACK(default_event_key_press), NULL);
 
   /***********/
   /* Vbox*/
@@ -92,7 +95,10 @@ static  VALUE rtortosa_initialize( VALUE self, VALUE args)
   /*GtkNotebook */
   /**************/
   backbone.window.notebook = gtk_notebook_new(); 
-
+  gtk_widget_override_background_color(backbone.window.notebook,GTK_STATE_FLAG_NORMAL,&transparent);
+  gtk_box_pack_start(GTK_BOX(backbone.window.vbox), backbone.window.notebook, FALSE, FALSE, 0);
+  
+  new_terminal_emulator(&backbone);
   /***********/
   /* GtkEntry*/
   /***********/
@@ -135,7 +141,6 @@ static VALUE rtortosa_pick_a_color(VALUE self)
   VALUE color = Qnil;
   GtkResponseType result;
 
-
   GtkWidget *dialog = gtk_color_chooser_dialog_new("Pick a color", GTK_WINDOW(backbone.window.widget));
   result = gtk_dialog_run(GTK_DIALOG(dialog));
   if (result == GTK_RESPONSE_OK || result == GTK_RESPONSE_APPLY)
@@ -159,85 +164,63 @@ static VALUE rtortosa_pick_a_color(VALUE self)
   gtk_widget_destroy(dialog);
   return color;
 }
-static void c_color_struct_free(color_t *c)
-{
-  if(c)
-  {
-    if(c->color) {g_string_free(c->color, TRUE);}
-    ruby_xfree(c);
-  }
+static ID rb_intern_wrapper( char* str) {
+  return rb_intern(str);
 }
-static VALUE c_color_struct_alloc( VALUE klass)
+static VALUE build_event_hash(GdkEventKey *event)
 {
-  return Data_Wrap_Struct(klass, NULL, c_color_struct_free, ruby_xmalloc(sizeof(color_t)));
+  ID etime = rb_intern_wrapper("time");
+  ID state = rb_intern_wrapper("state");
+  ID keyval = rb_intern_wrapper("keyval");
+  ID keyname = rb_intern_wrapper("keyname");
+  VALUE time_sym = ID2SYM(etime);
+  VALUE state_sym = ID2SYM(state);
+  VALUE keyval_sym = ID2SYM(keyval);
+  VALUE keyname_sym = ID2SYM(keyname);
+  VALUE e = rb_hash_new();
+  rb_hash_aset(e, keyname_sym, rb_str_new2(gdk_keyval_name(event->keyval)));
+  rb_hash_aset(e, time_sym, UINT2NUM(event->time));   
+  rb_hash_aset(e, state_sym, UINT2NUM(event->state));   
+  rb_hash_aset(e, keyval_sym, UINT2NUM(event->keyval));   
+  
+  return e;
 }
-static VALUE c_color_initialize(VALUE self, VALUE color)
+static gboolean event_key_press(GtkWidget *widget, GdkEventKey *event, void * userdata)
 {
-  color_t *c;
-  Data_Get_Struct(self, color_t, c);
-  if(TYPE(color) != T_STRING)
-    return Qnil;
+  VALUE passthrough = (VALUE) userdata;
+  VALUE callback;
+  VALUE callback_data;
+  callback = rb_ary_entry(passthrough, 0);
+  callback_data = rb_ary_entry(passthrough, 1);
+  VALUE e = build_event_hash(event);
 
-  if( extended_gdk_rgba_parse(&c->rgba, RSTRING_PTR(color)) )
-  {
-    c->color = g_string_new(StringValueCStr(color));
-    return self;
-  }
-  else
-  {
-    c->color = NULL;
-    return Qnil;
-  }
-}
-static VALUE c_color_get_hex_color(VALUE self)
-{
-  color_t *c;
-  gchar *hexcolor;
-  Data_Get_Struct(self, color_t, c);
-  int red,green,blue,alpha;
-  red = c->rgba.red*255;
-  green = c->rgba.green*255;
-  blue = c->rgba.blue*255;
-  alpha = c->rgba.alpha*255;
-  if(alpha == 255)
-    hexcolor = g_strdup_printf("#%2.02X%2.02X%2.02X", red, green, blue);
-  else
-    hexcolor = g_strdup_printf("#%2.02X%2.02X%2.02X%2.02X", red, green, blue, alpha);
-  return rb_str_new2(hexcolor);
-}
-static VALUE c_color_get_rgb_color(VALUE self)
-{
-  color_t *c;
-  Data_Get_Struct(self, color_t, c);
-  return rb_str_new2(gdk_rgba_to_string(&c->rgba));
-}
-static VALUE c_color_get_red(VALUE self)
-{
-  color_t *c;
-  Data_Get_Struct(self, color_t, c);
-  return DBL2NUM(c->rgba.red);
-}
-static VALUE c_color_get_green(VALUE self)
-{
-  color_t *c;
-  Data_Get_Struct(self, color_t, c);
-  return DBL2NUM(c->rgba.green);
-}
-static VALUE c_color_get_blue(VALUE self)
-{
-  color_t *c;
-  Data_Get_Struct(self, color_t, c);
-  return DBL2NUM(c->rgba.blue);
-}
-static VALUE c_color_get_alpha(VALUE self)
-{
-  color_t *c;
-  Data_Get_Struct(self, color_t, c);
-  return DBL2NUM(c->rgba.alpha);
-}
+  guint(g) = event->keyval;
 
+  if ((event->state & (GDK_CONTROL_MASK|GDK_SHIFT_MASK)) == (GDK_CONTROL_MASK|GDK_SHIFT_MASK)) 
+  {
+    if (g == GDK_KEY_C) {
+      gtk_widget_show(backbone.window.entry);
+      gtk_widget_grab_focus(backbone.window.entry);
+      backbone.command.mode = TRUE;
+      return TRUE;
+    }
+  }
+  else 
+  {
+    if(g == GDK_KEY_Escape && backbone.command.mode){
+      gtk_widget_hide(backbone.window.entry);
+      gtk_widget_grab_focus(backbone.window.widget);
+      backbone.command.mode = FALSE;
+      return TRUE;
+    }
+  }
+  rb_funcall(callback, rb_intern("call"), 2, e, callback_data);
+  return FALSE;
+}
 static VALUE rtortosa_on_key_press_event(VALUE self, VALUE callback, VALUE userdata)
 {
+  g_signal_handler_disconnect(backbone.window.widget,
+                              backbone.window.key_event_handler_id);
   VALUE passthrough;
   
   if((callback != Qnil) && (rb_class_of(callback) != rb_cProc))
@@ -246,7 +229,7 @@ static VALUE rtortosa_on_key_press_event(VALUE self, VALUE callback, VALUE userd
   passthrough = rb_ary_new();
   rb_ary_store(passthrough, 0, callback);
   rb_ary_store(passthrough, 1, userdata);  
-  g_signal_connect( backbone.window.widget, 
+  backbone.window.key_event_handler_id = g_signal_connect( backbone.window.widget, 
                     "key-press-event", 
                     G_CALLBACK(event_key_press),
                     (void *) passthrough);
@@ -288,17 +271,9 @@ void Init_rtortosa()
   rb_define_module_function(m_rtortosa, "quit", rtortosa_quit, 0);
   rb_define_module_function(m_rtortosa, "background_color=", rtortosa_set_background_color, 1);
   rb_define_module_function(m_rtortosa, "on_command_line_event", rtortosa_on_entry_validate_event, 2);
+  rb_define_module_function(m_rtortosa, "on_key_press_event", rtortosa_on_key_press_event, 2);
   rb_define_module_function(m_rtortosa, "pick_a_color", rtortosa_pick_a_color, 0);
   gtk_window_wrapper(m_rtortosa);
   gtk_notebook_wrapper(m_rtortosa);
-  
-  VALUE c_color = rb_define_class_under(m_rtortosa, "Color", rb_cObject);
-  rb_define_alloc_func(c_color, c_color_struct_alloc);
-  rb_define_method(c_color, "initialize", RUBY_METHOD_FUNC(c_color_initialize), 1);
-  rb_define_method(c_color, "get_hex_color", RUBY_METHOD_FUNC(c_color_get_hex_color), 0);
-  rb_define_method(c_color, "get_rgb_color", RUBY_METHOD_FUNC(c_color_get_rgb_color), 0);
-  rb_define_method(c_color, "get_red", RUBY_METHOD_FUNC(c_color_get_red), 0);
-  rb_define_method(c_color, "get_green", RUBY_METHOD_FUNC(c_color_get_green), 0);
-  rb_define_method(c_color, "get_blue", RUBY_METHOD_FUNC(c_color_get_blue), 0);
-  rb_define_method(c_color, "get_alpha", RUBY_METHOD_FUNC(c_color_get_alpha), 0);
+  VALUE c_color = generate_color_ruby_class_under(m_rtortosa); 
 }

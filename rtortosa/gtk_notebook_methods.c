@@ -58,6 +58,13 @@ static VALUE rtortosa_notebook_get_show_tabs(VALUE self){
   gboolean ret =gtk_notebook_get_show_tabs(GTK_NOTEBOOK(backbone.window.notebook));
   return ret? Qtrue: Qfalse;
 }
+static VALUE rtortosa_notebook_set_tab_pos(VALUE self, VALUE pos){
+  if (TYPE(pos) != T_FIXNUM)
+    rb_raise(rb_eTypeError, "invalid type for input");
+  GtkPositionType r_pos=FIX2INT(pos);
+  gtk_notebook_set_tab_pos(GTK_NOTEBOOK(backbone.window.notebook),r_pos);
+  return Qnil;
+}
 static VALUE rtortosa_notebook_set_scrollable(VALUE self, VALUE scrollable){
   gboolean r_scrollable= (scrollable == Qtrue) ? TRUE : FALSE;
   gtk_notebook_set_scrollable(GTK_NOTEBOOK(backbone.window.notebook),r_scrollable);
@@ -128,6 +135,10 @@ void gtk_notebook_wrapper(VALUE module){
                                         "notebook_get_show_tabs", 
                                         rtortosa_notebook_get_show_tabs,
                                         0);
+  rb_define_module_function(module, 
+                                        "notebook_set_tab_pos", 
+                                        rtortosa_notebook_set_tab_pos,
+                                        1);
   rb_define_module_function(module, 
                                         "notebook_set_scrollable", 
                                         rtortosa_notebook_set_scrollable,

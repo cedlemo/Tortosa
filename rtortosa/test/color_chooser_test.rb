@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require "../rtortosa"
 
-win = Rtortosa::init()
+win = Rtortosa::init(ARGV)
 win::set_default_size(800, 400) 
 win::background_color = Rtortosa::Color.new("#333333ff") 
 cb = Proc.new{ |event, userdata|
@@ -10,9 +10,9 @@ cb = Proc.new{ |event, userdata|
   puts "-->event->keyval #{event[:keyval]}"
   puts "-->event->state #{event[:state]}"
   puts "-->event->keyname #{event[:keyname]}"
-  color = userdata::pick_a_color
-  puts "color #{color.get_color} or #{color.get_rgb_color}"
+  color = userdata::pick_a_color || Rtortosa::Color.new("#33ff3344")
+  puts "color #{color.get_hex_color} or #{color.get_rgb_color}"
   userdata::background_color = color
 }
-win::on_key_press_event({:key_event_cb => cb}, {:key_event_cb => win})
+win::on_key_press_event(cb, win)
 win::run

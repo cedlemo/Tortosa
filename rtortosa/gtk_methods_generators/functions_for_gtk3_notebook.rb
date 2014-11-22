@@ -30,6 +30,10 @@ def in_typemap(p)
     %Q{  if (TYPE(#{p.getName}) != T_FIXNUM)
     rb_raise(rb_eTypeError, "invalid type for input");
   #{type} r_#{p.getName}=FIX2INT(#{p.getName});}
+  when type == "GtkPositionType"
+    %Q{  if (TYPE(#{p.getName}) != T_FIXNUM)
+    rb_raise(rb_eTypeError, "invalid type for input");
+  #{type} r_#{p.getName}=FIX2INT(#{p.getName});}
   when type =~ /.*char\s+\*/
     %Q{  if(TYPE(#{p.getName}) != T_STRING)
     rb_raise(rb_eTypeError, "invalid type for input");
@@ -138,7 +142,7 @@ end
 def to_be_rejected_on_params(params, f)
   ret = false
   params.each do |p|
-    if !p.getType.getName.match(/((const)*\s*gint)|((const)*\s*gchar)|(gboolean)|(void)|(GtkNotebook\s+\*)/)
+    if !p.getType.getName.match(/((const)*\s*gint)|((const)*\s*gchar)|(gboolean)|(void)|(GtkNotebook\s+\*)|(GtkPositionType)/)
       ret = true
 #    elsif p.getType.getName.match(/GtkWindow\s+\*/) && p.getName != 'window'
 #      ret = true
@@ -199,5 +203,14 @@ wrapper_c.puts('#include "gtk_notebook_methods.h"')
 functions_to_parse.each {|f| wrapper_c.puts(build_ruby_wrapper(f))}
 wrapper_c.puts(write_gtkwindow_wrapper(functions_to_parse))
 
+# write informations about handled functions and not handled
+wrapper_h.puts('/*|--------------------------------------->>*/')
+wrapper_h.puts('/* functions wrapped                        */')
+wrapper_h.puts('/*<<---------------------------------------|*/')
+functions_to_parse.each {|f| wrapper_h.puts('//' + f.getName)}
+wrapper_h.puts('/*|--------------------------------------->>*/')
+wrapper_h.puts('/* functions ignored                        */')
+wrapper_h.puts('/*<<---------------------------------------|*/')
+functions_rejected.each {|f| wrapper_h.puts('//' + f.getName)}
 wrapper_c.close
 wrapper_h.close

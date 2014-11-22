@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require "../rtortosa"
 
-win = Rtortosa::init()
+win = Rtortosa::init(ARGV)
 win::set_default_size(400,800)
 win::background_color = Rtortosa::Color.new("#333333ff") 
 cb = Proc.new{ |event, userdata|

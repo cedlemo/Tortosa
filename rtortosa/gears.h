@@ -7,4 +7,5 @@
 
 void free_backbone( backbone_t *);
 void quit_gracefully( backbone_t *);
+void widget_set_transparent_background(GtkWidget *);
 #endif

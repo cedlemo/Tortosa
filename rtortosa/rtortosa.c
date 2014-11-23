@@ -8,35 +8,11 @@
 #include "gtk_window_methods.h"
 #include "gtk_notebook_methods.h"
 #include "terminal.h"
+#include "events.h"
 backbone_t backbone;
 
-static gboolean default_event_key_press(GtkWidget *widget, GdkEventKey *event, void * userdata)
-{
-  guint(g) = event->keyval;
-
-  if ((event->state & (GDK_CONTROL_MASK|GDK_SHIFT_MASK)) == (GDK_CONTROL_MASK|GDK_SHIFT_MASK)) 
-  {
-    if (g == GDK_KEY_C) {
-      gtk_widget_show(backbone.window.entry);
-      gtk_widget_grab_focus(backbone.window.entry);
-      backbone.command.mode = TRUE;
-      return TRUE;
-    }
-  }
-  else 
-  {
-    if(g == GDK_KEY_Escape && backbone.command.mode){
-      gtk_widget_hide(backbone.window.entry);
-      gtk_widget_grab_focus(backbone.window.widget);
-      backbone.command.mode = FALSE;
-      return TRUE;
-    }
-  }
-  return FALSE;
-}
 static  VALUE rtortosa_initialize( VALUE self, VALUE args)
 {
-  // TODO try to handle args gtk_init(&argc, &argv);
   if(TYPE(args) != T_ARRAY)
     gtk_init(NULL, NULL);
   else
@@ -84,26 +60,22 @@ static  VALUE rtortosa_initialize( VALUE self, VALUE args)
   /* Vbox*/
   /***********/
   backbone.window.vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-  GdkRGBA transparent;
-  transparent.red =0;
-  transparent.green = 0;
-  transparent.blue = 0;
-  transparent.alpha = 0;
-  gtk_widget_override_background_color(backbone.window.vbox,GTK_STATE_FLAG_NORMAL,&transparent);
+  widget_set_transparent_background(backbone.window.vbox);
   gtk_container_add(GTK_CONTAINER(backbone.window.widget), backbone.window.vbox);
   /**************/
   /*GtkNotebook */
   /**************/
   backbone.window.notebook = gtk_notebook_new(); 
-  gtk_widget_override_background_color(backbone.window.notebook,GTK_STATE_FLAG_NORMAL,&transparent);
+  widget_set_transparent_background(backbone.window.notebook);
   gtk_box_pack_start(GTK_BOX(backbone.window.vbox), backbone.window.notebook, FALSE, FALSE, 0);
   
-  new_terminal_emulator(&backbone);
+  new_terminal_emulator(&backbone, NULL);
   /***********/
   /* GtkEntry*/
   /***********/
   backbone.window.entry = gtk_entry_new();
   gtk_entry_set_has_frame(GTK_ENTRY(backbone.window.entry),FALSE);
+  widget_set_transparent_background(backbone.window.entry);
   gtk_entry_set_activates_default(GTK_ENTRY(backbone.window.entry),TRUE);
   gtk_box_pack_end(GTK_BOX(backbone.window.vbox), backbone.window.entry, FALSE, FALSE, 0);
   
@@ -164,103 +136,15 @@ static VALUE rtortosa_pick_a_color(VALUE self)
   gtk_widget_destroy(dialog);
   return color;
 }
-static ID rb_intern_wrapper( char* str) {
-  return rb_intern(str);
-}
-static VALUE build_event_hash(GdkEventKey *event)
+static VALUE rtortosa_new_tab(VALUE self, VALUE command)
 {
-  ID etime = rb_intern_wrapper("time");
-  ID state = rb_intern_wrapper("state");
-  ID keyval = rb_intern_wrapper("keyval");
-  ID keyname = rb_intern_wrapper("keyname");
-  VALUE time_sym = ID2SYM(etime);
-  VALUE state_sym = ID2SYM(state);
-  VALUE keyval_sym = ID2SYM(keyval);
-  VALUE keyname_sym = ID2SYM(keyname);
-  VALUE e = rb_hash_new();
-  rb_hash_aset(e, keyname_sym, rb_str_new2(gdk_keyval_name(event->keyval)));
-  rb_hash_aset(e, time_sym, UINT2NUM(event->time));   
-  rb_hash_aset(e, state_sym, UINT2NUM(event->state));   
-  rb_hash_aset(e, keyval_sym, UINT2NUM(event->keyval));   
-  
-  return e;
-}
-static gboolean event_key_press(GtkWidget *widget, GdkEventKey *event, void * userdata)
-{
-  VALUE passthrough = (VALUE) userdata;
-  VALUE callback;
-  VALUE callback_data;
-  callback = rb_ary_entry(passthrough, 0);
-  callback_data = rb_ary_entry(passthrough, 1);
-  VALUE e = build_event_hash(event);
-
-  guint(g) = event->keyval;
-
-  if ((event->state & (GDK_CONTROL_MASK|GDK_SHIFT_MASK)) == (GDK_CONTROL_MASK|GDK_SHIFT_MASK)) 
-  {
-    if (g == GDK_KEY_C) {
-      gtk_widget_show(backbone.window.entry);
-      gtk_widget_grab_focus(backbone.window.entry);
-      backbone.command.mode = TRUE;
-      return TRUE;
-    }
-  }
-  else 
-  {
-    if(g == GDK_KEY_Escape && backbone.command.mode){
-      gtk_widget_hide(backbone.window.entry);
-      gtk_widget_grab_focus(backbone.window.widget);
-      backbone.command.mode = FALSE;
-      return TRUE;
-    }
-  }
-  rb_funcall(callback, rb_intern("call"), 2, e, callback_data);
-  return FALSE;
-}
-static VALUE rtortosa_on_key_press_event(VALUE self, VALUE callback, VALUE userdata)
-{
-  g_signal_handler_disconnect(backbone.window.widget,
-                              backbone.window.key_event_handler_id);
-  VALUE passthrough;
-  
-  if((callback != Qnil) && (rb_class_of(callback) != rb_cProc))
-    rb_raise(rb_eTypeError, "Expected Proc callback");
-
-  passthrough = rb_ary_new();
-  rb_ary_store(passthrough, 0, callback);
-  rb_ary_store(passthrough, 1, userdata);  
-  backbone.window.key_event_handler_id = g_signal_connect( backbone.window.widget, 
-                    "key-press-event", 
-                    G_CALLBACK(event_key_press),
-                    (void *) passthrough);
-  return Qnil;
-}
-static void parse_command_line(GtkEntry *entry, void *userdata)
-{
-  VALUE passthrough = (VALUE) userdata;
-  VALUE callback;
-  VALUE callback_data;
-  callback = rb_ary_entry(passthrough, 0);
-  callback_data = rb_ary_entry(passthrough, 1);
-  VALUE command_line = rb_str_new2(gtk_entry_get_text(GTK_ENTRY(backbone.window.entry)));
-  rb_funcall(callback, rb_intern("call"), 2, command_line, callback_data); 
-
-}
-static VALUE rtortosa_on_entry_validate_event(VALUE self, VALUE callback, VALUE userdata)
-{
-  VALUE passthrough;
-  
-  if(rb_class_of(callback) != rb_cProc)
-    rb_raise(rb_eTypeError, "Expected Proc callback");
-
-  passthrough = rb_ary_new();
-  rb_ary_store(passthrough, 0, callback);
-  rb_ary_store(passthrough, 1, userdata);  
-  g_signal_connect( backbone.window.entry, 
-                    "activate", 
-                    G_CALLBACK(parse_command_line),
-                    (void *) passthrough);
-  return Qnil;
+  if(command != Qnil && (TYPE(command) != T_STRING))
+    rb_raise(rb_eTypeError, "Expected a string");
+  if(command == Qnil)
+    new_terminal_emulator(&backbone, NULL);
+  else
+    new_terminal_emulator(&backbone, RSTRING_PTR(command));
+  return Qnil;  
 }
 void Init_rtortosa()
 {
@@ -273,6 +157,7 @@ void Init_rtortosa()
   rb_define_module_function(m_rtortosa, "on_command_line_event", rtortosa_on_entry_validate_event, 2);
   rb_define_module_function(m_rtortosa, "on_key_press_event", rtortosa_on_key_press_event, 2);
   rb_define_module_function(m_rtortosa, "pick_a_color", rtortosa_pick_a_color, 0);
+  rb_define_module_function(m_rtortosa, "new_tab", rtortosa_new_tab, 1);
   gtk_window_wrapper(m_rtortosa);
   gtk_notebook_wrapper(m_rtortosa);
   VALUE c_color = generate_color_ruby_class_under(m_rtortosa); 

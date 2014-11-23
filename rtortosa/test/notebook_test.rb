@@ -27,8 +27,14 @@ command_cb = Proc.new{ |command, userdata|
     userdata::set_decorated(true)
   when 'quit'
     userdata::quit
+  when 'bash'
+    userdata::new_tab('/usr/bin/bash')
   else
     puts "Unknow command : #{command}"
+    if command =~ /new\s+tab\s+(?<args>\w+)/
+      puts Regexp.last_match[1] 
+      userdata::new_tab(Regexp.last_match[1])
+    end
   end
 }
 win::on_command_line_event( command_cb,  win)

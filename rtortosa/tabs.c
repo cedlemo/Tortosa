@@ -1,4 +1,9 @@
 #include "tabs.h"
+GtkWidget * notebook_get_current_widget(GtkNotebook *n)
+{
+  int current_tab = gtk_notebook_get_current_page(n) ;
+  return gtk_notebook_get_nth_page(n, current_tab);
+}
 static void go_to_tab_plus_n(GtkNotebook *n, gint increment)
 {
   int current_tab, next_tab_index, num_of_tabs;

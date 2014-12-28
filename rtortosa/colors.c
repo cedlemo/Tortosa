@@ -283,7 +283,7 @@ gboolean extended_gdk_rgba_parse (GdkRGBA *rgba,  const gchar *spec)
 }
 #undef SKIP_WHITESPACES
 
-/*color ruby classe*/
+/*color ruby class*/
 static void c_color_struct_free(color_t *c)
 {
   if(c)
@@ -301,7 +301,7 @@ static VALUE c_color_initialize(VALUE self, VALUE color)
   color_t *c;
   Data_Get_Struct(self, color_t, c);
   if(TYPE(color) != T_STRING)
-    return Qnil;
+    rb_raise(rb_eTypeError, "Expected a string");
 
   if( extended_gdk_rgba_parse(&c->rgba, RSTRING_PTR(color)) )
   {

@@ -1,5 +1,6 @@
 #include "events.h"
-#include "terminal.h"
+//#include "terminal.h"
+#include "gtk_vte_methods.h"
 #include "tabs.h"
 #include "backbone.h"
 
@@ -16,7 +17,11 @@ gboolean default_event_key_press(GtkWidget *widget, GdkEventKey *event, void * u
       return TRUE;
     }
     if (g == GDK_KEY_T) {
-      new_terminal_emulator(&backbone, NULL);
+      VALUE m_rtortosa = rb_const_get( rb_cObject, rb_intern( "Rtortosa" ) );
+      VALUE cVte = rb_const_get_at( m_rtortosa, rb_intern("Vte"));
+      VALUE params[1];
+      params[0] = Qnil;
+      VALUE vte = rb_class_new_instance(1, params, cVte);
       return TRUE;
     }
     if (g == GDK_KEY_Left) {
@@ -32,7 +37,7 @@ gboolean default_event_key_press(GtkWidget *widget, GdkEventKey *event, void * u
   {
     if(g == GDK_KEY_Escape && backbone.command.mode){
       gtk_widget_hide(backbone.window.entry);
-      gtk_widget_grab_focus(backbone.window.notebook);
+      gtk_widget_grab_focus(notebook_get_current_widget(GTK_NOTEBOOK(backbone.window.notebook)));
       backbone.command.mode = FALSE;
       return TRUE;
     }
@@ -65,8 +70,10 @@ static gboolean event_key_press(GtkWidget *widget, GdkEventKey *event, void * us
   VALUE passthrough = (VALUE) userdata;
   VALUE callback;
   VALUE callback_data;
+  VALUE self;
   callback = rb_ary_entry(passthrough, 0);
-  callback_data = rb_ary_entry(passthrough, 1);
+  self = rb_ary_entry(passthrough, 1);
+  callback_data = rb_ary_entry(passthrough, 2);
   VALUE e = build_event_hash(event);
 
   guint(g) = event->keyval;
@@ -92,12 +99,12 @@ static gboolean event_key_press(GtkWidget *widget, GdkEventKey *event, void * us
   {
     if(g == GDK_KEY_Escape && backbone.command.mode){
       gtk_widget_hide(backbone.window.entry);
-      gtk_widget_grab_focus(backbone.window.widget);
+      gtk_widget_grab_focus(notebook_get_current_widget(GTK_NOTEBOOK(backbone.window.notebook)));
       backbone.command.mode = FALSE;
       return TRUE;
     }
   }
-  rb_funcall(callback, rb_intern("call"), 2, e, callback_data);
+  rb_funcall(callback, rb_intern("call"), 3, self, e, callback_data);
   return FALSE;
 }
 VALUE rtortosa_on_key_press_event(VALUE self, VALUE callback, VALUE userdata)
@@ -111,7 +118,8 @@ VALUE rtortosa_on_key_press_event(VALUE self, VALUE callback, VALUE userdata)
 
   passthrough = rb_ary_new();
   rb_ary_store(passthrough, 0, callback);
-  rb_ary_store(passthrough, 1, userdata);  
+  rb_ary_store(passthrough, 1, self);  
+  rb_ary_store(passthrough, 2, userdata);  
   backbone.window.key_event_handler_id = g_signal_connect( backbone.window.widget, 
                     "key-press-event", 
                     G_CALLBACK(event_key_press),
@@ -123,22 +131,25 @@ static void parse_command_line(GtkEntry *entry, void *userdata)
   VALUE passthrough = (VALUE) userdata;
   VALUE callback;
   VALUE callback_data;
+  VALUE self;
   callback = rb_ary_entry(passthrough, 0);
-  callback_data = rb_ary_entry(passthrough, 1);
+  self = rb_ary_entry(passthrough, 1);
+  callback_data = rb_ary_entry(passthrough, 2);
   VALUE command_line = rb_str_new2(gtk_entry_get_text(GTK_ENTRY(backbone.window.entry)));
-  rb_funcall(callback, rb_intern("call"), 2, command_line, callback_data); 
+  rb_funcall(callback, rb_intern("call"), 3, self, command_line, callback_data); 
 
 }
 VALUE rtortosa_on_entry_validate_event(VALUE self, VALUE callback, VALUE userdata)
 {
   VALUE passthrough;
-  
+/*pass self in the first agument so that the user can call win::*/  
   if(rb_class_of(callback) != rb_cProc)
     rb_raise(rb_eTypeError, "Expected Proc callback");
 
   passthrough = rb_ary_new();
   rb_ary_store(passthrough, 0, callback);
-  rb_ary_store(passthrough, 1, userdata);  
+  rb_ary_store(passthrough, 1, self);  
+  rb_ary_store(passthrough, 2, userdata);  
   g_signal_connect( backbone.window.entry, 
                     "activate", 
                     G_CALLBACK(parse_command_line),

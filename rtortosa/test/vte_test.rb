@@ -11,7 +11,8 @@ win.set_wmclass('Rtortosa','Rtortosa')
 win.set_icon_name('terminal')
 win.background_color = Rtortosa::Color.new("#333333ff") 
 win.notebook_set_tab_pos(Rtortosa::POS_BOTTOM)
-win.new_tab("/bin/zsh")
+vte = win.new_tab("/bin/zsh")
+vte.set_color_background(Rtortosa::Color.new("#33333399"))
 command_cb = Proc.new{ |win, command| 
   puts "command line: #{command}"
 #  puts "-->userdata : #{userdata}"

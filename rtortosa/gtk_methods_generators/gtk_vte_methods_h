@@ -1,0 +1,17 @@
+#ifndef GTK_VTE_METHODS_H
+#define GTK_VTE_METHODS_H
+#include <ruby.h>
+#include <gtk/gtk.h>
+#include <vte/vte.h>
+#include "tabs.h"
+#include "backbone.h"
+#include "dbg.h"
+typedef struct vte_t {
+  GtkWidget * vte;
+  char * working_directory;
+  VALUE command;
+  GPid pid;
+} vte_t;
+VALUE generate_vte_ruby_class_under(VALUE); 
+#endif
+

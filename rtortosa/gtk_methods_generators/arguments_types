@@ -1,0 +1,22 @@
+const char *
+gssize signed long
+const guint8 *
+gsize unsigned long
+glong long 
+gdouble double
+#gboolean
+#const GdkRGBA *
+#VteCursorBlinkMode
+#VteCursorShape
+#const PangoFontDescription *
+#VteEraseBinding
+#VteSelectionFunc
+glong *
+#GdkCursor *
+#GdkCursorType
+#int *
+#GdkEvent *
+#GdkGeometry *
+#GtkWindow *
+#GOutputStream *
+#VteWriteFlags

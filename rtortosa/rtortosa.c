@@ -7,8 +7,9 @@
 #include "stdio.h"
 #include "gtk_window_methods.h"
 #include "gtk_notebook_methods.h"
-#include "terminal.h"
+#include "gtk_vte_methods.h"
 #include "events.h"
+#include "fonts.h"
 backbone_t backbone;
 
 static  VALUE rtortosa_initialize( VALUE self, VALUE args)
@@ -67,9 +68,8 @@ static  VALUE rtortosa_initialize( VALUE self, VALUE args)
   /**************/
   backbone.window.notebook = gtk_notebook_new(); 
   widget_set_transparent_background(backbone.window.notebook);
-  gtk_box_pack_start(GTK_BOX(backbone.window.vbox), backbone.window.notebook, FALSE, FALSE, 0);
-  
-  new_terminal_emulator(&backbone, NULL);
+  gtk_box_pack_start(GTK_BOX(backbone.window.vbox), backbone.window.notebook, TRUE, TRUE, 0);
+
   /***********/
   /* GtkEntry*/
   /***********/
@@ -124,7 +124,7 @@ static VALUE rtortosa_pick_a_color(VALUE self)
     VALUE m_rtortosa = rb_const_get( rb_cObject, rb_intern( "Rtortosa" ) );
     VALUE cColor = rb_const_get_at( m_rtortosa, rb_intern("Color") );
     VALUE params[1];
-    params[1] = rb_str_new2("#000000");
+    params[0] = rb_str_new2("#000000");
     color = rb_class_new_instance( 1, params, cColor );  
     Data_Get_Struct(color, color_t , c);
     c->color = g_string_new(gdk_rgba_to_string(&rgba));
@@ -136,15 +136,34 @@ static VALUE rtortosa_pick_a_color(VALUE self)
   gtk_widget_destroy(dialog);
   return color;
 }
+static VALUE rtortosa_pick_a_font(VALUE self)
+{
+  VALUE font = Qnil;
+  GtkResponseType result;
+  GtkWidget *dialog = gtk_font_chooser_dialog_new("Pick a font", GTK_WINDOW(backbone.window.widget));
+  result = gtk_dialog_run(GTK_DIALOG(dialog));
+  if(result == GTK_RESPONSE_OK || result == GTK_RESPONSE_APPLY)
+  {
+    font_t *f;
+    VALUE m_rtortosa = rb_const_get( rb_cObject, rb_intern( "Rtortosa" ) );
+    VALUE cFont = rb_const_get_at( m_rtortosa, rb_intern("Font") );
+    VALUE params[1];
+    params[0] = rb_str_new2(gtk_font_chooser_get_font(GTK_FONT_CHOOSER(dialog)));
+    font = rb_class_new_instance( 1, params, cFont );  
+  }
+  gtk_widget_destroy(dialog);
+  return font;
+}
 static VALUE rtortosa_new_tab(VALUE self, VALUE command)
 {
   if(command != Qnil && (TYPE(command) != T_STRING))
     rb_raise(rb_eTypeError, "Expected a string");
-  if(command == Qnil)
-    new_terminal_emulator(&backbone, NULL);
-  else
-    new_terminal_emulator(&backbone, RSTRING_PTR(command));
-  return Qnil;  
+  VALUE m_rtortosa = rb_const_get( rb_cObject, rb_intern( "Rtortosa" ) );
+  VALUE cVte = rb_const_get_at( m_rtortosa, rb_intern("Vte"));
+  VALUE params[1];
+  params[0] = command;
+  VALUE vte = rb_class_new_instance(1, params, cVte);
+  return vte;  
 }
 void Init_rtortosa()
 {
@@ -157,8 +176,11 @@ void Init_rtortosa()
   rb_define_module_function(m_rtortosa, "on_command_line_event", rtortosa_on_entry_validate_event, 2);
   rb_define_module_function(m_rtortosa, "on_key_press_event", rtortosa_on_key_press_event, 2);
   rb_define_module_function(m_rtortosa, "pick_a_color", rtortosa_pick_a_color, 0);
+  rb_define_module_function(m_rtortosa, "pick_a_font", rtortosa_pick_a_font, 0);
   rb_define_module_function(m_rtortosa, "new_tab", rtortosa_new_tab, 1);
   gtk_window_wrapper(m_rtortosa);
   gtk_notebook_wrapper(m_rtortosa);
   VALUE c_color = generate_color_ruby_class_under(m_rtortosa); 
+  VALUE f_font = generate_font_ruby_class_under(m_rtortosa);
+  VALUE c_vte = generate_vte_ruby_class_under(m_rtortosa);
 }

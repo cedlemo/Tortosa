@@ -1,8 +1,0 @@
-<map id="add_pango_active_tab_color" name="add_pango_active_tab_color">
-<area shape="rect" id="node2" href="$tabs_8h.html#ab4614edd73edce92cd03e359b538b887" title="on_switch_tabs_signal" alt="" coords="425,5,578,32"/>
-<area shape="rect" id="node4" href="$tabs_8h.html#a99dabcf43137f96cf5524ad88d02bed3" title="reload_tabs_configuration" alt="" coords="206,56,375,83"/>
-<area shape="rect" id="node6" href="$window_8h.html#afc260ef4462cea2de9dcf5598eeddf8f" title="reload_css_theme" alt="" coords="227,107,355,133"/>
-<area shape="rect" id="node3" href="$tortosa_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="main" alt="" coords="627,56,677,83"/>
-<area shape="rect" id="node5" href="$menus_8h.html#a0f10cf5a8a8b20c2a7b244fc9a23c616" title="create_reload_menu" alt="" coords="432,56,571,83"/>
-<area shape="rect" id="node7" href="$events_8h.html#a2b45201051e4603136cfca4ae05b202a" title="event_key_press" alt="" coords="442,107,561,133"/>
-</map>

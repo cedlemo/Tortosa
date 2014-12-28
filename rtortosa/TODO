@@ -1,8 +1,0 @@
-#create class Rtortosa::Color
-
-#manage key events for the main window
-see how to create a command interpreter SHIT+CTL + c (in C or in Ruby)
-create a get_font module method (launch a font chooser window)
-create a get_color module method (launch a color chooser window)
-#create an event hash :time :state :keyval :name
-parse /usr/include/gtk-3.0/gdk/gdkkeysyms.h in order to create Rtortosa::key 

@@ -1,14 +1,8 @@
-//see memory leak problem
-  remove css support
-  remove tab text color support
-  remove regex support
+#create class Rtortosa::Color
 
-
-
-//TODO clean code
-//solve pb: when switching tab with keyboard shortcuts no input focus on current vte
-//DONE clean on_switch_signal
-//Release v1
-//TODO create .pc file with autotools
-//TODO write indication to stolen code from gnome-terminal and pango
-//TODO write log macro without files/lines information and check if debug flag to swith
+#manage key events for the main window
+see how to create a command interpreter SHIT+CTL + c (in C or in Ruby)
+create a get_font module method (launch a font chooser window)
+create a get_color module method (launch a color chooser window)
+#create an event hash :time :state :keyval :name
+parse /usr/include/gtk-3.0/gdk/gdkkeysyms.h in order to create Rtortosa::key 

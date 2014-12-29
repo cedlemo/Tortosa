@@ -77,7 +77,7 @@ wrapper.wrapper_r_arguments_instructions do |parameter|
   case
   when type =~ /VteTerminal\s\*/
     'VALUE self'
-  when type =~ /GdkRGBA\s+\*/
+  when type =~ /(GdkRGBA|char)\s+\*/
     "VALUE #{parameter.getName}"
   when type =~ /[^\*]/
     "VALUE #{parameter.getName}"

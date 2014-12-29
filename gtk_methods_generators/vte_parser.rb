@@ -68,11 +68,11 @@ fq.is_getter_by_return_instructions do |function|
 end
 # Generate a code handler for simple fonction
 # setter function that return value
-setter_wrapper = Wrapper::Rewritter.new
-setter_wrapper.rename_instructions do |name|
+wrapper = Wrapper::Rewritter.new
+wrapper.rename_instructions do |name|
   "rtortosa_#{name.gsub('vte_', '')}"
 end
-setter_wrapper.wrapper_r_arguments_instructions do |parameter|
+wrapper.wrapper_r_arguments_instructions do |parameter|
   type = parameter.getType.getName
   case
   when type =~ /VteTerminal\s\*/
@@ -85,7 +85,7 @@ setter_wrapper.wrapper_r_arguments_instructions do |parameter|
     ''
   end
 end
-setter_wrapper.wrapper_r_2_c_instructions do |parameter|
+wrapper.wrapper_r_2_c_instructions do |parameter|
   c_type = parameter.getType.getName
   r_name = parameter.getName
   c_name = 'c_' + r_name
@@ -117,14 +117,14 @@ setter_wrapper.wrapper_r_2_c_instructions do |parameter|
     ''
   end
 end
-setter_wrapper.wrapper_c_arguments_instructions do |parameter|
+wrapper.wrapper_c_arguments_instructions do |parameter|
   if parameter.getType.getName == 'VteTerminal *'
     'vte'
   else
     "c_#{parameter.getName}"
   end
 end
-setter_wrapper.wrapper_r_return_instructions do |function|
+wrapper.wrapper_r_return_instructions do |function|
   type = function.getReturn.getName
   if fq.is_getter_by_return(function)
     case
@@ -142,7 +142,7 @@ setter_wrapper.wrapper_r_return_instructions do |function|
   else
     s = '  VALUE ret= rb_ary_new();' + Wrapper::NEWLINE
     function.getParameters.each do |p|
-      #      s += setter_wrapper.wrapper_r_2_c(p)
+      #      s += wrapper.wrapper_r_2_c(p)
       s += "  rb_ary_push(ret, #{p.getName});" + Wrapper::NEWLINE unless p.getType.getName =~ /VteTerminal/
     end
     s += '  return ret;' + Wrapper::NEWLINE
@@ -151,27 +151,27 @@ setter_wrapper.wrapper_r_return_instructions do |function|
 end
 
 # put it all together to write the handlers
-def generate_setter_handler(f, setter_wrapper, fq)
-  s = 'static VALUE ' + setter_wrapper.rename(f.getName) + Wrapper::O_BRACKET
+def generate_setter_handler(f, wrapper, fq)
+  s = 'static VALUE ' + wrapper.rename(f.getName) + Wrapper::O_BRACKET
   buff = []
   f.getParameters.each do |p|
-    r_arg = setter_wrapper.wrapper_r_arguments(p)
+    r_arg = wrapper.wrapper_r_arguments(p)
     buff << r_arg unless r_arg == ''
   end
   s += buff.join(Wrapper::COMMA)
   s +=  Wrapper::C_BRACKET + Wrapper::O_CURLY_BRACKET + Wrapper::NEWLINE
   f.getParameters.each do |p|
-    s += setter_wrapper.wrapper_r_2_c(p)
+    s += wrapper.wrapper_r_2_c(p)
   end
   s += '  '
   s += "#{f.getReturn.getName} ret =" unless !fq.is_getter_by_return(f) || fq.is_void(f)
   s +=  f.getName + Wrapper::O_BRACKET
   buff.clear
   f.getParameters.each do |p|
-    buff << setter_wrapper.wrapper_c_arguments(p)
+    buff << wrapper.wrapper_c_arguments(p)
   end
   s += buff.join(Wrapper::COMMA) + Wrapper::C_BRACKET + Wrapper::SEMI_COLON + Wrapper::NEWLINE
-  s +=  setter_wrapper.wrapper_r_return(f)
+  s +=  wrapper.wrapper_r_return(f)
   s += Wrapper::NEWLINE + Wrapper::C_CURLY_BRACKET
 end
 
@@ -187,7 +187,7 @@ lost = []
 sorter.functions_to_parse.each do |f|
   print_function(f) if f.getName.match(/set_font_scale/)
   if (fq.is_setter(f) && !fq.is_array_setter(f)) || fq.is_getter(f)
-    out._c.puts(generate_setter_handler(f, setter_wrapper, fq))
+    out._c.puts(generate_setter_handler(f, wrapper, fq))
   else
     lost << f
   end

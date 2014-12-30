@@ -70,7 +70,7 @@ fq = Wrapper::FunctionQualifier.new
 # setter function that return value
 wrapper = Wrapper::Rewritter.new
 wrapper.rename_instructions do |name|
-  "rtortosa_#{name.gsub('vte_', '')}"
+  "rtortosa_#{name.gsub('gtk_', '')}"
 end
 wrapper.wrapper_r_arguments_instructions do |parameter|
   type = parameter.getType.getName
@@ -79,7 +79,7 @@ wrapper.wrapper_r_arguments_instructions do |parameter|
     'VALUE self'
   when type =~ /char\s+\*/
     "VALUE #{parameter.getName}"
-  when type =~ /[^\*]/
+  when type =~ /[^\*]+/
     "VALUE #{parameter.getName}"
   else
     ''
@@ -91,7 +91,7 @@ wrapper.wrapper_r_2_c_instructions do |parameter|
   r_name = parameter.getName
   c_name = 'c_' + r_name
   case
-  when c_type == 'gint'
+  when c_type =~ /(gint)|(GtkPositionType)/
     Wrapper.rb_num_2_int(r_name, c_type, c_name)
   when c_type =~ /.*char\s+\*/
     Wrapper.rb_str_2_c_char_ptr(r_name, c_type, c_name)
@@ -105,18 +105,20 @@ wrapper.wrapper_r_2_c_instructions do |parameter|
     Wrapper.rb_num_2_long(r_name, c_type, c_name)
   when c_type == 'gdouble'
     Wrapper.rb_num_2_dbl(r_name, c_type, c_name)
+  when c_type =~ /uint16/
+    Wrapper.rb_num_2_uint16(r_name, c_type, c_name)
   when c_type =~ /GtkNotebook\s*\*/
     %{  notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
-  GtkNotebook * n = GTK_NOTEBOOK(n->notebook);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
 }
   else
     ''
   end
 end
 wrapper.wrapper_c_arguments_instructions do |parameter|
-  if parameter.getType.getName == 'VteTerminal *'
-    'vte'
+  if parameter.getType.getName == 'GtkNotebook *'
+    'notebook'
   else
     "c_#{parameter.getName}"
   end
@@ -140,7 +142,7 @@ wrapper.wrapper_r_return_instructions do |function|
     s = '  VALUE ret= rb_ary_new();' + Wrapper::NEWLINE
     function.getParameters.each do |p|
       #      s += wrapper.wrapper_r_2_c(p)
-      s += "  rb_ary_push(ret, #{p.getName});" + Wrapper::NEWLINE unless p.getType.getName =~ /VteTerminal/
+      s += "  rb_ary_push(ret, #{p.getName});" + Wrapper::NEWLINE unless p.getType.getName =~ /GtkNotebook/
     end
     s += '  return ret;' + Wrapper::NEWLINE
     s
@@ -176,7 +178,7 @@ def print_function(f)
   puts "#{f.getReturn.getName} #{f.getName}(#{f.getParameters.map { |p|"#{p.getType.getName} #{p.getName}" }.join(',')})"
 end
 
-out = Wrapper::OutputFiles.new('../gtk_vte_methods')
+out = Wrapper::OutputFiles.new('notebook_test_methods')
 out._h.puts(File.open('gtk_notebook_methods_h', 'rb') { |f| f.read })
 out._c.puts(File.open('gtk_notebook_methods_c_1', 'rb') { |f| f.read })
 
@@ -192,7 +194,7 @@ end
 out._c.puts(File.open('gtk_notebook_methods_c_2', 'rb') { |f| f.read })
 
 def get_callback_parameters_number(params)
-  if params.any? { |p| p.getType.getName == 'VteTerminal *' }
+  if params.any? { |p| p.getType.getName == 'GtkNotebook *' }
     params.size - 1
   else
     params.size
@@ -201,8 +203,8 @@ end
 
 sorter.functions_to_parse.each do |f|
   out._c.puts(%{  rb_define_method(c_vte,
-                                        "#{f.getName.gsub('vte_terminal_', '')}",
-                                        RUBY_METHOD_FUNC(rtortosa_#{f.getName.gsub('vte_', '')}),
+                                        "#{f.getName.gsub('gtk_notebook_', '')}",
+                                        RUBY_METHOD_FUNC(rtortosa_#{f.getName.gsub('gtk_', '')}),
                                         #{fq.is_getter(f) ? 0 :
                                         get_callback_parameters_number(f.getParameters)});} +
   Wrapper::NEWLINE)

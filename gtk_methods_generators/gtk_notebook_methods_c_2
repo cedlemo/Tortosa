@@ -1,0 +1,5 @@
+VALUE generate_notebook_ruby_class_under(VALUE module) {
+  VALUE c_notebook = rb_define_class_under(module, "Notebook", rb_cObject);
+  rb_define_alloc_func(c_notebook, c_notebook_struct_alloc);
+  //rb_define_method(c_vte, "initialize", RUBY_METHOD_FUNC(c_vte_initialize), 1);
+

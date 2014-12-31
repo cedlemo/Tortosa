@@ -41,9 +41,9 @@ sorter.sort
 # setter array function
 
 fq = Wrapper::FunctionQualifier.new
-#fq.is_void_instructions do |function|
-#  function.getReturn.getName.match(/void/)
-#end
+fq.is_void_instructions do |function|
+  function.getReturn.getName.match(/void/)
+end
 #fq.is_getter_instructions do |function|
 #  function.getName.match(/_get_/) ? true : false
 #end
@@ -56,16 +56,16 @@ fq = Wrapper::FunctionQualifier.new
 #fq.is_array_getter_instructions do |_function|
 #  false
 #end
-#fq.is_getter_by_return_instructions do |function|
-#  test = true
-#  function.getParameters.each do |parameter|
-#    ptype = parameter.getType.getName
-#    if ptype.match(/\*/) && !ptype.match(/(VteTerminal)|(char)|(GdkRGBA)/)
-#      test = false
-#    end
-#  end
-#  test
-#end
+fq.is_getter_by_return_instructions do |function|
+  test = true
+  function.getParameters.each do |parameter|
+    ptype = parameter.getType.getName
+    if ptype.match(/\*/) && !ptype.match(/(GtkNotebook)|(char)/)
+      test = false
+    end
+  end
+  test
+end
 ## Generate a code handler for simple fonction
 # setter function that return value
 wrapper = Wrapper::Rewritter.new
@@ -184,29 +184,33 @@ out._c.puts(File.open('gtk_notebook_methods_c_1', 'rb') { |f| f.read })
 
 lost = []
 sorter.functions_to_parse.each do |f|
-  if (fq.is_setter(f) && !fq.is_array_setter(f)) || fq.is_getter(f)
+##  if (fq.is_setter(f) && !fq.is_array_setter(f)) || fq.is_getter(f)
     out._c.puts(generate_setter_handler(f, wrapper, fq))
-  else
+##  else
     lost << f
-  end
+##  end
 end
 
 out._c.puts(File.open('gtk_notebook_methods_c_2', 'rb') { |f| f.read })
-
 def get_callback_parameters_number(params)
-  if params.any? { |p| p.getType.getName == 'GtkNotebook *' }
-    params.size - 1
-  else
-    params.size
+  nb = params.size
+  params.each do |p|
+    type = p.getType.getName
+    case
+    when type =~ /GtkNotebook/
+      nb = nb - 1
+    when type =~ /\*/ && !type =~ /char\s+\*/
+      nb = nb - 1
+    end
   end
+  nb
 end
 
 sorter.functions_to_parse.each do |f|
   out._c.puts(%{  rb_define_method(c_vte,
                                         "#{f.getName.gsub('gtk_notebook_', '')}",
                                         RUBY_METHOD_FUNC(rtortosa_#{f.getName.gsub('gtk_', '')}),
-                                        #{fq.is_getter(f) ? 0 :
-                                        get_callback_parameters_number(f.getParameters)});} +
+                                        #{get_callback_parameters_number(f.getParameters)});} +
   Wrapper::NEWLINE)
 end
 out._c.puts(Wrapper::C_CURLY_BRACKET)

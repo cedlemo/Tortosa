@@ -1,158 +1,201 @@
+/*notebook ruby class*/
 #include "gtk_notebook_methods.h"
-static VALUE rtortosa_notebook_remove_page(VALUE self, VALUE page_num){
-  if (TYPE(page_num) != T_FIXNUM)
-    rb_raise(rb_eTypeError, "invalid type for input");
-  gint r_page_num=FIX2INT(page_num);
-  gtk_notebook_remove_page(GTK_NOTEBOOK(backbone.window.notebook),r_page_num);
-  return Qnil;
+
+static void c_notebook_struct_free(notebook_t *c)
+{
+  if(c)
+  {
+    ruby_xfree(c);
+  }
 }
-static VALUE rtortosa_notebook_set_group_name(VALUE self, VALUE group_name){
+static VALUE c_notebook_struct_alloc( VALUE klass)
+{
+  return Data_Wrap_Struct(klass, NULL, c_notebook_struct_free, ruby_xmalloc(sizeof(notebook_t)));
+}
+/*static VALUE c_notebook_initialize(VALUE self, VALUE command)
+{
+}*/
+static VALUE rtortosa_notebook_set_group_name(VALUE self,VALUE group_name){
+  notebook_t *n;
+  Data_Get_Struct(self, notebook_t,n);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
   if(TYPE(group_name) != T_STRING)
     rb_raise(rb_eTypeError, "invalid type for input");
-  const gchar * r_group_name=RSTRING_PTR(group_name);
-  gtk_notebook_set_group_name(GTK_NOTEBOOK(backbone.window.notebook),r_group_name);
+  const gchar * c_group_name=RSTRING_PTR(group_name);
+  gtk_notebook_set_group_name(notebook,c_group_name);
   return Qnil;
 }
 static VALUE rtortosa_notebook_get_group_name(VALUE self){
-  const gchar * ret =gtk_notebook_get_group_name(GTK_NOTEBOOK(backbone.window.notebook));
-  return rb_strnew2(ret);
+  notebook_t *n;
+  Data_Get_Struct(self, notebook_t,n);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  const gchar * ret =gtk_notebook_get_group_name(notebook);
+  return rb_str_new2(ret);
 }
 static VALUE rtortosa_notebook_get_current_page(VALUE self){
-  gint ret =gtk_notebook_get_current_page(GTK_NOTEBOOK(backbone.window.notebook));
+  notebook_t *n;
+  Data_Get_Struct(self, notebook_t,n);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  gint ret =gtk_notebook_get_current_page(notebook);
   return INT2FIX(ret);
 }
 static VALUE rtortosa_notebook_get_n_pages(VALUE self){
-  gint ret =gtk_notebook_get_n_pages(GTK_NOTEBOOK(backbone.window.notebook));
+  notebook_t *n;
+  Data_Get_Struct(self, notebook_t,n);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  gint ret =gtk_notebook_get_n_pages(notebook);
   return INT2FIX(ret);
 }
-static VALUE rtortosa_notebook_set_current_page(VALUE self, VALUE page_num){
-  if (TYPE(page_num) != T_FIXNUM)
-    rb_raise(rb_eTypeError, "invalid type for input");
-  gint r_page_num=FIX2INT(page_num);
-  gtk_notebook_set_current_page(GTK_NOTEBOOK(backbone.window.notebook),r_page_num);
-  return Qnil;
-}
 static VALUE rtortosa_notebook_next_page(VALUE self){
-  gtk_notebook_next_page(GTK_NOTEBOOK(backbone.window.notebook));
+  notebook_t *n;
+  Data_Get_Struct(self, notebook_t,n);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  gtk_notebook_next_page(notebook);
   return Qnil;
 }
 static VALUE rtortosa_notebook_prev_page(VALUE self){
-  gtk_notebook_prev_page(GTK_NOTEBOOK(backbone.window.notebook));
+  notebook_t *n;
+  Data_Get_Struct(self, notebook_t,n);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  gtk_notebook_prev_page(notebook);
   return Qnil;
 }
-static VALUE rtortosa_notebook_set_show_border(VALUE self, VALUE show_border){
-  gboolean r_show_border= (show_border == Qtrue) ? TRUE : FALSE;
-  gtk_notebook_set_show_border(GTK_NOTEBOOK(backbone.window.notebook),r_show_border);
+static VALUE rtortosa_notebook_set_show_border(VALUE self,VALUE show_border){
+  notebook_t *n;
+  Data_Get_Struct(self, notebook_t,n);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  gboolean c_show_border= (show_border == Qtrue) ? TRUE : FALSE;
+  gtk_notebook_set_show_border(notebook,c_show_border);
   return Qnil;
 }
 static VALUE rtortosa_notebook_get_show_border(VALUE self){
-  gboolean ret =gtk_notebook_get_show_border(GTK_NOTEBOOK(backbone.window.notebook));
+  notebook_t *n;
+  Data_Get_Struct(self, notebook_t,n);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  gboolean ret =gtk_notebook_get_show_border(notebook);
   return ret? Qtrue: Qfalse;
 }
-static VALUE rtortosa_notebook_set_show_tabs(VALUE self, VALUE show_tabs){
-  gboolean r_show_tabs= (show_tabs == Qtrue) ? TRUE : FALSE;
-  gtk_notebook_set_show_tabs(GTK_NOTEBOOK(backbone.window.notebook),r_show_tabs);
+static VALUE rtortosa_notebook_set_show_tabs(VALUE self,VALUE show_tabs){
+  notebook_t *n;
+  Data_Get_Struct(self, notebook_t,n);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  gboolean c_show_tabs= (show_tabs == Qtrue) ? TRUE : FALSE;
+  gtk_notebook_set_show_tabs(notebook,c_show_tabs);
   return Qnil;
 }
 static VALUE rtortosa_notebook_get_show_tabs(VALUE self){
-  gboolean ret =gtk_notebook_get_show_tabs(GTK_NOTEBOOK(backbone.window.notebook));
+  notebook_t *n;
+  Data_Get_Struct(self, notebook_t,n);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  gboolean ret =gtk_notebook_get_show_tabs(notebook);
   return ret? Qtrue: Qfalse;
 }
-static VALUE rtortosa_notebook_set_tab_pos(VALUE self, VALUE pos){
-  if (TYPE(pos) != T_FIXNUM)
+static VALUE rtortosa_notebook_set_tab_pos(VALUE self,VALUE pos){
+  notebook_t *n;
+  Data_Get_Struct(self, notebook_t,n);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  GtkPositionType c_pos;
+  if (TYPE(pos) == T_FIXNUM)
+    c_pos=FIX2INT(pos);
+  else if(TYPE(TYPE(pos) == T_BIGNUM))
+    c_pos=NUM2INT(pos);
+  else
     rb_raise(rb_eTypeError, "invalid type for input");
-  GtkPositionType r_pos=FIX2INT(pos);
-  gtk_notebook_set_tab_pos(GTK_NOTEBOOK(backbone.window.notebook),r_pos);
+  gtk_notebook_set_tab_pos(notebook,c_pos);
   return Qnil;
 }
-static VALUE rtortosa_notebook_set_scrollable(VALUE self, VALUE scrollable){
-  gboolean r_scrollable= (scrollable == Qtrue) ? TRUE : FALSE;
-  gtk_notebook_set_scrollable(GTK_NOTEBOOK(backbone.window.notebook),r_scrollable);
+static VALUE rtortosa_notebook_set_scrollable(VALUE self,VALUE scrollable){
+  notebook_t *n;
+  Data_Get_Struct(self, notebook_t,n);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  gboolean c_scrollable= (scrollable == Qtrue) ? TRUE : FALSE;
+  gtk_notebook_set_scrollable(notebook,c_scrollable);
   return Qnil;
 }
 static VALUE rtortosa_notebook_get_scrollable(VALUE self){
-  gboolean ret =gtk_notebook_get_scrollable(GTK_NOTEBOOK(backbone.window.notebook));
+  notebook_t *n;
+  Data_Get_Struct(self, notebook_t,n);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  gboolean ret =gtk_notebook_get_scrollable(notebook);
   return ret? Qtrue: Qfalse;
 }
 static VALUE rtortosa_notebook_popup_enable(VALUE self){
-  gtk_notebook_popup_enable(GTK_NOTEBOOK(backbone.window.notebook));
+  notebook_t *n;
+  Data_Get_Struct(self, notebook_t,n);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  gtk_notebook_popup_enable(notebook);
   return Qnil;
 }
 static VALUE rtortosa_notebook_popup_disable(VALUE self){
-  gtk_notebook_popup_disable(GTK_NOTEBOOK(backbone.window.notebook));
+  notebook_t *n;
+  Data_Get_Struct(self, notebook_t,n);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  gtk_notebook_popup_disable(notebook);
   return Qnil;
 }
-void gtk_notebook_wrapper(VALUE module){
-  rb_define_const(module, "POS_LEFT", INT2FIX(GTK_POS_LEFT) );
-  rb_define_const(module, "POS_RIGHT", INT2FIX(GTK_POS_RIGHT) );
-  rb_define_const(module, "POS_TOP", INT2FIX(GTK_POS_TOP) );
-  rb_define_const(module, "POS_BOTTOM", INT2FIX(GTK_POS_BOTTOM));
-  rb_define_module_function(module, 
-                                        "notebook_remove_page", 
-                                        rtortosa_notebook_remove_page,
+VALUE generate_notebook_ruby_class_under(VALUE module) {
+  VALUE c_notebook = rb_define_class_under(module, "Notebook", rb_cObject);
+  rb_define_alloc_func(c_notebook, c_notebook_struct_alloc);
+  //rb_define_method(c_notebook, "initialize", RUBY_METHOD_FUNC(c_vte_initialize), 1);
+
+  rb_define_method(c_notebook,
+                                        "set_group_name",
+                                        RUBY_METHOD_FUNC(rtortosa_notebook_set_group_name),
                                         1);
-  rb_define_module_function(module, 
-                                        "notebook_set_group_name", 
-                                        rtortosa_notebook_set_group_name,
+  rb_define_method(c_notebook,
+                                        "get_group_name",
+                                        RUBY_METHOD_FUNC(rtortosa_notebook_get_group_name),
+                                        0);
+  rb_define_method(c_notebook,
+                                        "get_current_page",
+                                        RUBY_METHOD_FUNC(rtortosa_notebook_get_current_page),
+                                        0);
+  rb_define_method(c_notebook,
+                                        "get_n_pages",
+                                        RUBY_METHOD_FUNC(rtortosa_notebook_get_n_pages),
+                                        0);
+  rb_define_method(c_notebook,
+                                        "next_page",
+                                        RUBY_METHOD_FUNC(rtortosa_notebook_next_page),
+                                        0);
+  rb_define_method(c_notebook,
+                                        "prev_page",
+                                        RUBY_METHOD_FUNC(rtortosa_notebook_prev_page),
+                                        0);
+  rb_define_method(c_notebook,
+                                        "set_show_border",
+                                        RUBY_METHOD_FUNC(rtortosa_notebook_set_show_border),
                                         1);
-  rb_define_module_function(module, 
-                                        "notebook_get_group_name", 
-                                        rtortosa_notebook_get_group_name,
+  rb_define_method(c_notebook,
+                                        "get_show_border",
+                                        RUBY_METHOD_FUNC(rtortosa_notebook_get_show_border),
                                         0);
-  rb_define_module_function(module, 
-                                        "notebook_get_current_page", 
-                                        rtortosa_notebook_get_current_page,
-                                        0);
-  rb_define_module_function(module, 
-                                        "notebook_get_n_pages", 
-                                        rtortosa_notebook_get_n_pages,
-                                        0);
-  rb_define_module_function(module, 
-                                        "notebook_set_current_page", 
-                                        rtortosa_notebook_set_current_page,
+  rb_define_method(c_notebook,
+                                        "set_show_tabs",
+                                        RUBY_METHOD_FUNC(rtortosa_notebook_set_show_tabs),
                                         1);
-  rb_define_module_function(module, 
-                                        "notebook_next_page", 
-                                        rtortosa_notebook_next_page,
+  rb_define_method(c_notebook,
+                                        "get_show_tabs",
+                                        RUBY_METHOD_FUNC(rtortosa_notebook_get_show_tabs),
                                         0);
-  rb_define_module_function(module, 
-                                        "notebook_prev_page", 
-                                        rtortosa_notebook_prev_page,
-                                        0);
-  rb_define_module_function(module, 
-                                        "notebook_set_show_border", 
-                                        rtortosa_notebook_set_show_border,
+  rb_define_method(c_notebook,
+                                        "set_tab_pos",
+                                        RUBY_METHOD_FUNC(rtortosa_notebook_set_tab_pos),
                                         1);
-  rb_define_module_function(module, 
-                                        "notebook_get_show_border", 
-                                        rtortosa_notebook_get_show_border,
-                                        0);
-  rb_define_module_function(module, 
-                                        "notebook_set_show_tabs", 
-                                        rtortosa_notebook_set_show_tabs,
+  rb_define_method(c_notebook,
+                                        "set_scrollable",
+                                        RUBY_METHOD_FUNC(rtortosa_notebook_set_scrollable),
                                         1);
-  rb_define_module_function(module, 
-                                        "notebook_get_show_tabs", 
-                                        rtortosa_notebook_get_show_tabs,
+  rb_define_method(c_notebook,
+                                        "get_scrollable",
+                                        RUBY_METHOD_FUNC(rtortosa_notebook_get_scrollable),
                                         0);
-  rb_define_module_function(module, 
-                                        "notebook_set_tab_pos", 
-                                        rtortosa_notebook_set_tab_pos,
-                                        1);
-  rb_define_module_function(module, 
-                                        "notebook_set_scrollable", 
-                                        rtortosa_notebook_set_scrollable,
-                                        1);
-  rb_define_module_function(module, 
-                                        "notebook_get_scrollable", 
-                                        rtortosa_notebook_get_scrollable,
+  rb_define_method(c_notebook,
+                                        "popup_enable",
+                                        RUBY_METHOD_FUNC(rtortosa_notebook_popup_enable),
                                         0);
-  rb_define_module_function(module, 
-                                        "notebook_popup_enable", 
-                                        rtortosa_notebook_popup_enable,
-                                        0);
-  rb_define_module_function(module, 
-                                        "notebook_popup_disable", 
-                                        rtortosa_notebook_popup_disable,
+  rb_define_method(c_notebook,
+                                        "popup_disable",
+                                        RUBY_METHOD_FUNC(rtortosa_notebook_popup_disable),
                                         0);
 }

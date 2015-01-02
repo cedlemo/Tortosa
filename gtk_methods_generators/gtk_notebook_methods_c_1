@@ -1,5 +1,5 @@
 /*notebook ruby class*/
-#include "gtk_notebooks_methods.h"
+#include "gtk_notebook_methods.h"
 
 static void c_notebook_struct_free(notebook_t *c)
 {

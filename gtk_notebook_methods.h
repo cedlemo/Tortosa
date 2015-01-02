@@ -1,19 +1,24 @@
-#ifndef GTK_NOTEBOOK_METHODS_H
-#define GTK_NOTEBOOK_METHODS_H
+#ifndef GTK_VTE_METHODS_H
+#define GTK_VTE_METHODS_H
 #include <ruby.h>
 #include <gtk/gtk.h>
+#include <vte/vte.h>
+#include "tabs.h"
 #include "backbone.h"
-void gtk_notebook_wrapper(VALUE);
+#include "dbg.h"
+typedef struct notebook_t {
+  GtkWidget * notebook;
+} notebook_t;
+VALUE generate_vte_ruby_class_under(VALUE); 
 #endif
+
 /*|--------------------------------------->>*/
 /* functions wrapped                        */
 /*<<---------------------------------------|*/
-//gtk_notebook_remove_page
 //gtk_notebook_set_group_name
 //gtk_notebook_get_group_name
 //gtk_notebook_get_current_page
 //gtk_notebook_get_n_pages
-//gtk_notebook_set_current_page
 //gtk_notebook_next_page
 //gtk_notebook_prev_page
 //gtk_notebook_set_show_border
@@ -36,8 +41,10 @@ void gtk_notebook_wrapper(VALUE);
 //gtk_notebook_prepend_page_menu
 //gtk_notebook_insert_page
 //gtk_notebook_insert_page_menu
+//gtk_notebook_remove_page
 //gtk_notebook_get_nth_page
 //gtk_notebook_page_num
+//gtk_notebook_set_current_page
 //gtk_notebook_get_tab_pos
 //gtk_notebook_get_tab_hborder
 //gtk_notebook_get_tab_vborder

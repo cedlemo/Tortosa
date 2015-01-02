@@ -28,6 +28,10 @@ to_match.each do |m|
   filter.add_param_to_match(m)
 end
 
+#reject deprecated
+filter.add_name_to_reject('gtk_notebook_get_tab_hborder')
+filter.add_name_to_reject('gtk_notebook_get_tab_vborder')
+
 # Create a FunctionsWrapper which will sort our functions
 sorter = Wrapper::FunctionsWrapper.new(wrapper.parser.getFunctions, filter)
 sorter.sort
@@ -178,17 +182,12 @@ def print_function(f)
   puts "#{f.getReturn.getName} #{f.getName}(#{f.getParameters.map { |p|"#{p.getType.getName} #{p.getName}" }.join(',')})"
 end
 
-out = Wrapper::OutputFiles.new('notebook_test_methods')
+out = Wrapper::OutputFiles.new('../gtk_notebook_methods')
 out._h.puts(File.open('gtk_notebook_methods_h', 'rb') { |f| f.read })
 out._c.puts(File.open('gtk_notebook_methods_c_1', 'rb') { |f| f.read })
 
-lost = []
 sorter.functions_to_parse.each do |f|
-##  if (fq.is_setter(f) && !fq.is_array_setter(f)) || fq.is_getter(f)
     out._c.puts(generate_setter_handler(f, wrapper, fq))
-##  else
-    lost << f
-##  end
 end
 
 out._c.puts(File.open('gtk_notebook_methods_c_2', 'rb') { |f| f.read })
@@ -207,7 +206,7 @@ def get_callback_parameters_number(params)
 end
 
 sorter.functions_to_parse.each do |f|
-  out._c.puts(%{  rb_define_method(c_vte,
+  out._c.puts(%{  rb_define_method(c_notebook,
                                         "#{f.getName.gsub('gtk_notebook_', '')}",
                                         RUBY_METHOD_FUNC(rtortosa_#{f.getName.gsub('gtk_', '')}),
                                         #{get_callback_parameters_number(f.getParameters)});} +

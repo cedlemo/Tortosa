@@ -10,7 +10,7 @@ win::set_role('Rtortosa')
 win::set_wmclass('Rtortosa','Rtortosa')
 win::set_icon_name('terminal')
 win::background_color = Rtortosa::Color.new("#333333ff") 
-win::notebook_set_tab_pos(Rtortosa::POS_BOTTOM)
+win::notebook.set_tab_pos(3)#Rtortosa::POS_BOTTOM)
 command_cb = Proc.new{ |command, userdata| 
   puts "command line: #{command}"
 #  puts "-->userdata : #{userdata}"

@@ -176,7 +176,7 @@ require 'rtruckboris'
 }
   end
   def self.rb_num_2_int8(r_val_name, c_val_type, c_val_name)
-    %Q{  #{c_val_type} #{c_val_name}
+    %Q{  #{c_val_type} #{c_val_name};
   if (TYPE(#{r_val_name}) == T_FIXNUM)
     #{c_val_name}=int2int8(FIX2INT(#{r_val_name}));
   else if(TYPE(TYPE(#{r_val_name}) == T_BIGNUM))
@@ -186,7 +186,7 @@ require 'rtruckboris'
 }
   end
   def self.rb_num_2_uint8(r_val_name, c_val_type, c_val_name)
-    %Q{  #{c_val_type} #{c_val_name}
+    %Q{  #{c_val_type} #{c_val_name};
   if (TYPE(#{r_val_name}) == T_FIXNUM)
     #{c_val_name}=int2uint8FIX2UINT(#{r_val_name}));
   else if(TYPE(TYPE(#{r_val_name}) == T_BIGNUM))
@@ -196,7 +196,7 @@ require 'rtruckboris'
 }
   end
   def self.rb_num_2_int16(r_val_name, c_val_type, c_val_name)
-    %Q{  #{c_val_type} #{c_val_name}
+    %Q{  #{c_val_type} #{c_val_name};
   if (TYPE(#{r_val_name}) == T_FIXNUM)
     #{c_val_name}=int2int16(FIX2INT(#{r_val_name}));
   else if(TYPE(TYPE(#{r_val_name}) == T_BIGNUM))
@@ -206,7 +206,7 @@ require 'rtruckboris'
 }
   end
   def self.rb_num_2_uint16(r_val_name, c_val_type, c_val_name)
-    %Q{  #{c_val_type} #{c_val_name}
+    %Q{  #{c_val_type} #{c_val_name};
   if (TYPE(#{r_val_name}) == T_FIXNUM)
     #{c_val_name}=int2uint16FIX2UINT(#{r_val_name}));
   else if(TYPE(TYPE(#{r_val_name}) == T_BIGNUM))
@@ -216,7 +216,7 @@ require 'rtruckboris'
 }
   end
   def self.rb_num_2_int32(r_val_name, c_val_type, c_val_name)
-    %Q{  #{c_val_type} #{c_val_name}
+    %Q{  #{c_val_type} #{c_val_name};
   if (TYPE(#{r_val_name}) == T_FIXNUM)
     #{c_val_name}=int2int32(FIX2INT(#{r_val_name}));
   else if(TYPE(TYPE(#{r_val_name}) == T_BIGNUM))
@@ -226,7 +226,7 @@ require 'rtruckboris'
 }
   end
   def self.rb_num_2_uint32(r_val_name, c_val_type, c_val_name)
-    %Q{  #{c_val_type} #{c_val_name}
+    %Q{  #{c_val_type} #{c_val_name};
   if (TYPE(#{r_val_name}) == T_FIXNUM)
     #{c_val_name}=int2uint32FIX2UINT(#{r_val_name}));
   else if(TYPE(TYPE(#{r_val_name}) == T_BIGNUM))
@@ -236,7 +236,7 @@ require 'rtruckboris'
 }
   end
   def self.rb_num_2_int(r_val_name, c_val_type, c_val_name)
-    %Q{  #{c_val_type} #{c_val_name}
+    %Q{  #{c_val_type} #{c_val_name};
   if (TYPE(#{r_val_name}) == T_FIXNUM)
     #{c_val_name}=FIX2INT(#{r_val_name});
   else if(TYPE(TYPE(#{r_val_name}) == T_BIGNUM))
@@ -246,7 +246,7 @@ require 'rtruckboris'
 }
   end
   def self.rb_num_2_uint(r_val_name, c_val_type, c_val_name)
-    %Q{    #{c_val_type} #{c_val_name}
+    %Q{    #{c_val_type} #{c_val_name};
   if (TYPE(#{r_val_name}) == T_FIXNUM)
     #{c_val_name}=FIX2UINT(#{r_val_name});
   else if(TYPE(TYPE(#{r_val_name}) == T_BIGNUM))

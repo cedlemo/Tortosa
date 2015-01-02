@@ -146,6 +146,17 @@ static VALUE rtortosa_new_tab(VALUE self, VALUE command)
     new_terminal_emulator(&backbone, RSTRING_PTR(command));
   return Qnil;  
 }
+static VALUE rtortosa_notebook(VALUE self)
+{
+  VALUE notebook;
+  VALUE m_rtortosa = rb_const_get( rb_cObject, rb_intern( "Rtortosa" ) );
+  VALUE cNotebook = rb_const_get_at( m_rtortosa, rb_intern("Notebook") );
+  notebook = rb_class_new_instance(0, NULL, cNotebook);
+  notebook_t *n;
+  Data_Get_Struct(notebook, notebook_t, n);
+  n->notebook = backbone.window.notebook;
+  return notebook;
+}
 void Init_rtortosa()
 {
   VALUE m_rtortosa;
@@ -158,7 +169,9 @@ void Init_rtortosa()
   rb_define_module_function(m_rtortosa, "on_key_press_event", rtortosa_on_key_press_event, 2);
   rb_define_module_function(m_rtortosa, "pick_a_color", rtortosa_pick_a_color, 0);
   rb_define_module_function(m_rtortosa, "new_tab", rtortosa_new_tab, 1);
+  VALUE c_notebook = generate_notebook_ruby_class_under(m_rtortosa);
+  rb_define_module_function(m_rtortosa, "notebook", rtortosa_notebook, 0);
   gtk_window_wrapper(m_rtortosa);
-  gtk_notebook_wrapper(m_rtortosa);
+//  gtk_notebook_wrapper(m_rtortosa);
   VALUE c_color = generate_color_ruby_class_under(m_rtortosa); 
 }

@@ -10,11 +10,6 @@ wrapper.parse(true)
 
 filter = Wrapper::FunctionsFilter.new
 
-#names = %w(vte_terminal_search_ vte_terminal_match)
-#names.each do |n|
-#  filter.add_name_to_reject(n)
-#end
-
 return_types = %w(int char boolean void long double uint16)
 return_types.each do |r|
   filter.add_return_type_to_match(r)
@@ -89,7 +84,6 @@ wrapper.wrapper_r_arguments_instructions do |parameter|
     ''
   end
 end
-# TODO notebook add handler for GTK_POSITION, uint16
 wrapper.wrapper_r_2_c_instructions do |parameter|
   c_type = parameter.getType.getName
   r_name = parameter.getName
@@ -230,9 +224,4 @@ sorter.functions_to_reject.each { |f| out._h.puts('//' + f.getName) }
 
 out.close_all
 
-# puts "Parsed : #{sorter.functions_to_parse.size}"
-# puts "Losts: #{lost.size}"
-# puts "Rejected: #{sorter.functions_to_reject.size}"
-# lost.each do |f|
-#  print_function(f)
-# end
+# TODO try to use rtruckboris to get constant like GtkPosition

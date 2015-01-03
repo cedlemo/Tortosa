@@ -1,5 +1,8 @@
 VALUE generate_notebook_ruby_class_under(VALUE module) {
   VALUE c_notebook = rb_define_class_under(module, "Notebook", rb_cObject);
+  rb_define_const(module, "POS_LEFT", INT2FIX(GTK_POS_LEFT) );
+  rb_define_const(module, "POS_RIGHT", INT2FIX(GTK_POS_RIGHT) );
+  rb_define_const(module, "POS_TOP", INT2FIX(GTK_POS_TOP) );
+  rb_define_const(module, "POS_BOTTOM", INT2FIX(GTK_POS_BOTTOM));
   rb_define_alloc_func(c_notebook, c_notebook_struct_alloc);
-  //rb_define_method(c_notebook, "initialize", RUBY_METHOD_FUNC(c_vte_initialize), 1);
 

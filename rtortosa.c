@@ -3,6 +3,7 @@
 #include "gears.h"
 #include "window.h"
 #include "colors.h"
+#include "fonts.h"
 #include "backbone.h"
 #include "stdio.h"
 #include "gtk_window_methods.h"
@@ -174,4 +175,5 @@ void Init_rtortosa()
   gtk_window_wrapper(m_rtortosa);
 //  gtk_notebook_wrapper(m_rtortosa);
   VALUE c_color = generate_color_ruby_class_under(m_rtortosa); 
+  VALUE c_font = generate_font_ruby_class_under(m_rtortosa);
 }

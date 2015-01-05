@@ -1,5 +1,5 @@
 #include "events.h"
-#include "terminal.h"
+//#include "terminal.h"
 #include "tabs.h"
 #include "backbone.h"
 
@@ -16,7 +16,13 @@ gboolean default_event_key_press(GtkWidget *widget, GdkEventKey *event, void * u
       return TRUE;
     }
     if (g == GDK_KEY_T) {
-      new_terminal_emulator(&backbone, NULL);
+      VALUE m_rtortosa = rb_const_get( rb_cObject, rb_intern( "Rtortosa" ) );
+      VALUE cVte = rb_const_get_at( m_rtortosa, rb_intern("Vte") );
+      VALUE params[1];
+      params[0] = Qnil;
+      VALUE term = rb_class_new_instance( 1, params, cVte );
+        
+//      new_terminal_emulator(&backbone, NULL);
       return TRUE;
     }
     if (g == GDK_KEY_Left) {

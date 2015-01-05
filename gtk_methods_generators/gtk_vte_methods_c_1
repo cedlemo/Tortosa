@@ -1,5 +1,6 @@
 /*vte ruby class*/
 #include "gtk_vte_methods.h"
+#include "fonts.h"
 static void close_tab_on_exit(GtkWidget * vte, gint status, backbone_t * backbone)
 {
   gint current = gtk_notebook_get_current_page (GTK_NOTEBOOK(backbone->window.notebook));

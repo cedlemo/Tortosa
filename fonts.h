@@ -1,5 +1,5 @@
-#ifndef COLORS_H
-#define COLORS_H
+#ifndef FONTS_H
+#define FONTS_H
 #include <gtk/gtk.h>
 #include <ruby.h>
 typedef struct font_t {

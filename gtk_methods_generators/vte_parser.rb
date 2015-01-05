@@ -22,7 +22,7 @@ end
 
 to_match = ['(const\s)*\s*int\s*\*', '(const\s)*\s*gchar\s*\*', '(g)*boolean',
             'void', 'VteTerminal\s+\*', '(const\s)*\s*GdkRGBA\s+\*',
-            '(g)*double', '(g)*long']
+            '(g)*double', '(g)*long', 'PangoFontDescription\s+\*']
 
 to_match.each do |m|
   filter.add_param_to_match(m)
@@ -108,6 +108,11 @@ wrapper.wrapper_r_2_c_instructions do |parameter|
     Wrapper.rb_custom_class_to_c(r_name, 'Color',
                                  'Rtortosa', 'color_t',
                                  "  GdkRGBA * #{c_name}= &(color_t_ptr->rgba);")
+  when c_type =~ /PangoFontDescription\s+\*/
+    Wrapper.rb_custom_class_to_c(r_name, 'Font',
+                                 'Rtortosa', 'font_t',
+                                 "  PangoFontDescription * #{c_name}= font_t_ptr->desc;")
+
   when c_type =~ /VteTerminal\s*\*/
     %{  vte_t *v;
   Data_Get_Struct(self, vte_t,v);

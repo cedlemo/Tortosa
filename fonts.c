@@ -36,10 +36,18 @@ static VALUE c_font_initialize(VALUE self, VALUE font)
     return Qnil;
   }
 }
+// TODO finish method to_s
+static VALUE c_font_to_string(VALUE self)
+{
+  font_t *f;
+  Data_Get_Struct(self, font_t, f);
+  return rb_str_new2(f->str->str);
+}
 VALUE generate_font_ruby_class_under(VALUE module)
 {
-  VALUE c_font = rb_define_class_under(module, "Color", rb_cObject);
+  VALUE c_font = rb_define_class_under(module, "Font", rb_cObject);
   rb_define_alloc_func(c_font, c_font_struct_alloc);
   rb_define_method(c_font, "initialize", RUBY_METHOD_FUNC(c_font_initialize), 1);
+  rb_define_method(c_font, "to_s", RUBY_METHOD_FUNC(c_font_to_string), 0);
   return c_font;
 }

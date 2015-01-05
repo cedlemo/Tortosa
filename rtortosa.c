@@ -8,7 +8,8 @@
 #include "stdio.h"
 #include "gtk_window_methods.h"
 #include "gtk_notebook_methods.h"
-#include "terminal.h"
+#include "gtk_vte_methods.h"
+//#include "terminal.h"
 #include "events.h"
 backbone_t backbone;
 
@@ -70,7 +71,12 @@ static  VALUE rtortosa_initialize( VALUE self, VALUE args)
   widget_set_transparent_background(backbone.window.notebook);
   gtk_box_pack_start(GTK_BOX(backbone.window.vbox), backbone.window.notebook, FALSE, FALSE, 0);
   
-  new_terminal_emulator(&backbone, NULL);
+//  new_terminal_emulator(&backbone, NULL);
+//  VALUE m_rtortosa = rb_const_get( rb_cObject, rb_intern( "Rtortosa" ) );
+//  VALUE cVte = rb_const_get_at( m_rtortosa, rb_intern("Vte") );
+//  VALUE params[1];
+//  params[0] = Qnil;
+//  VALUE term = rb_class_new_instance( 1, params, cVte );
   /***********/
   /* GtkEntry*/
   /***********/
@@ -125,7 +131,7 @@ static VALUE rtortosa_pick_a_color(VALUE self)
     VALUE m_rtortosa = rb_const_get( rb_cObject, rb_intern( "Rtortosa" ) );
     VALUE cColor = rb_const_get_at( m_rtortosa, rb_intern("Color") );
     VALUE params[1];
-    params[1] = rb_str_new2("#000000");
+    params[0] = rb_str_new2("#000000");
     color = rb_class_new_instance( 1, params, cColor );  
     Data_Get_Struct(color, color_t , c);
     c->color = g_string_new(gdk_rgba_to_string(&rgba));
@@ -141,10 +147,15 @@ static VALUE rtortosa_new_tab(VALUE self, VALUE command)
 {
   if(command != Qnil && (TYPE(command) != T_STRING))
     rb_raise(rb_eTypeError, "Expected a string");
-  if(command == Qnil)
-    new_terminal_emulator(&backbone, NULL);
   else
-    new_terminal_emulator(&backbone, RSTRING_PTR(command));
+  {
+    VALUE m_rtortosa = rb_const_get( rb_cObject, rb_intern( "Rtortosa" ) );
+    VALUE cVte = rb_const_get_at( m_rtortosa, rb_intern("Vte") );
+    VALUE params[1];
+    params[0] = command;
+    VALUE term = rb_class_new_instance( 1, params, cVte );
+ }
+
   return Qnil;  
 }
 static VALUE rtortosa_notebook(VALUE self)
@@ -158,6 +169,7 @@ static VALUE rtortosa_notebook(VALUE self)
   n->notebook = backbone.window.notebook;
   return notebook;
 }
+// TODO create a pick a font method
 void Init_rtortosa()
 {
   VALUE m_rtortosa;
@@ -171,6 +183,7 @@ void Init_rtortosa()
   rb_define_module_function(m_rtortosa, "pick_a_color", rtortosa_pick_a_color, 0);
   rb_define_module_function(m_rtortosa, "new_tab", rtortosa_new_tab, 1);
   VALUE c_notebook = generate_notebook_ruby_class_under(m_rtortosa);
+  VALUE c_vte = generate_vte_ruby_class_under(m_rtortosa);
   rb_define_module_function(m_rtortosa, "notebook", rtortosa_notebook, 0);
   gtk_window_wrapper(m_rtortosa);
 //  gtk_notebook_wrapper(m_rtortosa);

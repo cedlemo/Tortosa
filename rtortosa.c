@@ -143,6 +143,24 @@ static VALUE rtortosa_pick_a_color(VALUE self)
   gtk_widget_destroy(dialog);
   return color;
 }
+static VALUE rtortosa_pick_a_font(VALUE self)
+{
+  VALUE font = Qnil;
+  GtkResponseType result;
+
+  GtkWidget *dialog = gtk_font_chooser_dialog_new("Pick a font", GTK_WINDOW(backbone.window.widget));
+  result = gtk_dialog_run(GTK_DIALOG(dialog));
+  if (result == GTK_RESPONSE_OK || result == GTK_RESPONSE_APPLY)
+  {
+    VALUE m_rtortosa = rb_const_get( rb_cObject, rb_intern( "Rtortosa" ) );
+    VALUE cFont = rb_const_get_at( m_rtortosa, rb_intern("Font") );
+    VALUE params[1];
+    params[0] = rb_str_new2(gtk_font_chooser_get_font(GTK_FONT_CHOOSER(dialog)));
+    font = rb_class_new_instance( 1, params, cFont );  
+   }
+  gtk_widget_destroy(dialog);
+  return font;
+}
 static VALUE rtortosa_new_tab(VALUE self, VALUE command)
 {
   if(command != Qnil && (TYPE(command) != T_STRING))
@@ -181,6 +199,7 @@ void Init_rtortosa()
   rb_define_module_function(m_rtortosa, "on_command_line_event", rtortosa_on_entry_validate_event, 2);
   rb_define_module_function(m_rtortosa, "on_key_press_event", rtortosa_on_key_press_event, 2);
   rb_define_module_function(m_rtortosa, "pick_a_color", rtortosa_pick_a_color, 0);
+  rb_define_module_function(m_rtortosa, "pick_a_font", rtortosa_pick_a_font, 0);
   rb_define_module_function(m_rtortosa, "new_tab", rtortosa_new_tab, 1);
   VALUE c_notebook = generate_notebook_ruby_class_under(m_rtortosa);
   VALUE c_vte = generate_vte_ruby_class_under(m_rtortosa);

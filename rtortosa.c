@@ -179,7 +179,7 @@ static VALUE rtortosa_notebook(VALUE self)
   notebook = rb_class_new_instance(0, NULL, cNotebook);
   notebook_t *n;
   Data_Get_Struct(notebook, notebook_t, n);
-  n->notebook = backbone.window.notebook;
+  n->widget = backbone.window.notebook;
   return notebook;
 }
 void Init_rtortosa()

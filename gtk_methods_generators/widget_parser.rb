@@ -21,10 +21,24 @@ to_match = ['(const\s)*\s*int\s*\*', '(const\s)*\s*gchar\s*\*', '(g)*boolean',
 to_match.each do |m|
   filter.add_param_to_match(m)
 end
-
+filter.add_param_to_reject('GtkWidgetClass')
 #reject deprecated
+filter.add_name_to_reject('gtk_widget_destroyed')
 filter.add_name_to_reject('gtk_widget_reparent')
 filter.add_name_to_reject('gtk_widget_set_parent')
+filter.add_name_to_reject('gtk_widget_set_double_buffered')
+filter.add_name_to_reject('gtk_widget_get_double_buffered')
+filter.add_name_to_reject('gtk_widget_get_margin_left')
+filter.add_name_to_reject('gtk_widget_get_margin_right')
+filter.add_name_to_reject('gtk_widget_get_pointer')
+filter.add_name_to_reject('gtk_widget_is_ancestor')
+filter.add_name_to_reject('gtk_widget_set_composite_name')
+filter.add_name_to_reject('gtk_widget_get_composite_name')
+filter.add_name_to_reject('gtk_widget_push_composite_child')
+filter.add_name_to_reject('gtk_widget_pop_composite_child')
+filter.add_name_to_reject('gtk_widget_add_mnemonic_label')
+filter.add_name_to_reject('gtk_widget_remove_mnemonic_label')
+
 # Create a FunctionsWrapper which will sort our functions
 sorter = Wrapper::FunctionsWrapper.new(wrapper.parser.getFunctions, filter)
 sorter.sort
@@ -87,7 +101,7 @@ wrapper.wrapper_r_2_c_instructions do |parameter|
   r_name = parameter.getName
   c_name = 'c_' + r_name
   case
-  when c_type =~ /(gint)|(GtkPositionType)/
+  when c_type == 'gint' || c_type =='GtkPositionType' || c_type == 'int'
     Wrapper.rb_num_2_int(r_name, c_type, c_name)
   when c_type =~ /.*char\s+\*/
     Wrapper.rb_str_2_c_char_ptr(r_name, c_type, c_name)
@@ -99,7 +113,7 @@ wrapper.wrapper_r_2_c_instructions do |parameter|
     Wrapper.c_pointer_arg_to_rb_value(r_name, c_type, c_name, 'long')
   when c_type == 'glong'
     Wrapper.rb_num_2_long(r_name, c_type, c_name)
-  when c_type =~ /(g)*double/
+  when c_type == 'double' || c_type == 'gdouble'
     Wrapper.rb_num_2_dbl(r_name, c_type, c_name)
   when c_type =~ /uint16/
     Wrapper.rb_num_2_uint16(r_name, c_type, c_name)
@@ -148,7 +162,7 @@ wrapper.wrapper_r_return_instructions do |function|
   else
     s = '  VALUE r_ret= rb_ary_new();' + Wrapper::NEWLINE
     function.getParameters.each do |p|
-      if !p.getType.getName.match(/VteTerminal/)
+      if !p.getType.getName.match(/GtkWidget/)
         s += wrapper.wrapper_c_2_r({:type=>p.getType.getName.gsub(/\*/,""), :c_name=>'local_c_' + p.getName, :r_name=>p.getName}) + Wrapper::NEWLINE
         s += "  rb_ary_push(r_ret, #{p.getName});"  + Wrapper::NEWLINE
       end
@@ -171,7 +185,7 @@ def generate_setter_handler(f, wrapper, fq)
     s += wrapper.wrapper_r_2_c(p)
   end
   s += '  '
-  s += "#{f.getReturn.getName} ret =" unless !fq.is_getter_by_return(f) || fq.is_void(f)
+  s += "#{f.getReturn.getName} c_ret =" unless !fq.is_getter_by_return(f) || fq.is_void(f)
   s +=  f.getName + Wrapper::O_BRACKET
   buff.clear
   f.getParameters.each do |p|
@@ -217,6 +231,7 @@ sorter.functions_to_parse.each do |f|
                                         #{get_callback_parameters_number(f.getParameters)});} +
   Wrapper::NEWLINE)
 end
+out._c.puts('  return c_widget;')
 out._c.puts(Wrapper::C_CURLY_BRACKET)
 
 # write informations about handled functions and not handled

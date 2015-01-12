@@ -15,7 +15,6 @@ VALUE generate_widget_ruby_class_under(VALUE);
 /* functions wrapped                        */
 /*<<---------------------------------------|*/
 //gtk_widget_destroy
-//gtk_widget_destroyed
 //gtk_widget_unparent
 //gtk_widget_show
 //gtk_widget_hide
@@ -68,8 +67,6 @@ VALUE generate_widget_ruby_class_under(VALUE);
 //gtk_widget_get_mapped
 //gtk_widget_set_app_paintable
 //gtk_widget_get_app_paintable
-//gtk_widget_set_double_buffered
-//gtk_widget_get_double_buffered
 //gtk_widget_set_redraw_on_allocate
 //gtk_widget_set_child_visible
 //gtk_widget_get_child_visible
@@ -93,25 +90,15 @@ VALUE generate_widget_ruby_class_under(VALUE);
 //gtk_widget_queue_compute_expand
 //gtk_widget_get_support_multidevice
 //gtk_widget_set_support_multidevice
-//gtk_widget_get_margin_left
-//gtk_widget_get_margin_right
 //gtk_widget_get_margin_start
 //gtk_widget_get_margin_end
 //gtk_widget_get_margin_top
 //gtk_widget_get_margin_bottom
 //gtk_widget_get_events
-//gtk_widget_get_pointer
-//gtk_widget_is_ancestor
 //gtk_widget_hide_on_delete
 //gtk_widget_reset_style
-//gtk_widget_set_composite_name
-//gtk_widget_get_composite_name
-//gtk_widget_push_composite_child
-//gtk_widget_pop_composite_child
 //gtk_widget_style_get
 //gtk_widget_is_composited
-//gtk_widget_add_mnemonic_label
-//gtk_widget_remove_mnemonic_label
 //gtk_widget_trigger_tooltip_query
 //gtk_widget_set_tooltip_text
 //gtk_widget_get_tooltip_text
@@ -121,12 +108,12 @@ VALUE generate_widget_ruby_class_under(VALUE);
 //gtk_widget_get_has_tooltip
 //gtk_widget_in_destruction
 //gtk_widget_init_template
-//gtk_widget_class_set_template_from_resource
 /*|--------------------------------------->>*/
 /* functions ignored                        */
 /*<<---------------------------------------|*/
 //gtk_widget_get_type
 //gtk_widget_new
+//gtk_widget_destroyed
 //gtk_widget_draw
 //gtk_widget_queue_draw_area
 //gtk_widget_queue_draw_region
@@ -157,6 +144,8 @@ VALUE generate_widget_ruby_class_under(VALUE);
 //gtk_widget_set_state_flags
 //gtk_widget_unset_state_flags
 //gtk_widget_get_state_flags
+//gtk_widget_set_double_buffered
+//gtk_widget_get_double_buffered
 //gtk_widget_set_parent
 //gtk_widget_get_parent
 //gtk_widget_set_parent_window
@@ -197,13 +186,17 @@ VALUE generate_widget_ruby_class_under(VALUE);
 //gtk_widget_get_valign
 //gtk_widget_get_valign_with_baseline
 //gtk_widget_set_valign
+//gtk_widget_get_margin_left
 //gtk_widget_set_margin_left
+//gtk_widget_get_margin_right
 //gtk_widget_set_margin_right
 //gtk_widget_set_margin_start
 //gtk_widget_set_margin_end
 //gtk_widget_set_margin_top
 //gtk_widget_set_margin_bottom
 //gtk_widget_get_device_events
+//gtk_widget_get_pointer
+//gtk_widget_is_ancestor
 //gtk_widget_translate_coordinates
 //gtk_widget_override_color
 //gtk_widget_override_background_color
@@ -214,6 +207,10 @@ VALUE generate_widget_ruby_class_under(VALUE);
 //gtk_widget_get_pango_context
 //gtk_widget_create_pango_layout
 //gtk_widget_render_icon_pixbuf
+//gtk_widget_set_composite_name
+//gtk_widget_get_composite_name
+//gtk_widget_push_composite_child
+//gtk_widget_pop_composite_child
 //gtk_widget_class_install_style_property
 //gtk_widget_class_install_style_property_parser
 //gtk_widget_class_find_style_property
@@ -227,6 +224,8 @@ VALUE generate_widget_ruby_class_under(VALUE);
 //gtk_widget_shape_combine_region
 //gtk_widget_input_shape_combine_region
 //gtk_widget_list_mnemonic_labels
+//gtk_widget_add_mnemonic_label
+//gtk_widget_remove_mnemonic_label
 //gtk_widget_set_tooltip_window
 //gtk_widget_get_tooltip_window
 //gtk_cairo_should_draw_window
@@ -243,6 +242,7 @@ VALUE generate_widget_ruby_class_under(VALUE);
 //gtk_widget_remove_tick_callback
 //gtk_widget_get_template_child
 //gtk_widget_class_set_template
+//gtk_widget_class_set_template_from_resource
 //gtk_widget_class_bind_template_callback_full
 //gtk_widget_class_set_connect_func
 //gtk_widget_class_bind_template_child_full

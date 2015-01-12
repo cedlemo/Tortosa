@@ -94,7 +94,7 @@ require 'rtruckboris'
       ret = false
       return ret if !@params_to_reject
       function.getParameters.each do |p|
-        break if (ret = check_regexps(p.getType.getName,@params_to_rejects))
+        break if (ret = check_regexps(p.getType.getName,@params_to_reject))
       end
       ret
     end
@@ -326,7 +326,7 @@ require 'rtruckboris'
 }
   end
   def self.c_char_ptr_2_rb_str(r_val_name, c_val_name)
-    %Q{  VALUE #{r_val_name} = rb_str_new2(#{c_val_name};
+    %Q{  VALUE #{r_val_name} = rb_str_new2(#{c_val_name});
 }
   end
   def self.c_boolean_2_rb_boolean(r_val_name, c_val_name)

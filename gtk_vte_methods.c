@@ -465,7 +465,7 @@ static VALUE rtortosa_terminal_get_encoding(VALUE self){
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
   const char * c_ret =vte_terminal_get_encoding(vte);
-  VALUE r_ret = rb_str_new2(c_ret;
+  VALUE r_ret = rb_str_new2(c_ret);
 
   return r_ret;
 
@@ -525,7 +525,7 @@ static VALUE rtortosa_terminal_get_window_title(VALUE self){
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
   const char * c_ret =vte_terminal_get_window_title(vte);
-  VALUE r_ret = rb_str_new2(c_ret;
+  VALUE r_ret = rb_str_new2(c_ret);
 
   return r_ret;
 
@@ -535,7 +535,7 @@ static VALUE rtortosa_terminal_get_icon_title(VALUE self){
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
   const char * c_ret =vte_terminal_get_icon_title(vte);
-  VALUE r_ret = rb_str_new2(c_ret;
+  VALUE r_ret = rb_str_new2(c_ret);
 
   return r_ret;
 
@@ -545,7 +545,7 @@ static VALUE rtortosa_terminal_get_current_directory_uri(VALUE self){
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
   const char * c_ret =vte_terminal_get_current_directory_uri(vte);
-  VALUE r_ret = rb_str_new2(c_ret;
+  VALUE r_ret = rb_str_new2(c_ret);
 
   return r_ret;
 
@@ -555,7 +555,7 @@ static VALUE rtortosa_terminal_get_current_file_uri(VALUE self){
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
   const char * c_ret =vte_terminal_get_current_file_uri(vte);
-  VALUE r_ret = rb_str_new2(c_ret;
+  VALUE r_ret = rb_str_new2(c_ret);
 
   return r_ret;
 
@@ -757,4 +757,5 @@ VALUE generate_vte_ruby_class_under(VALUE module) {
                                         "get_input_enabled",
                                         RUBY_METHOD_FUNC(rtortosa_terminal_get_input_enabled),
                                         0);
+  return c_vte;
 }

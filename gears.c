@@ -4,7 +4,7 @@
 #include "backbone.h"
 #include "colors.h"
 #include "dbg.h"
-
+#include "gtk_vte_methods.h"
 void free_backbone( backbone_t * backbone)
 {
 	FREE_GSTRING(backbone->window.background.color);
@@ -39,7 +39,6 @@ void remove_node_by_widget( GSList *slist, GtkWidget *widget)
 {
   /*find the node for the widget*/
   GSList *found = NULL;
-  tab_data_t * tab_data =NULL;
   found = g_slist_find_custom(slist, widget, (GCompareFunc) find_node_by_widget);
   /*remove it and free the data*/
   if (found)

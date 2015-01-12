@@ -230,6 +230,7 @@ sorter.functions_to_parse.each do |f|
                                         get_callback_parameters_number(f.getParameters)});} +
   Wrapper::NEWLINE)
 end
+out._c.puts('  return c_vte;')
 out._c.puts(Wrapper::C_CURLY_BRACKET)
 
 # write informations about handled functions and not handled

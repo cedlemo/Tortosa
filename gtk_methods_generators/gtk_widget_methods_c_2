@@ -1,4 +1,4 @@
 VALUE generate_widget_ruby_class_under(VALUE module) {
   VALUE c_widget = rb_define_class_under(module, "Widget", rb_cObject);
-  return c_widget;
-}
+//  return c_widget;
+//}

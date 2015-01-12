@@ -173,7 +173,7 @@ def generate_setter_handler(f, wrapper, fq)
     s += wrapper.wrapper_r_2_c(p)
   end
   s += '  '
-  s += "#{f.getReturn.getName} ret =" unless !fq.is_getter_by_return(f) || fq.is_void(f)
+  s += "#{f.getReturn.getName} c_ret =" unless !fq.is_getter_by_return(f) || fq.is_void(f)
   s +=  f.getName + Wrapper::O_BRACKET
   buff.clear
   f.getParameters.each do |p|
@@ -219,6 +219,7 @@ sorter.functions_to_parse.each do |f|
                                         #{get_callback_parameters_number(f.getParameters)});} +
   Wrapper::NEWLINE)
 end
+out._c.puts('  return c_notebook;')
 out._c.puts(Wrapper::C_CURLY_BRACKET)
 
 # write informations about handled functions and not handled

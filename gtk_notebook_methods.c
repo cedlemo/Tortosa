@@ -31,8 +31,8 @@ static VALUE rtortosa_notebook_get_group_name(VALUE self){
   notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
   GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
-  const gchar * ret =gtk_notebook_get_group_name(notebook);
-  VALUE r_ret = rb_str_new2(c_ret;
+  const gchar * c_ret =gtk_notebook_get_group_name(notebook);
+  VALUE r_ret = rb_str_new2(c_ret);
 
   return r_ret;
 
@@ -41,7 +41,7 @@ static VALUE rtortosa_notebook_get_current_page(VALUE self){
   notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
   GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
-  gint ret =gtk_notebook_get_current_page(notebook);
+  gint c_ret =gtk_notebook_get_current_page(notebook);
   VALUE r_ret = INT2NUM((int) c_ret);
 
   return r_ret;
@@ -51,7 +51,7 @@ static VALUE rtortosa_notebook_get_n_pages(VALUE self){
   notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
   GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
-  gint ret =gtk_notebook_get_n_pages(notebook);
+  gint c_ret =gtk_notebook_get_n_pages(notebook);
   VALUE r_ret = INT2NUM((int) c_ret);
 
   return r_ret;
@@ -89,7 +89,7 @@ static VALUE rtortosa_notebook_get_show_border(VALUE self){
   notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
   GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
-  gboolean ret =gtk_notebook_get_show_border(notebook);
+  gboolean c_ret =gtk_notebook_get_show_border(notebook);
   VALUE r_ret = c_ret == TRUE ? Qtrue : Qfalse;
 
   return r_ret;
@@ -109,7 +109,7 @@ static VALUE rtortosa_notebook_get_show_tabs(VALUE self){
   notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
   GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
-  gboolean ret =gtk_notebook_get_show_tabs(notebook);
+  gboolean c_ret =gtk_notebook_get_show_tabs(notebook);
   VALUE r_ret = c_ret == TRUE ? Qtrue : Qfalse;
 
   return r_ret;
@@ -145,7 +145,7 @@ static VALUE rtortosa_notebook_get_scrollable(VALUE self){
   notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
   GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
-  gboolean ret =gtk_notebook_get_scrollable(notebook);
+  gboolean c_ret =gtk_notebook_get_scrollable(notebook);
   VALUE r_ret = c_ret == TRUE ? Qtrue : Qfalse;
 
   return r_ret;
@@ -237,4 +237,5 @@ VALUE generate_notebook_ruby_class_under(VALUE module) {
                                         "popup_disable",
                                         RUBY_METHOD_FUNC(rtortosa_notebook_popup_disable),
                                         0);
+  return c_notebook;
 }

@@ -11,7 +11,8 @@ typedef struct window_t
     GtkWidget * entry;
     GtkWidget * vbox;
     GtkWidget * notebook;
-		gboolean transparency;
+		GSList * tabs;
+    gboolean transparency;
 		struct color_t background;
     gulong key_event_handler_id;
 }window_t;

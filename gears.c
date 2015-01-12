@@ -26,3 +26,27 @@ void widget_set_transparent_background(GtkWidget *widget)
   gtk_widget_override_background_color(widget,GTK_STATE_FLAG_NORMAL,&transparent);
 
 }
+
+gint find_node_by_widget( gconstpointer node, gconstpointer widget)
+{
+  if( ((vte_t *) node)->widget == (GtkWidget *)widget)
+    return 0;
+  else
+    return 1;
+}
+
+void remove_node_by_widget( GSList *slist, GtkWidget *widget)
+{
+  /*find the node for the widget*/
+  GSList *found = NULL;
+  tab_data_t * tab_data =NULL;
+  found = g_slist_find_custom(slist, widget, (GCompareFunc) find_node_by_widget);
+  /*remove it and free the data*/
+  if (found)
+  {
+    /*release memory for tab_data slist*/
+    slist = g_slist_delete_link(slist, found); 
+  }
+  else
+    LOG_WARN("data for tab not found....\n");
+}

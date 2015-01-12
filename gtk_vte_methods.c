@@ -5,7 +5,7 @@
 static void close_tab_on_exit(GtkWidget * vte, gint status, backbone_t * backbone)
 {
   gint current = gtk_notebook_get_current_page (GTK_NOTEBOOK(backbone->window.notebook));
-  remove_node_by_widget( backbone->window.notebook_tabs, vte);
+  remove_node_by_widget( backbone->window.tabs, vte);
   if (gtk_notebook_get_n_pages (GTK_NOTEBOOK(backbone->window.notebook)) > 1)
   {
     gtk_notebook_remove_page (GTK_NOTEBOOK(backbone->window.notebook), current );
@@ -13,7 +13,6 @@ static void close_tab_on_exit(GtkWidget * vte, gint status, backbone_t * backbon
       gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->window.notebook),
        gtk_notebook_get_current_page(GTK_NOTEBOOK(backbone->window.notebook))));
   
-//    backbone.window.notebook_tabs = g_slist_remove(backbone.window.notebook_tabs, v);
   }
   else
   {
@@ -33,6 +32,7 @@ static void c_vte_struct_free(vte_t *c)
 {
   if(c)
   {
+    //TODO check free for this
     //if(c->vte) {g_string_free(c->vte, TRUE);}
     ruby_xfree(c);
   }
@@ -76,7 +76,7 @@ static VALUE c_vte_initialize(VALUE self, VALUE command)
   }
   g_strfreev(argvp);
   //Register vte in a g_slist
-  backbone.window.notebook_tabs = g_slist_append(backbone.window.notebook_tabs, v);
+  backbone.window.tabs = g_slist_append(backbone.window.tabs, v);
 
   g_signal_connect(v->widget, "child-exited", G_CALLBACK(close_tab_on_exit), &backbone);
 

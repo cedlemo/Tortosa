@@ -68,15 +68,10 @@ static  VALUE rtortosa_initialize( VALUE self, VALUE args)
   /*GtkNotebook */
   /**************/
   backbone.window.notebook = gtk_notebook_new(); 
+  backbone.window.tabs = NULL;
   widget_set_transparent_background(backbone.window.notebook);
   gtk_box_pack_start(GTK_BOX(backbone.window.vbox), backbone.window.notebook, FALSE, FALSE, 0);
   
-//  new_terminal_emulator(&backbone, NULL);
-//  VALUE m_rtortosa = rb_const_get( rb_cObject, rb_intern( "Rtortosa" ) );
-//  VALUE cVte = rb_const_get_at( m_rtortosa, rb_intern("Vte") );
-//  VALUE params[1];
-//  params[0] = Qnil;
-//  VALUE term = rb_class_new_instance( 1, params, cVte );
   /***********/
   /* GtkEntry*/
   /***********/

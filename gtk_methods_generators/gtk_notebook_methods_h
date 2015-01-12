@@ -1,14 +1,14 @@
-#ifndef GTK_VTE_METHODS_H
-#define GTK_VTE_METHODS_H
+#ifndef GTK_NOTEBOOK_METHODS_H
+#define GTK_NOTEBOOK_METHODS_H
 #include <ruby.h>
 #include <gtk/gtk.h>
 #include <vte/vte.h>
-#include "tabs.h"
+//#include "tabs.h"
 #include "backbone.h"
 #include "dbg.h"
 typedef struct notebook_t {
-  GtkWidget * notebook;
+  GtkWidget * widget;
 } notebook_t;
-VALUE generate_vte_ruby_class_under(VALUE); 
+VALUE generate_notebook_ruby_class_under(VALUE); 
 #endif
 

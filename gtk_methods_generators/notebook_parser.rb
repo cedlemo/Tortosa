@@ -78,7 +78,7 @@ wrapper.wrapper_r_arguments_instructions do |parameter|
     'VALUE self'
   when type =~ /char\s+\*/
     "VALUE #{parameter.getName}"
-  when type =~ /[^\*]+/
+  when type =~ /^[^\*]+$/
     "VALUE #{parameter.getName}"
   else
     ''
@@ -108,7 +108,7 @@ wrapper.wrapper_r_2_c_instructions do |parameter|
   when c_type =~ /GtkNotebook\s*\*/
     %{  notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
-  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
 }
   else
     ''
@@ -133,6 +133,8 @@ wrapper.wrapper_r_return_instructions do |function|
       '  return ret? Qtrue: Qfalse;'
     when type == 'void'
       '  return Qnil;'
+    when type =~ /^(g)*double\s*$/
+      '  return DBL2NUM(ret);'
     else
       ''
     end

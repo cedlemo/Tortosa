@@ -3,11 +3,11 @@
 #include <ruby.h>
 #include <gtk/gtk.h>
 #include <vte/vte.h>
-#include "tabs.h"
+//#include "tabs.h"
 #include "backbone.h"
 #include "dbg.h"
 typedef struct vte_t {
-  GtkWidget * vte;
+  GtkWidget * widget;
   char * working_directory;
   VALUE command;
   GPid pid;

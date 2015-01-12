@@ -187,7 +187,6 @@ static VALUE rtortosa_notebook(VALUE self)
   n->notebook = backbone.window.notebook;
   return notebook;
 }
-// TODO create a pick a font method
 void Init_rtortosa()
 {
   VALUE m_rtortosa;

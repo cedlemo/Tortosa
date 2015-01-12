@@ -1,9 +1,11 @@
 /*vte ruby class*/
 #include "gtk_vte_methods.h"
+#include "gears.h"
 #include "fonts.h"
 static void close_tab_on_exit(GtkWidget * vte, gint status, backbone_t * backbone)
 {
   gint current = gtk_notebook_get_current_page (GTK_NOTEBOOK(backbone->window.notebook));
+  remove_node_by_widget( backbone->window.notebook_tabs, vte);
   if (gtk_notebook_get_n_pages (GTK_NOTEBOOK(backbone->window.notebook)) > 1)
   {
     gtk_notebook_remove_page (GTK_NOTEBOOK(backbone->window.notebook), current );
@@ -11,6 +13,7 @@ static void close_tab_on_exit(GtkWidget * vte, gint status, backbone_t * backbon
       gtk_notebook_get_nth_page(GTK_NOTEBOOK(backbone->window.notebook),
        gtk_notebook_get_current_page(GTK_NOTEBOOK(backbone->window.notebook))));
   
+//    backbone.window.notebook_tabs = g_slist_remove(backbone.window.notebook_tabs, v);
   }
   else
   {
@@ -53,8 +56,8 @@ static VALUE c_vte_initialize(VALUE self, VALUE command)
   if(g_shell_parse_argv(RSTRING_PTR(v->command), &argc, &argvp,0) != TRUE )
     g_shell_parse_argv(g_getenv("SHELL"), &argc, &argvp,0);
   GError *error = NULL;
-  v->vte = vte_terminal_new();
-  if( !vte_terminal_spawn_sync( VTE_TERMINAL(v->vte),
+  v->widget = vte_terminal_new();
+  if( !vte_terminal_spawn_sync( VTE_TERMINAL(v->widget),
                                   VTE_PTY_DEFAULT,
                                   v->working_directory,
                                   argvp,
@@ -72,15 +75,17 @@ static VALUE c_vte_initialize(VALUE self, VALUE command)
     rb_raise(rb_eTypeError, "Unable to create a vte terminal");
   }
   g_strfreev(argvp);
+  //Register vte in a g_slist
+  backbone.window.notebook_tabs = g_slist_append(backbone.window.notebook_tabs, v);
 
-  g_signal_connect(v->vte, "child-exited", G_CALLBACK(close_tab_on_exit), &backbone);
+  g_signal_connect(v->widget, "child-exited", G_CALLBACK(close_tab_on_exit), &backbone);
 
-  int index = gtk_notebook_append_page(GTK_NOTEBOOK(backbone.window.notebook), v->vte, NULL);
+  int index = gtk_notebook_append_page(GTK_NOTEBOOK(backbone.window.notebook), v->widget, NULL);
   gtk_notebook_set_tab_reorderable( GTK_NOTEBOOK(backbone.window.notebook),
-                                    v->vte, 
+                                    v->widget, 
                                     TRUE);
   gtk_widget_show_all(backbone.window.notebook);
   gtk_notebook_set_current_page(GTK_NOTEBOOK(backbone.window.notebook), index);
-  gtk_widget_grab_focus(v->vte);
+  gtk_widget_grab_focus(v->widget);
   return self;
 }

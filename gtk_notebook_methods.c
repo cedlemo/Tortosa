@@ -18,7 +18,7 @@ static VALUE c_notebook_struct_alloc( VALUE klass)
 static VALUE rtortosa_notebook_set_group_name(VALUE self,VALUE group_name){
   notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
-  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
   if(TYPE(group_name) != T_STRING)
     rb_raise(rb_eTypeError, "invalid type for input");
   const gchar * c_group_name=RSTRING_PTR(group_name);
@@ -28,42 +28,42 @@ static VALUE rtortosa_notebook_set_group_name(VALUE self,VALUE group_name){
 static VALUE rtortosa_notebook_get_group_name(VALUE self){
   notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
-  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
   const gchar * ret =gtk_notebook_get_group_name(notebook);
   return rb_str_new2(ret);
 }
 static VALUE rtortosa_notebook_get_current_page(VALUE self){
   notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
-  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
   gint ret =gtk_notebook_get_current_page(notebook);
   return INT2FIX(ret);
 }
 static VALUE rtortosa_notebook_get_n_pages(VALUE self){
   notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
-  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
   gint ret =gtk_notebook_get_n_pages(notebook);
   return INT2FIX(ret);
 }
 static VALUE rtortosa_notebook_next_page(VALUE self){
   notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
-  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
   gtk_notebook_next_page(notebook);
   return Qnil;
 }
 static VALUE rtortosa_notebook_prev_page(VALUE self){
   notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
-  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
   gtk_notebook_prev_page(notebook);
   return Qnil;
 }
 static VALUE rtortosa_notebook_set_show_border(VALUE self,VALUE show_border){
   notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
-  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
   gboolean c_show_border= (show_border == Qtrue) ? TRUE : FALSE;
   gtk_notebook_set_show_border(notebook,c_show_border);
   return Qnil;
@@ -71,14 +71,14 @@ static VALUE rtortosa_notebook_set_show_border(VALUE self,VALUE show_border){
 static VALUE rtortosa_notebook_get_show_border(VALUE self){
   notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
-  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
   gboolean ret =gtk_notebook_get_show_border(notebook);
   return ret? Qtrue: Qfalse;
 }
 static VALUE rtortosa_notebook_set_show_tabs(VALUE self,VALUE show_tabs){
   notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
-  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
   gboolean c_show_tabs= (show_tabs == Qtrue) ? TRUE : FALSE;
   gtk_notebook_set_show_tabs(notebook,c_show_tabs);
   return Qnil;
@@ -86,14 +86,14 @@ static VALUE rtortosa_notebook_set_show_tabs(VALUE self,VALUE show_tabs){
 static VALUE rtortosa_notebook_get_show_tabs(VALUE self){
   notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
-  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
   gboolean ret =gtk_notebook_get_show_tabs(notebook);
   return ret? Qtrue: Qfalse;
 }
 static VALUE rtortosa_notebook_set_tab_pos(VALUE self,VALUE pos){
   notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
-  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
   GtkPositionType c_pos;
   if (TYPE(pos) == T_FIXNUM)
     c_pos=FIX2INT(pos);
@@ -107,7 +107,7 @@ static VALUE rtortosa_notebook_set_tab_pos(VALUE self,VALUE pos){
 static VALUE rtortosa_notebook_set_scrollable(VALUE self,VALUE scrollable){
   notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
-  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
   gboolean c_scrollable= (scrollable == Qtrue) ? TRUE : FALSE;
   gtk_notebook_set_scrollable(notebook,c_scrollable);
   return Qnil;
@@ -115,28 +115,31 @@ static VALUE rtortosa_notebook_set_scrollable(VALUE self,VALUE scrollable){
 static VALUE rtortosa_notebook_get_scrollable(VALUE self){
   notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
-  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
   gboolean ret =gtk_notebook_get_scrollable(notebook);
   return ret? Qtrue: Qfalse;
 }
 static VALUE rtortosa_notebook_popup_enable(VALUE self){
   notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
-  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
   gtk_notebook_popup_enable(notebook);
   return Qnil;
 }
 static VALUE rtortosa_notebook_popup_disable(VALUE self){
   notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
-  GtkNotebook * notebook = GTK_NOTEBOOK(n->notebook);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
   gtk_notebook_popup_disable(notebook);
   return Qnil;
 }
 VALUE generate_notebook_ruby_class_under(VALUE module) {
   VALUE c_notebook = rb_define_class_under(module, "Notebook", rb_cObject);
+  rb_define_const(module, "POS_LEFT", INT2FIX(GTK_POS_LEFT) );
+  rb_define_const(module, "POS_RIGHT", INT2FIX(GTK_POS_RIGHT) );
+  rb_define_const(module, "POS_TOP", INT2FIX(GTK_POS_TOP) );
+  rb_define_const(module, "POS_BOTTOM", INT2FIX(GTK_POS_BOTTOM));
   rb_define_alloc_func(c_notebook, c_notebook_struct_alloc);
-  //rb_define_method(c_notebook, "initialize", RUBY_METHOD_FUNC(c_vte_initialize), 1);
 
   rb_define_method(c_notebook,
                                         "set_group_name",

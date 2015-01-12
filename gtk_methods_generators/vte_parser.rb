@@ -134,7 +134,6 @@ wrapper.wrapper_c_2_r_instructions do |arg|
     type = arg[:type]
     c_name = arg[:c_name]
     r_name = arg[:r_name]
-
     case
     when type =~ /(g)*int/
       Wrapper::c_int_2_rb_num(r_name, c_name)
@@ -152,6 +151,7 @@ wrapper.wrapper_c_2_r_instructions do |arg|
       ''
     end
 end
+
 wrapper.wrapper_r_return_instructions do |function|
   type = function.getReturn.getName
   if fq.is_getter_by_return(function)

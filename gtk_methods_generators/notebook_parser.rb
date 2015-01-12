@@ -121,30 +121,40 @@ wrapper.wrapper_c_arguments_instructions do |parameter|
     "c_#{parameter.getName}"
   end
 end
-wrapper.wrapper_r_return_instructions do |function|
-  type = function.getReturn.getName
-  if fq.is_getter_by_return(function)
+wrapper.wrapper_c_2_r_instructions do |arg|
+    type = arg[:type]
+    c_name = arg[:c_name]
+    r_name = arg[:r_name]
     case
     when type =~ /(g)*int/
-      '  return INT2FIX(ret);'
+      Wrapper::c_int_2_rb_num(r_name, c_name)
     when type =~ /.*char\s+\*/
-      '  return rb_str_new2(ret);'
+      Wrapper::c_char_ptr_2_rb_str(r_name, c_name)
     when type == 'gboolean'
-      '  return ret? Qtrue: Qfalse;'
-    when type == 'void'
-      '  return Qnil;'
+      Wrapper::c_boolean_2_rb_boolean(r_name, c_name)
     when type =~ /^(g)*double\s*$/
-      '  return DBL2NUM(ret);'
+      Wrapper::c_dbl_2_rb_num(r_name, c_name)
+    when type =~ /^(g)*long\s*$/
+      Wrapper::c_long_2_rb_num(r_name, c_name)
+    when type == 'void'
+       " VALUE #{r_name}= Qnil;"
     else
       ''
     end
+end
+
+wrapper.wrapper_r_return_instructions do |function|
+  type = function.getReturn.getName
+  if fq.is_getter_by_return(function)
+    wrapper.wrapper_c_2_r({:type=>type, :c_name=>'c_ret', :r_name=>'r_ret'})  + Wrapper::NEWLINE
   else
-    s = '  VALUE ret= rb_ary_new();' + Wrapper::NEWLINE
+    s = '  VALUE r_ret= rb_ary_new();' + Wrapper::NEWLINE
     function.getParameters.each do |p|
-      #      s += wrapper.wrapper_r_2_c(p)
-      s += "  rb_ary_push(ret, #{p.getName});" + Wrapper::NEWLINE unless p.getType.getName =~ /GtkNotebook/
+      if !p.getType.getName.match(/GtkNotebook/)
+        s += wrapper.wrapper_c_2_r({:type=>p.getType.getName.gsub(/\*/,""), :c_name=>'local_c_' + p.getName, :r_name=>p.getName}) + Wrapper::NEWLINE
+        s += "  rb_ary_push(r_ret, #{p.getName});"  + Wrapper::NEWLINE
+      end
     end
-    s += '  return ret;' + Wrapper::NEWLINE
     s
   end
 end
@@ -171,6 +181,7 @@ def generate_setter_handler(f, wrapper, fq)
   end
   s += buff.join(Wrapper::COMMA) + Wrapper::C_BRACKET + Wrapper::SEMI_COLON + Wrapper::NEWLINE
   s +=  wrapper.wrapper_r_return(f)
+  s += '  return r_ret;' + Wrapper::NEWLINE
   s += Wrapper::NEWLINE + Wrapper::C_CURLY_BRACKET
 end
 

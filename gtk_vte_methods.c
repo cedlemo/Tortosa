@@ -94,42 +94,54 @@ static VALUE rtortosa_terminal_copy_clipboard(VALUE self){
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
   vte_terminal_copy_clipboard(vte);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_paste_clipboard(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
   vte_terminal_paste_clipboard(vte);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_copy_primary(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
   vte_terminal_copy_primary(vte);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_paste_primary(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
   vte_terminal_paste_primary(vte);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_select_all(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
   vte_terminal_select_all(vte);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_unselect_all(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
   vte_terminal_unselect_all(vte);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_set_size(VALUE self,VALUE columns,VALUE rows){
   vte_t *v;
@@ -150,7 +162,9 @@ static VALUE rtortosa_terminal_set_size(VALUE self,VALUE columns,VALUE rows){
   else
     rb_raise(rb_eTypeError, "invalid type for input");
   vte_terminal_set_size(vte,c_columns,c_rows);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_set_font_scale(VALUE self,VALUE scale){
   vte_t *v;
@@ -160,14 +174,19 @@ static VALUE rtortosa_terminal_set_font_scale(VALUE self,VALUE scale){
     rb_raise(rb_eTypeError, "invalid type for input");
   gdouble c_scale=NUM2DBL(scale);
   vte_terminal_set_font_scale(vte,c_scale);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_get_font_scale(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
-  gdouble ret =vte_terminal_get_font_scale(vte);
-  return DBL2NUM(ret);
+  gdouble c_ret =vte_terminal_get_font_scale(vte);
+  VALUE r_ret = DBL2NUM(c_ret);
+
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_set_audible_bell(VALUE self,VALUE is_audible){
   vte_t *v;
@@ -175,14 +194,19 @@ static VALUE rtortosa_terminal_set_audible_bell(VALUE self,VALUE is_audible){
   VteTerminal * vte = VTE_TERMINAL(v->widget);
   gboolean c_is_audible= (is_audible == Qtrue) ? TRUE : FALSE;
   vte_terminal_set_audible_bell(vte,c_is_audible);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_get_audible_bell(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
-  gboolean ret =vte_terminal_get_audible_bell(vte);
-  return ret? Qtrue: Qfalse;
+  gboolean c_ret =vte_terminal_get_audible_bell(vte);
+  VALUE r_ret = c_ret == TRUE ? Qtrue : Qfalse;
+
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_set_scroll_on_output(VALUE self,VALUE scroll){
   vte_t *v;
@@ -190,7 +214,9 @@ static VALUE rtortosa_terminal_set_scroll_on_output(VALUE self,VALUE scroll){
   VteTerminal * vte = VTE_TERMINAL(v->widget);
   gboolean c_scroll= (scroll == Qtrue) ? TRUE : FALSE;
   vte_terminal_set_scroll_on_output(vte,c_scroll);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_set_scroll_on_keystroke(VALUE self,VALUE scroll){
   vte_t *v;
@@ -198,7 +224,9 @@ static VALUE rtortosa_terminal_set_scroll_on_keystroke(VALUE self,VALUE scroll){
   VteTerminal * vte = VTE_TERMINAL(v->widget);
   gboolean c_scroll= (scroll == Qtrue) ? TRUE : FALSE;
   vte_terminal_set_scroll_on_keystroke(vte,c_scroll);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_set_rewrap_on_resize(VALUE self,VALUE rewrap){
   vte_t *v;
@@ -206,14 +234,19 @@ static VALUE rtortosa_terminal_set_rewrap_on_resize(VALUE self,VALUE rewrap){
   VteTerminal * vte = VTE_TERMINAL(v->widget);
   gboolean c_rewrap= (rewrap == Qtrue) ? TRUE : FALSE;
   vte_terminal_set_rewrap_on_resize(vte,c_rewrap);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_get_rewrap_on_resize(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
-  gboolean ret =vte_terminal_get_rewrap_on_resize(vte);
-  return ret? Qtrue: Qfalse;
+  gboolean c_ret =vte_terminal_get_rewrap_on_resize(vte);
+  VALUE r_ret = c_ret == TRUE ? Qtrue : Qfalse;
+
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_set_color_bold(VALUE self,VALUE bold){
   vte_t *v;
@@ -226,7 +259,9 @@ static VALUE rtortosa_terminal_set_color_bold(VALUE self,VALUE bold){
   color_t *color_t_ptr;
   Data_Get_Struct(bold, color_t,color_t_ptr);
   GdkRGBA * c_bold= &(color_t_ptr->rgba);  vte_terminal_set_color_bold(vte,c_bold);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_set_color_foreground(VALUE self,VALUE foreground){
   vte_t *v;
@@ -239,7 +274,9 @@ static VALUE rtortosa_terminal_set_color_foreground(VALUE self,VALUE foreground)
   color_t *color_t_ptr;
   Data_Get_Struct(foreground, color_t,color_t_ptr);
   GdkRGBA * c_foreground= &(color_t_ptr->rgba);  vte_terminal_set_color_foreground(vte,c_foreground);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_set_color_background(VALUE self,VALUE background){
   vte_t *v;
@@ -252,7 +289,9 @@ static VALUE rtortosa_terminal_set_color_background(VALUE self,VALUE background)
   color_t *color_t_ptr;
   Data_Get_Struct(background, color_t,color_t_ptr);
   GdkRGBA * c_background= &(color_t_ptr->rgba);  vte_terminal_set_color_background(vte,c_background);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_set_color_cursor(VALUE self,VALUE cursor_background){
   vte_t *v;
@@ -265,7 +304,9 @@ static VALUE rtortosa_terminal_set_color_cursor(VALUE self,VALUE cursor_backgrou
   color_t *color_t_ptr;
   Data_Get_Struct(cursor_background, color_t,color_t_ptr);
   GdkRGBA * c_cursor_background= &(color_t_ptr->rgba);  vte_terminal_set_color_cursor(vte,c_cursor_background);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_set_color_highlight(VALUE self,VALUE highlight_background){
   vte_t *v;
@@ -278,7 +319,9 @@ static VALUE rtortosa_terminal_set_color_highlight(VALUE self,VALUE highlight_ba
   color_t *color_t_ptr;
   Data_Get_Struct(highlight_background, color_t,color_t_ptr);
   GdkRGBA * c_highlight_background= &(color_t_ptr->rgba);  vte_terminal_set_color_highlight(vte,c_highlight_background);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_set_color_highlight_foreground(VALUE self,VALUE highlight_foreground){
   vte_t *v;
@@ -291,14 +334,18 @@ static VALUE rtortosa_terminal_set_color_highlight_foreground(VALUE self,VALUE h
   color_t *color_t_ptr;
   Data_Get_Struct(highlight_foreground, color_t,color_t_ptr);
   GdkRGBA * c_highlight_foreground= &(color_t_ptr->rgba);  vte_terminal_set_color_highlight_foreground(vte,c_highlight_foreground);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_set_default_colors(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
   vte_terminal_set_default_colors(vte);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_set_scrollback_lines(VALUE self,VALUE lines){
   vte_t *v;
@@ -312,7 +359,9 @@ static VALUE rtortosa_terminal_set_scrollback_lines(VALUE self,VALUE lines){
   else
     rb_raise(rb_eTypeError, "invalid type for input");
   vte_terminal_set_scrollback_lines(vte,c_lines);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_set_font(VALUE self,VALUE font_desc){
   vte_t *v;
@@ -325,9 +374,10 @@ static VALUE rtortosa_terminal_set_font(VALUE self,VALUE font_desc){
   font_t *font_t_ptr;
   Data_Get_Struct(font_desc, font_t,font_t_ptr);
   PangoFontDescription * c_font_desc= font_t_ptr->desc;  vte_terminal_set_font(vte,c_font_desc);
-  VALUE ret= rb_ary_new();
-  rb_ary_push(ret, font_desc);
-  return ret;
+  VALUE r_ret= rb_ary_new();
+
+  rb_ary_push(r_ret, font_desc);
+  return r_ret;
 
 }
 static VALUE rtortosa_terminal_set_allow_bold(VALUE self,VALUE allow_bold){
@@ -336,21 +386,29 @@ static VALUE rtortosa_terminal_set_allow_bold(VALUE self,VALUE allow_bold){
   VteTerminal * vte = VTE_TERMINAL(v->widget);
   gboolean c_allow_bold= (allow_bold == Qtrue) ? TRUE : FALSE;
   vte_terminal_set_allow_bold(vte,c_allow_bold);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_get_allow_bold(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
-  gboolean ret =vte_terminal_get_allow_bold(vte);
-  return ret? Qtrue: Qfalse;
+  gboolean c_ret =vte_terminal_get_allow_bold(vte);
+  VALUE r_ret = c_ret == TRUE ? Qtrue : Qfalse;
+
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_get_has_selection(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
-  gboolean ret =vte_terminal_get_has_selection(vte);
-  return ret? Qtrue: Qfalse;
+  gboolean c_ret =vte_terminal_get_has_selection(vte);
+  VALUE r_ret = c_ret == TRUE ? Qtrue : Qfalse;
+
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_set_mouse_autohide(VALUE self,VALUE setting){
   vte_t *v;
@@ -358,14 +416,19 @@ static VALUE rtortosa_terminal_set_mouse_autohide(VALUE self,VALUE setting){
   VteTerminal * vte = VTE_TERMINAL(v->widget);
   gboolean c_setting= (setting == Qtrue) ? TRUE : FALSE;
   vte_terminal_set_mouse_autohide(vte,c_setting);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_get_mouse_autohide(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
-  gboolean ret =vte_terminal_get_mouse_autohide(vte);
-  return ret? Qtrue: Qfalse;
+  gboolean c_ret =vte_terminal_get_mouse_autohide(vte);
+  VALUE r_ret = c_ret == TRUE ? Qtrue : Qfalse;
+
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_reset(VALUE self,VALUE clear_tabstops,VALUE clear_history){
   vte_t *v;
@@ -374,7 +437,9 @@ static VALUE rtortosa_terminal_reset(VALUE self,VALUE clear_tabstops,VALUE clear
   gboolean c_clear_tabstops= (clear_tabstops == Qtrue) ? TRUE : FALSE;
   gboolean c_clear_history= (clear_history == Qtrue) ? TRUE : FALSE;
   vte_terminal_reset(vte,c_clear_tabstops,c_clear_history);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_get_cursor_position(VALUE self){
   vte_t *v;
@@ -385,81 +450,115 @@ static VALUE rtortosa_terminal_get_cursor_position(VALUE self){
   glong local_c_row;
   glong * c_row = &local_c_row;
   vte_terminal_get_cursor_position(vte,c_column,c_row);
-  VALUE ret= rb_ary_new();
-  rb_ary_push(ret, column);
-  rb_ary_push(ret, row);
-  return ret;
+  VALUE r_ret= rb_ary_new();
+  VALUE column = LONG2NUM(local_c_column);
+
+  rb_ary_push(r_ret, column);
+  VALUE row = LONG2NUM(local_c_row);
+
+  rb_ary_push(r_ret, row);
+  return r_ret;
 
 }
 static VALUE rtortosa_terminal_get_encoding(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
-  const char * ret =vte_terminal_get_encoding(vte);
-  return rb_str_new2(ret);
+  const char * c_ret =vte_terminal_get_encoding(vte);
+  VALUE r_ret = rb_str_new2(c_ret;
+
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_get_cjk_ambiguous_width(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
-  int ret =vte_terminal_get_cjk_ambiguous_width(vte);
-  return INT2FIX(ret);
+  int c_ret =vte_terminal_get_cjk_ambiguous_width(vte);
+  VALUE r_ret = INT2NUM((int) c_ret);
+
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_get_char_width(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
-  glong ret =vte_terminal_get_char_width(vte);
+  glong c_ret =vte_terminal_get_char_width(vte);
+  VALUE r_ret = LONG2NUM(c_ret);
+
+  return r_ret;
 
 }
 static VALUE rtortosa_terminal_get_char_height(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
-  glong ret =vte_terminal_get_char_height(vte);
+  glong c_ret =vte_terminal_get_char_height(vte);
+  VALUE r_ret = LONG2NUM(c_ret);
+
+  return r_ret;
 
 }
 static VALUE rtortosa_terminal_get_row_count(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
-  glong ret =vte_terminal_get_row_count(vte);
+  glong c_ret =vte_terminal_get_row_count(vte);
+  VALUE r_ret = LONG2NUM(c_ret);
+
+  return r_ret;
 
 }
 static VALUE rtortosa_terminal_get_column_count(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
-  glong ret =vte_terminal_get_column_count(vte);
+  glong c_ret =vte_terminal_get_column_count(vte);
+  VALUE r_ret = LONG2NUM(c_ret);
+
+  return r_ret;
 
 }
 static VALUE rtortosa_terminal_get_window_title(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
-  const char * ret =vte_terminal_get_window_title(vte);
-  return rb_str_new2(ret);
+  const char * c_ret =vte_terminal_get_window_title(vte);
+  VALUE r_ret = rb_str_new2(c_ret;
+
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_get_icon_title(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
-  const char * ret =vte_terminal_get_icon_title(vte);
-  return rb_str_new2(ret);
+  const char * c_ret =vte_terminal_get_icon_title(vte);
+  VALUE r_ret = rb_str_new2(c_ret;
+
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_get_current_directory_uri(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
-  const char * ret =vte_terminal_get_current_directory_uri(vte);
-  return rb_str_new2(ret);
+  const char * c_ret =vte_terminal_get_current_directory_uri(vte);
+  VALUE r_ret = rb_str_new2(c_ret;
+
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_get_current_file_uri(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
-  const char * ret =vte_terminal_get_current_file_uri(vte);
-  return rb_str_new2(ret);
+  const char * c_ret =vte_terminal_get_current_file_uri(vte);
+  VALUE r_ret = rb_str_new2(c_ret;
+
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_set_input_enabled(VALUE self,VALUE enabled){
   vte_t *v;
@@ -467,14 +566,19 @@ static VALUE rtortosa_terminal_set_input_enabled(VALUE self,VALUE enabled){
   VteTerminal * vte = VTE_TERMINAL(v->widget);
   gboolean c_enabled= (enabled == Qtrue) ? TRUE : FALSE;
   vte_terminal_set_input_enabled(vte,c_enabled);
-  return Qnil;
+ VALUE r_ret= Qnil;
+  return r_ret;
+
 }
 static VALUE rtortosa_terminal_get_input_enabled(VALUE self){
   vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
-  gboolean ret =vte_terminal_get_input_enabled(vte);
-  return ret? Qtrue: Qfalse;
+  gboolean c_ret =vte_terminal_get_input_enabled(vte);
+  VALUE r_ret = c_ret == TRUE ? Qtrue : Qfalse;
+
+  return r_ret;
+
 }
 VALUE generate_vte_ruby_class_under(VALUE module) {
   VALUE c_vte = rb_define_class_under(module, "Vte", rb_cObject);

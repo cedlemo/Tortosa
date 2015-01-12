@@ -134,7 +134,7 @@ require 'rtruckboris'
     end
   end
   class Rewritter
-    patterns=[:rename,:wrapper_r_arguments,:wrapper_r_2_c, :wrapper_c_arguments,:wrapper_r_return, :function_is_argument_modifier]
+    patterns=[:rename,:wrapper_r_arguments,:wrapper_r_2_c, :wrapper_c_2_r, :wrapper_c_arguments,:wrapper_r_return, :function_is_argument_modifier]
     patterns.each do |p|
       method = (p.to_s + '_instructions').to_sym
       define_method  method do |&block|
@@ -330,7 +330,7 @@ require 'rtruckboris'
 }
   end
   def self.c_boolean_2_rb_boolean(r_val_name, c_val_name)
-    %Q{  VALUE #{r_val_name} = (#{c_val_name} == TRUE ? Qtrue : Qfalse;
+    %Q{  VALUE #{r_val_name} = #{c_val_name} == TRUE ? Qtrue : Qfalse;
 }
   end
   def self.c_int_2_rb_num(r_val_name, c_val_name)

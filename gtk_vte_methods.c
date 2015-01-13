@@ -580,8 +580,8 @@ static VALUE rtortosa_terminal_get_input_enabled(VALUE self){
   return r_ret;
 
 }
-VALUE generate_vte_ruby_class_under(VALUE module) {
-  VALUE c_vte = rb_define_class_under(module, "Vte", rb_cObject);
+VALUE generate_vte_ruby_class_under(VALUE module, VALUE superclass) {
+  VALUE c_vte = rb_define_class_under(module, "Vte", superclass);
   rb_define_alloc_func(c_vte, c_vte_struct_alloc);
   rb_define_method(c_vte, "initialize", RUBY_METHOD_FUNC(c_vte_initialize), 1);
 

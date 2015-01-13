@@ -9,7 +9,7 @@
 typedef struct notebook_t {
   GtkWidget * widget;
 } notebook_t;
-VALUE generate_notebook_ruby_class_under(VALUE); 
+VALUE generate_notebook_ruby_class_under(VALUE, VALUE); 
 #endif
 
 /*|--------------------------------------->>*/

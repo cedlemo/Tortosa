@@ -184,22 +184,31 @@ static VALUE rtortosa_notebook(VALUE self)
 }
 void Init_rtortosa()
 {
-  VALUE m_rtortosa;
-  m_rtortosa = rb_define_module("Rtortosa");
-  rb_define_module_function(m_rtortosa, "init", rtortosa_initialize, 1); 
-  rb_define_module_function(m_rtortosa, "run", rtortosa_run, 0);
-  rb_define_module_function(m_rtortosa, "quit", rtortosa_quit, 0);
-  rb_define_module_function(m_rtortosa, "background_color=", rtortosa_set_background_color, 1);
-  rb_define_module_function(m_rtortosa, "on_command_line_event", rtortosa_on_entry_validate_event, 2);
-  rb_define_module_function(m_rtortosa, "on_key_press_event", rtortosa_on_key_press_event, 2);
-  rb_define_module_function(m_rtortosa, "pick_a_color", rtortosa_pick_a_color, 0);
-  rb_define_module_function(m_rtortosa, "pick_a_font", rtortosa_pick_a_font, 0);
-  rb_define_module_function(m_rtortosa, "new_tab", rtortosa_new_tab, 1);
-  VALUE c_notebook = generate_notebook_ruby_class_under(m_rtortosa);
-  VALUE c_vte = generate_vte_ruby_class_under(m_rtortosa);
-  rb_define_module_function(m_rtortosa, "notebook", rtortosa_notebook, 0);
-  gtk_window_wrapper(m_rtortosa);
-//  gtk_notebook_wrapper(m_rtortosa);
-  VALUE c_color = generate_color_ruby_class_under(m_rtortosa); 
-  VALUE c_font = generate_font_ruby_class_under(m_rtortosa);
+  backbone.rb_objects.mRtortosa = rb_define_module("Rtortosa");
+  backbone.rb_objects.cWidget = generate_widget_ruby_class_under(backbone.rb_objects.mRtortosa, rb_cObject);
+  backbone.rb_objects.cNotebook = generate_notebook_ruby_class_under(backbone.rb_objects.mRtortosa, backbone.rb_objects.cWidget);
+  backbone.rb_objects.cVte = generate_vte_ruby_class_under(backbone.rb_objects.mRtortosa, backbone.rb_objects.cWidget);
+  backbone.rb_objects.cColor = generate_color_ruby_class_under(backbone.rb_objects.mRtortosa); 
+  backbone.rb_objects.cFont = generate_font_ruby_class_under(backbone.rb_objects.mRtortosa);
+  
+  gtk_window_wrapper(backbone.rb_objects.mRtortosa);
+
+  rb_define_module_function(backbone.rb_objects.mRtortosa, "init", rtortosa_initialize, 1); 
+  rb_define_module_function(backbone.rb_objects.mRtortosa,
+                            "run", rtortosa_run, 0);
+  rb_define_module_function(backbone.rb_objects.mRtortosa,
+                            "quit", rtortosa_quit, 0);
+  rb_define_module_function(backbone.rb_objects.mRtortosa,
+                            "background_color=", rtortosa_set_background_color, 1);
+  rb_define_module_function(backbone.rb_objects.mRtortosa,
+                            "on_command_line_event", rtortosa_on_entry_validate_event, 2);
+  rb_define_module_function(backbone.rb_objects.mRtortosa,
+                            "on_key_press_event", rtortosa_on_key_press_event, 2);
+  rb_define_module_function(backbone.rb_objects.mRtortosa,
+                            "pick_a_color", rtortosa_pick_a_color, 0);
+  rb_define_module_function(backbone.rb_objects.mRtortosa,
+                            "pick_a_font", rtortosa_pick_a_font, 0);
+  rb_define_module_function(backbone.rb_objects.mRtortosa,
+                            "new_tab", rtortosa_new_tab, 1);
+  rb_define_module_function(backbone.rb_objects.mRtortosa, "notebook", rtortosa_notebook, 0);
 }

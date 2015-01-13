@@ -32,6 +32,16 @@ typedef struct command_t
   gboolean mode;
 } command_t;
 
+/*ruby object*/
+typedef struct rb_objects
+{
+  VALUE mRtortosa;
+  VALUE cFont;
+  VALUE cColor;
+  VALUE cNotebook;
+  VALUE cVte;
+  VALUE cWidget;
+} rb_objects;
 typedef struct  
 {
 	struct {
@@ -45,6 +55,7 @@ typedef struct
 	struct conf_t configuration;
 	guint32 time;
   struct command_t command;
+  struct rb_objects rb_objects;
 } backbone_t ;
 
 extern backbone_t backbone;

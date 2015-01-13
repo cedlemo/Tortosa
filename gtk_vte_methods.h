@@ -12,7 +12,7 @@ typedef struct vte_t {
   VALUE command;
   GPid pid;
 } vte_t;
-VALUE generate_vte_ruby_class_under(VALUE); 
+VALUE generate_vte_ruby_class_under(VALUE, VALUE); 
 #endif
 
 /*|--------------------------------------->>*/

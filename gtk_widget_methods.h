@@ -8,7 +8,7 @@
 typedef struct widget_t {
   GtkWidget * widget;
 } widget_t;
-VALUE generate_widget_ruby_class_under(VALUE); 
+VALUE generate_widget_ruby_class_under(VALUE, VALUE); 
 #endif
 
 /*|--------------------------------------->>*/

@@ -973,8 +973,8 @@ static VALUE rtortosa_widget_init_template(VALUE self){
   return r_ret;
 
 }
-VALUE generate_widget_ruby_class_under(VALUE module) {
-  VALUE c_widget = rb_define_class_under(module, "Widget", rb_cObject);
+VALUE generate_widget_ruby_class_under(VALUE module, VALUE superclass) {
+  VALUE c_widget = rb_define_class_under(module, "Widget", superclass);
 //  return c_widget;
 //}
   rb_define_method(c_widget,

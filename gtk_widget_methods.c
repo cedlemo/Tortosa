@@ -964,15 +964,6 @@ static VALUE rtortosa_widget_in_destruction(VALUE self){
   return r_ret;
 
 }
-static VALUE rtortosa_widget_init_template(VALUE self){
-  widget_t *w;
-  Data_Get_Struct(self, widget_t,w);
-  GtkWidget * widget = w->widget;
-  gtk_widget_init_template(widget);
- VALUE r_ret= Qnil;
-  return r_ret;
-
-}
 VALUE generate_widget_ruby_class_under(VALUE module, VALUE superclass) {
   VALUE c_widget = rb_define_class_under(module, "Widget", superclass);
 //  return c_widget;
@@ -1348,10 +1339,6 @@ VALUE generate_widget_ruby_class_under(VALUE module, VALUE superclass) {
   rb_define_method(c_widget,
                                         "in_destruction",
                                         RUBY_METHOD_FUNC(rtortosa_widget_in_destruction),
-                                        0);
-  rb_define_method(c_widget,
-                                        "init_template",
-                                        RUBY_METHOD_FUNC(rtortosa_widget_init_template),
                                         0);
   return c_widget;
 }

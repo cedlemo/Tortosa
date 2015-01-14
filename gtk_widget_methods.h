@@ -107,7 +107,6 @@ VALUE generate_widget_ruby_class_under(VALUE, VALUE);
 //gtk_widget_set_has_tooltip
 //gtk_widget_get_has_tooltip
 //gtk_widget_in_destruction
-//gtk_widget_init_template
 /*|--------------------------------------->>*/
 /* functions ignored                        */
 /*<<---------------------------------------|*/
@@ -240,6 +239,7 @@ VALUE generate_widget_ruby_class_under(VALUE, VALUE);
 //gtk_widget_insert_action_group
 //gtk_widget_add_tick_callback
 //gtk_widget_remove_tick_callback
+//gtk_widget_init_template
 //gtk_widget_get_template_child
 //gtk_widget_class_set_template
 //gtk_widget_class_set_template_from_resource

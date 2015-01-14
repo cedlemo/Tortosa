@@ -37,6 +37,7 @@ filter.add_name_to_reject('gtk_widget_get_composite_name')
 filter.add_name_to_reject('gtk_widget_push_composite_child')
 filter.add_name_to_reject('gtk_widget_pop_composite_child')
 filter.add_name_to_reject('gtk_widget_add_mnemonic_label')
+filter.add_name_to_reject('gtk_widget_init_template')
 filter.add_name_to_reject('gtk_widget_remove_mnemonic_label')
 
 # Create a FunctionsWrapper which will sort our functions

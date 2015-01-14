@@ -374,9 +374,7 @@ static VALUE rtortosa_terminal_set_font(VALUE self,VALUE font_desc){
   font_t *font_t_ptr;
   Data_Get_Struct(font_desc, font_t,font_t_ptr);
   PangoFontDescription * c_font_desc= font_t_ptr->desc;  vte_terminal_set_font(vte,c_font_desc);
-  VALUE r_ret= rb_ary_new();
-
-  rb_ary_push(r_ret, font_desc);
+ VALUE r_ret= Qnil;
   return r_ret;
 
 }

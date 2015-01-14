@@ -125,6 +125,11 @@ wrapper.wrapper_r_2_c_instructions do |parameter|
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
 }
+  when c_type =~ /GtkNotebook\s*\*/
+    %{  notebook_t *n;
+  Data_Get_Struct(self, notebook_t,n);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
+}
   else
     ''
   end

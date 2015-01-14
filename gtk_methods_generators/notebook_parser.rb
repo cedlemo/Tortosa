@@ -59,7 +59,7 @@ fq.is_getter_by_return_instructions do |function|
   test = true
   function.getParameters.each do |parameter|
     ptype = parameter.getType.getName
-    if ptype.match(/\*/) && !ptype.match(/(GtkNotebook)|(char)/)
+    if ptype.match(/\*/) && !ptype.match(/(PangoFontDescription)|(GtkNotebook)|(VteTerminal)|(char)|(GdkRGBA)|(GtkWidget)/)
       test = false
     end
   end
@@ -76,7 +76,7 @@ wrapper.wrapper_r_arguments_instructions do |parameter|
   case
   when type =~ /GtkNotebook\s\*/
     'VALUE self'
-  when type =~ /char\s+\*/
+  when type =~ /(GdkRGBA|char|PangoFontDescription)\s+\*/
     "VALUE #{parameter.getName}"
   when type =~ /^[^\*]+$/
     "VALUE #{parameter.getName}"
@@ -89,7 +89,7 @@ wrapper.wrapper_r_2_c_instructions do |parameter|
   r_name = parameter.getName
   c_name = 'c_' + r_name
   case
-  when c_type =~ /(gint)|(GtkPositionType)/
+  when c_type == 'gint' || c_type =='GtkPositionType' || c_type == 'int'
     Wrapper.rb_num_2_int(r_name, c_type, c_name)
   when c_type =~ /.*char\s+\*/
     Wrapper.rb_str_2_c_char_ptr(r_name, c_type, c_name)
@@ -105,6 +105,25 @@ wrapper.wrapper_r_2_c_instructions do |parameter|
     Wrapper.rb_num_2_dbl(r_name, c_type, c_name)
   when c_type =~ /uint16/
     Wrapper.rb_num_2_uint16(r_name, c_type, c_name)
+  when c_type == 'const GdkRGBA *'
+    Wrapper.rb_custom_class_to_c(r_name, 'Color',
+                                 'Rtortosa', 'color_t',
+                                 "  GdkRGBA * #{c_name}= &(color_t_ptr->rgba);")
+  when c_type =~ /PangoFontDescription\s+\*/
+    Wrapper.rb_custom_class_to_c(r_name, 'Font',
+                                 'Rtortosa', 'font_t',
+                                 "  PangoFontDescription * #{c_name}= font_t_ptr->desc;")
+
+  when c_type =~ /GtkWidget\s*\*/
+    %{  widget_t *w;
+  Data_Get_Struct(self, widget_t,w);
+  GtkWidget * widget = w->widget;
+}
+  when c_type =~ /VteTerminal\s*\*/
+    %{  vte_t *v;
+  Data_Get_Struct(self, vte_t,v);
+  VteTerminal * vte = VTE_TERMINAL(v->widget);
+}
   when c_type =~ /GtkNotebook\s*\*/
     %{  notebook_t *n;
   Data_Get_Struct(self, notebook_t,n);
@@ -202,10 +221,9 @@ def get_callback_parameters_number(params)
   nb = params.size
   params.each do |p|
     type = p.getType.getName
-    case
-    when type =~ /GtkNotebook/
+    if type =~ /GtkNotebook/
       nb = nb - 1
-    when type =~ /\*/ && !type =~ /char\s+\*/
+    elsif type =~/\*/ && !type.match(/((char)|(GdkRGBA)|(PangoFontDescription))/)
       nb = nb - 1
     end
   end

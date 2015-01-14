@@ -44,23 +44,23 @@ fq = Wrapper::FunctionQualifier.new
 fq.is_void_instructions do |function|
   function.getReturn.getName.match(/void/)
 end
-fq.is_getter_instructions do |function|
-  function.getName.match(/_get_/) ? true : false
-end
-fq.is_setter_instructions do |function|
-  !function.getName.match(/_get_/) ? true : false
-end
-fq.is_array_setter_instructions do |function|
-  function.getName.match(/vte_terminal_set_colors/) ? true : false
-end
-fq.is_array_getter_instructions do |_function|
-  false
-end
+#fq.is_getter_instructions do |function|
+#  function.getName.match(/_get_/) ? true : false
+#end
+#fq.is_setter_instructions do |function|
+#  !function.getName.match(/_get_/) ? true : false
+#end
+#fq.is_array_setter_instructions do |function|
+#  function.getName.match(/vte_terminal_set_colors/) ? true : false
+#end
+#fq.is_array_getter_instructions do |_function|
+#  false
+#end
 fq.is_getter_by_return_instructions do |function|
   test = true
   function.getParameters.each do |parameter|
     ptype = parameter.getType.getName
-    if ptype.match(/\*/) && !ptype.match(/(VteTerminal)|(char)|(GdkRGBA)/)
+    if ptype.match(/\*/) && !ptype.match(/(PangoFontDescription)|(GtkNotebook)|(VteTerminal)|(char)|(GdkRGBA)|(GtkWidget)/)
       test = false
     end
   end
@@ -90,7 +90,7 @@ wrapper.wrapper_r_2_c_instructions do |parameter|
   r_name = parameter.getName
   c_name = 'c_' + r_name
   case
-  when c_type == 'gint'
+  when c_type == 'gint' || c_type =='GtkPositionType' || c_type == 'int'
     Wrapper.rb_num_2_int(r_name, c_type, c_name)
   when c_type =~ /.*char\s+\*/
     Wrapper.rb_str_2_c_char_ptr(r_name, c_type, c_name)
@@ -102,8 +102,10 @@ wrapper.wrapper_r_2_c_instructions do |parameter|
     Wrapper.c_pointer_arg_to_rb_value(r_name, c_type, c_name, 'long')
   when c_type == 'glong'
     Wrapper.rb_num_2_long(r_name, c_type, c_name)
-  when c_type == 'gdouble'
+  when c_type == 'double' || c_type == 'gdouble'
     Wrapper.rb_num_2_dbl(r_name, c_type, c_name)
+  when c_type =~ /uint16/
+    Wrapper.rb_num_2_uint16(r_name, c_type, c_name)
   when c_type == 'const GdkRGBA *'
     Wrapper.rb_custom_class_to_c(r_name, 'Color',
                                  'Rtortosa', 'color_t',
@@ -113,6 +115,11 @@ wrapper.wrapper_r_2_c_instructions do |parameter|
                                  'Rtortosa', 'font_t',
                                  "  PangoFontDescription * #{c_name}= font_t_ptr->desc;")
 
+  when c_type =~ /GtkWidget\s*\*/
+    %{  widget_t *w;
+  Data_Get_Struct(self, widget_t,w);
+  GtkWidget * widget = w->widget;
+}
   when c_type =~ /VteTerminal\s*\*/
     %{  vte_t *v;
   Data_Get_Struct(self, vte_t,v);
@@ -129,7 +136,6 @@ wrapper.wrapper_c_arguments_instructions do |parameter|
     "c_#{parameter.getName}"
   end
 end
-
 wrapper.wrapper_c_2_r_instructions do |arg|
     type = arg[:type]
     c_name = arg[:c_name]
@@ -202,32 +208,35 @@ out = Wrapper::OutputFiles.new('../gtk_vte_methods')
 out._h.puts(File.open('gtk_vte_methods_h', 'rb') { |f| f.read })
 out._c.puts(File.open('gtk_vte_methods_c_1', 'rb') { |f| f.read })
 
-lost = []
 sorter.functions_to_parse.each do |f|
-  #print_function(f) if f.getName.match(/set_font_scale/)
-  if (fq.is_setter(f) && !fq.is_array_setter(f)) || fq.is_getter(f)
     out._c.puts(generate_setter_handler(f, wrapper, fq))
-  else
-    lost << f
-  end
 end
 
 out._c.puts(File.open('gtk_vte_methods_c_2', 'rb') { |f| f.read })
 
 def get_callback_parameters_number(params)
-  if params.any? { |p| p.getType.getName == 'VteTerminal *' }
-    params.size - 1
-  else
-    params.size
+#  if params.any? { |p| p.getType.getName == 'VteTerminal *' }
+#    params.size - 1
+#  else
+#    params.size
+#  end
+  nb = params.size
+  params.each do |p|
+    type = p.getType.getName
+    if type =~ /VteTerminal/
+      nb = nb - 1
+    elsif type =~/\*/ && !type.match(/((char)|(GdkRGBA)|(PangoFontDescription))/)
+      nb = nb - 1
+    end
   end
+  nb
 end
 
 sorter.functions_to_parse.each do |f|
   out._c.puts(%{  rb_define_method(c_vte,
                                         "#{f.getName.gsub('vte_terminal_', '')}",
                                         RUBY_METHOD_FUNC(rtortosa_#{f.getName.gsub('vte_', '')}),
-                                        #{fq.is_getter(f) ? 0 :
-                                        get_callback_parameters_number(f.getParameters)});} +
+                                        #{get_callback_parameters_number(f.getParameters)});} +
   Wrapper::NEWLINE)
 end
 out._c.puts('  return c_vte;')

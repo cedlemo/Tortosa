@@ -71,13 +71,13 @@ fq.is_getter_by_return_instructions do |function|
   test = true
   function.getParameters.each do |parameter|
     ptype = parameter.getType.getName
-    if ptype.match(/\*/) && !ptype.match(/(GtkWidget)|(char)/)
+    if ptype.match(/\*/) && !ptype.match(/(VteTerminal)|(char)|(GdkRGBA)|(GtkWidget)/)
       test = false
     end
   end
   test
 end
-## Generate a code handler for simple fonction
+# Generate a code handler for simple fonction
 # setter function that return value
 wrapper = Wrapper::Rewritter.new
 wrapper.rename_instructions do |name|
@@ -117,10 +117,24 @@ wrapper.wrapper_r_2_c_instructions do |parameter|
     Wrapper.rb_num_2_dbl(r_name, c_type, c_name)
   when c_type =~ /uint16/
     Wrapper.rb_num_2_uint16(r_name, c_type, c_name)
+  when c_type == 'const GdkRGBA *'
+    Wrapper.rb_custom_class_to_c(r_name, 'Color',
+                                 'Rtortosa', 'color_t',
+                                 "  GdkRGBA * #{c_name}= &(color_t_ptr->rgba);")
+  when c_type =~ /PangoFontDescription\s+\*/
+    Wrapper.rb_custom_class_to_c(r_name, 'Font',
+                                 'Rtortosa', 'font_t',
+                                 "  PangoFontDescription * #{c_name}= font_t_ptr->desc;")
+
   when c_type =~ /GtkWidget\s*\*/
     %{  widget_t *w;
   Data_Get_Struct(self, widget_t,w);
   GtkWidget * widget = w->widget;
+}
+  when c_type =~ /VteTerminal\s*\*/
+    %{  vte_t *v;
+  Data_Get_Struct(self, vte_t,v);
+  VteTerminal * vte = VTE_TERMINAL(v->widget);
 }
   else
     ''
@@ -210,6 +224,7 @@ sorter.functions_to_parse.each do |f|
 end
 
 out._c.puts(File.open('gtk_widget_methods_c_2', 'rb') { |f| f.read })
+
 def get_callback_parameters_number(params)
   nb = params.size
   params.each do |p|

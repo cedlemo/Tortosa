@@ -1040,11 +1040,11 @@ VALUE generate_widget_ruby_class_under(VALUE module, VALUE superclass) {
   rb_define_method(c_widget,
                                         "get_preferred_width",
                                         RUBY_METHOD_FUNC(rtortosa_widget_get_preferred_width),
-                                        2);
+                                        0);
   rb_define_method(c_widget,
                                         "get_preferred_height",
                                         RUBY_METHOD_FUNC(rtortosa_widget_get_preferred_height),
-                                        2);
+                                        0);
   rb_define_method(c_widget,
                                         "mnemonic_activate",
                                         RUBY_METHOD_FUNC(rtortosa_widget_mnemonic_activate),
@@ -1220,7 +1220,7 @@ VALUE generate_widget_ruby_class_under(VALUE module, VALUE superclass) {
   rb_define_method(c_widget,
                                         "get_size_request",
                                         RUBY_METHOD_FUNC(rtortosa_widget_get_size_request),
-                                        2);
+                                        0);
   rb_define_method(c_widget,
                                         "set_opacity",
                                         RUBY_METHOD_FUNC(rtortosa_widget_set_opacity),

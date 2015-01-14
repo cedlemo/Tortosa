@@ -71,7 +71,7 @@ fq.is_getter_by_return_instructions do |function|
   test = true
   function.getParameters.each do |parameter|
     ptype = parameter.getType.getName
-    if ptype.match(/\*/) && !ptype.match(/(VteTerminal)|(char)|(GdkRGBA)|(GtkWidget)/)
+    if ptype.match(/\*/) && !ptype.match(/(PangoFontDescription)|(GtkNotebook)|(VteTerminal)|(char)|(GdkRGBA)|(GtkWidget)/)
       test = false
     end
   end
@@ -88,7 +88,7 @@ wrapper.wrapper_r_arguments_instructions do |parameter|
   case
   when type =~ /GtkWidget\s\*/
     'VALUE self'
-  when type =~ /char\s+\*/
+  when type =~ /(GdkRGBA|char|PangoFontDescription)\s+\*/
     "VALUE #{parameter.getName}"
   when type =~ /^[^\*]+$/
     "VALUE #{parameter.getName}"
@@ -135,6 +135,11 @@ wrapper.wrapper_r_2_c_instructions do |parameter|
     %{  vte_t *v;
   Data_Get_Struct(self, vte_t,v);
   VteTerminal * vte = VTE_TERMINAL(v->widget);
+}
+  when c_type =~ /GtkNotebook\s*\*/
+    %{  notebook_t *n;
+  Data_Get_Struct(self, notebook_t,n);
+  GtkNotebook * notebook = GTK_NOTEBOOK(n->widget);
 }
   else
     ''
@@ -229,10 +234,9 @@ def get_callback_parameters_number(params)
   nb = params.size
   params.each do |p|
     type = p.getType.getName
-    case
-    when type =~ /GtkWidget/
+    if type =~ /GtkWidget/
       nb = nb - 1
-    when type =~ /\*/ && !type =~ /char\s+\*/
+    elsif type.match(/\*/) && !type.match(/((char)|(GdkRGBA)|(PangoFontDescription))/)
       nb = nb - 1
     end
   end

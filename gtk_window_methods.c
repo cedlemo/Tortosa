@@ -1,7 +1,7 @@
 /*notebook ruby class*/
 #include "gtk_window_methods.h"
 
-static void c_window_struct_free(widget_t *c)
+static void c_window_struct_free(window_t *c)
 {
   if(c)
   {
@@ -86,15 +86,6 @@ static VALUE rtortosa_window_get_role(VALUE self){
   return r_ret;
 
 }
-static VALUE rtortosa_window_set_position(VALUE self,VALUE position){
-  window_t *w;
-  Data_Get_Struct(self, window_t,w);
-  GtkWindow * window = GTK_WINDOW(w->widget);
-  gtk_window_set_position(window,c_position);
- VALUE r_ret= Qnil;
-  return r_ret;
-
-}
 static VALUE rtortosa_window_activate_focus(VALUE self){
   window_t *w;
   Data_Get_Struct(self, window_t,w);
@@ -111,28 +102,6 @@ static VALUE rtortosa_window_activate_default(VALUE self){
   GtkWindow * window = GTK_WINDOW(w->widget);
   gboolean c_ret =gtk_window_activate_default(window);
   VALUE r_ret = c_ret == TRUE ? Qtrue : Qfalse;
-
-  return r_ret;
-
-}
-static VALUE rtortosa_window_set_opacity(VALUE self,VALUE opacity){
-  window_t *w;
-  Data_Get_Struct(self, window_t,w);
-  GtkWindow * window = GTK_WINDOW(w->widget);
-  if ((TYPE(opacity) != T_FIXNUM) && (TYPE(opacity) != T_BIGNUM))
-    rb_raise(rb_eTypeError, "invalid type for input");
-  gdouble c_opacity=NUM2DBL(opacity);
-  gtk_window_set_opacity(window,c_opacity);
- VALUE r_ret= Qnil;
-  return r_ret;
-
-}
-static VALUE rtortosa_window_get_opacity(VALUE self){
-  window_t *w;
-  Data_Get_Struct(self, window_t,w);
-  GtkWindow * window = GTK_WINDOW(w->widget);
-  gdouble c_ret =gtk_window_get_opacity(window);
-  VALUE r_ret = DBL2NUM(c_ret);
 
   return r_ret;
 
@@ -787,45 +756,6 @@ static VALUE rtortosa_window_has_group(VALUE self){
   return r_ret;
 
 }
-static VALUE rtortosa_window_reshow_with_initial_size(VALUE self){
-  window_t *w;
-  Data_Get_Struct(self, window_t,w);
-  GtkWindow * window = GTK_WINDOW(w->widget);
-  gtk_window_reshow_with_initial_size(window);
- VALUE r_ret= Qnil;
-  return r_ret;
-
-}
-static VALUE rtortosa_window_set_has_resize_grip(VALUE self,VALUE value){
-  window_t *w;
-  Data_Get_Struct(self, window_t,w);
-  GtkWindow * window = GTK_WINDOW(w->widget);
-  gboolean c_value= (value == Qtrue) ? TRUE : FALSE;
-  gtk_window_set_has_resize_grip(window,c_value);
- VALUE r_ret= Qnil;
-  return r_ret;
-
-}
-static VALUE rtortosa_window_get_has_resize_grip(VALUE self){
-  window_t *w;
-  Data_Get_Struct(self, window_t,w);
-  GtkWindow * window = GTK_WINDOW(w->widget);
-  gboolean c_ret =gtk_window_get_has_resize_grip(window);
-  VALUE r_ret = c_ret == TRUE ? Qtrue : Qfalse;
-
-  return r_ret;
-
-}
-static VALUE rtortosa_window_resize_grip_is_visible(VALUE self){
-  window_t *w;
-  Data_Get_Struct(self, window_t,w);
-  GtkWindow * window = GTK_WINDOW(w->widget);
-  gboolean c_ret =gtk_window_resize_grip_is_visible(window);
-  VALUE r_ret = c_ret == TRUE ? Qtrue : Qfalse;
-
-  return r_ret;
-
-}
 static VALUE rtortosa_window_is_maximized(VALUE self){
   window_t *w;
   Data_Get_Struct(self, window_t,w);
@@ -872,24 +802,12 @@ VALUE generate_window_ruby_class_under(VALUE module, VALUE superclass) {
                                         RUBY_METHOD_FUNC(rtortosa_window_get_role),
                                         0);
   rb_define_method(c_window,
-                                        "set_position",
-                                        RUBY_METHOD_FUNC(rtortosa_window_set_position),
-                                        0);
-  rb_define_method(c_window,
                                         "activate_focus",
                                         RUBY_METHOD_FUNC(rtortosa_window_activate_focus),
                                         0);
   rb_define_method(c_window,
                                         "activate_default",
                                         RUBY_METHOD_FUNC(rtortosa_window_activate_default),
-                                        0);
-  rb_define_method(c_window,
-                                        "set_opacity",
-                                        RUBY_METHOD_FUNC(rtortosa_window_set_opacity),
-                                        1);
-  rb_define_method(c_window,
-                                        "get_opacity",
-                                        RUBY_METHOD_FUNC(rtortosa_window_get_opacity),
                                         0);
   rb_define_method(c_window,
                                         "get_type_hint",
@@ -1118,22 +1036,6 @@ VALUE generate_window_ruby_class_under(VALUE module, VALUE superclass) {
   rb_define_method(c_window,
                                         "has_group",
                                         RUBY_METHOD_FUNC(rtortosa_window_has_group),
-                                        0);
-  rb_define_method(c_window,
-                                        "reshow_with_initial_size",
-                                        RUBY_METHOD_FUNC(rtortosa_window_reshow_with_initial_size),
-                                        0);
-  rb_define_method(c_window,
-                                        "set_has_resize_grip",
-                                        RUBY_METHOD_FUNC(rtortosa_window_set_has_resize_grip),
-                                        1);
-  rb_define_method(c_window,
-                                        "get_has_resize_grip",
-                                        RUBY_METHOD_FUNC(rtortosa_window_get_has_resize_grip),
-                                        0);
-  rb_define_method(c_window,
-                                        "resize_grip_is_visible",
-                                        RUBY_METHOD_FUNC(rtortosa_window_resize_grip_is_visible),
                                         0);
   rb_define_method(c_window,
                                         "is_maximized",

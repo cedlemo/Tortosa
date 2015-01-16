@@ -7,7 +7,7 @@
 #include "dbg.h"
 typedef struct window_t {
   GtkWidget * widget;
-} widow_t;
+} window_t;
 VALUE generate_window_ruby_class_under(VALUE, VALUE); 
 #endif
 
@@ -20,11 +20,8 @@ VALUE generate_window_ruby_class_under(VALUE, VALUE);
 //gtk_window_set_role
 //gtk_window_set_startup_id
 //gtk_window_get_role
-//gtk_window_set_position
 //gtk_window_activate_focus
 //gtk_window_activate_default
-//gtk_window_set_opacity
-//gtk_window_get_opacity
 //gtk_window_get_type_hint
 //gtk_window_set_skip_taskbar_hint
 //gtk_window_get_skip_taskbar_hint
@@ -82,10 +79,6 @@ VALUE generate_window_ruby_class_under(VALUE, VALUE);
 //gtk_window_set_default_geometry
 //gtk_window_resize_to_geometry
 //gtk_window_has_group
-//gtk_window_reshow_with_initial_size
-//gtk_window_set_has_resize_grip
-//gtk_window_get_has_resize_grip
-//gtk_window_resize_grip_is_visible
 //gtk_window_is_maximized
 //gtk_window_set_interactive_debugging
 /*|--------------------------------------->>*/
@@ -95,6 +88,7 @@ VALUE generate_window_ruby_class_under(VALUE, VALUE);
 //gtk_window_new
 //gtk_window_add_accel_group
 //gtk_window_remove_accel_group
+//gtk_window_set_position
 //gtk_window_set_focus
 //gtk_window_get_focus
 //gtk_window_set_default
@@ -103,6 +97,8 @@ VALUE generate_window_ruby_class_under(VALUE, VALUE);
 //gtk_window_get_transient_for
 //gtk_window_set_attached_to
 //gtk_window_get_attached_to
+//gtk_window_set_opacity
+//gtk_window_get_opacity
 //gtk_window_set_type_hint
 //gtk_window_set_gravity
 //gtk_window_get_gravity
@@ -130,8 +126,12 @@ VALUE generate_window_ruby_class_under(VALUE, VALUE);
 //gtk_window_begin_resize_drag
 //gtk_window_begin_move_drag
 //gtk_window_get_group
+//gtk_window_reshow_with_initial_size
 //gtk_window_get_window_type
 //gtk_window_get_application
 //gtk_window_set_application
+//gtk_window_set_has_resize_grip
+//gtk_window_get_has_resize_grip
+//gtk_window_resize_grip_is_visible
 //gtk_window_get_resize_grip_area
 //gtk_window_set_titlebar

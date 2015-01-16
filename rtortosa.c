@@ -190,8 +190,8 @@ void Init_rtortosa()
   backbone.rb_objects.cVte = generate_vte_ruby_class_under(backbone.rb_objects.mRtortosa, backbone.rb_objects.cWidget);
   backbone.rb_objects.cColor = generate_color_ruby_class_under(backbone.rb_objects.mRtortosa); 
   backbone.rb_objects.cFont = generate_font_ruby_class_under(backbone.rb_objects.mRtortosa);
-  
-  gtk_window_wrapper(backbone.rb_objects.mRtortosa);
+  generate_window_ruby_class_under(backbone.rb_objects.mRtortosa, backbone.rb_objects.cWidget); 
+  //gtk_window_wrapper(backbone.rb_objects.mRtortosa);
 
   rb_define_module_function(backbone.rb_objects.mRtortosa, "init", rtortosa_initialize, 1); 
   rb_define_module_function(backbone.rb_objects.mRtortosa,

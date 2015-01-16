@@ -7,7 +7,7 @@
 #include "dbg.h"
 typedef struct window_t {
   GtkWidget * widget;
-} widow_t;
+} window_t;
 VALUE generate_window_ruby_class_under(VALUE, VALUE); 
 #endif
 

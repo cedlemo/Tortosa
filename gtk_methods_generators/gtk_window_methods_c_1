@@ -1,7 +1,7 @@
 /*notebook ruby class*/
 #include "gtk_window_methods.h"
 
-static void c_window_struct_free(widget_t *c)
+static void c_window_struct_free(window_t *c)
 {
   if(c)
   {

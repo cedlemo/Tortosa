@@ -5,7 +5,7 @@
 #ifndef BACKBONE_H
 #define	BACKBONE_H
 /*window structure handling ref to the widget and customization parameter*/
-typedef struct window_t
+typedef struct main_window_t
 {
 		GtkWidget *	widget;
     GtkWidget * entry;
@@ -15,7 +15,7 @@ typedef struct window_t
     gboolean transparency;
 		struct color_t background;
     gulong key_event_handler_id;
-}window_t;
+}main_window_t;
 
 /*configuration file path*/
 typedef struct conf_t
@@ -51,7 +51,7 @@ typedef struct
 	GdkScreen *screen;
 	GdkDisplay *display;
 	GtkCssProvider *provider;
-	struct window_t window;
+	struct main_window_t window;
 	struct conf_t configuration;
 	guint32 time;
   struct command_t command;

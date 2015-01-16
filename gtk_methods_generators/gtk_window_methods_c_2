@@ -1,0 +1,4 @@
+VALUE generate_window_ruby_class_under(VALUE module, VALUE superclass) {
+  VALUE c_window = rb_define_class_under(module, "Window", superclass);
+//  return c_widget;
+//}

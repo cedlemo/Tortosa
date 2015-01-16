@@ -1,0 +1,17 @@
+/*notebook ruby class*/
+#include "gtk_window_methods.h"
+
+static void c_window_struct_free(widget_t *c)
+{
+  if(c)
+  {
+    ruby_xfree(c);
+  }
+}
+static VALUE c_window_struct_alloc( VALUE klass)
+{
+  return Data_Wrap_Struct(klass, NULL, c_window_struct_free, ruby_xmalloc(sizeof(window_t)));
+}
+/*static VALUE c_window_initialize(VALUE self, VALUE command)
+{
+}*/

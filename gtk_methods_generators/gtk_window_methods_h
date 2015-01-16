@@ -1,0 +1,13 @@
+#ifndef GTK_WINDOW_METHODS_H
+#define GTK_WINDOW_METHODS_H
+#include <ruby.h>
+#include <gtk/gtk.h>
+#include <vte/vte.h>
+#include "backbone.h"
+#include "dbg.h"
+typedef struct window_t {
+  GtkWidget * widget;
+} widow_t;
+VALUE generate_window_ruby_class_under(VALUE, VALUE); 
+#endif
+

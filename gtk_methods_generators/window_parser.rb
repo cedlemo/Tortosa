@@ -15,7 +15,7 @@ return_types.each do |r|
   filter.add_return_type_to_match(r)
 end
 
-to_match = ['(const\s)*\s*int\s*\*', '(const\s)*\s*gchar\s*\*', '(g)*boolean',
+to_match = ['gint', '(const\s)*\s*int\s*\*', '(const\s)*\s*gchar\s*\*', '(g)*boolean',
             'void', '(g)*double', '(g)*long', 'uint16', 'GtkWindow']
 
 to_match.each do |m|

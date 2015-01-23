@@ -775,6 +775,7 @@ static VALUE rtortosa_window_set_interactive_debugging(VALUE enable){
 }
 VALUE generate_window_ruby_class_under(VALUE module, VALUE superclass) {
   VALUE c_window = rb_define_class_under(module, "Window", superclass);
+  rb_define_alloc_func(c_window, c_window_struct_alloc);
 //  return c_widget;
 //}
   rb_define_method(c_window,

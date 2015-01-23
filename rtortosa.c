@@ -81,7 +81,7 @@ static  VALUE rtortosa_initialize( VALUE self, VALUE args)
   gtk_entry_set_activates_default(GTK_ENTRY(backbone.window.entry),TRUE);
   gtk_box_pack_end(GTK_BOX(backbone.window.vbox), backbone.window.entry, FALSE, FALSE, 0);
   
-   return self;
+  return self;
 }
 static VALUE rtortosa_run( VALUE self)
 {
@@ -171,6 +171,7 @@ static VALUE rtortosa_new_tab(VALUE self, VALUE command)
 
   return Qnil;  
 }
+
 static VALUE rtortosa_notebook(VALUE self)
 {
   VALUE notebook;
@@ -182,16 +183,28 @@ static VALUE rtortosa_notebook(VALUE self)
   n->widget = backbone.window.notebook;
   return notebook;
 }
+
+static VALUE rtortosa_window(VALUE self)
+{
+  VALUE win;
+  win = rb_class_new_instance(0, NULL, backbone.rb_objects.cWindow);
+  SENTINEL();
+  window_t *w;
+  Data_Get_Struct(win,window_t, w);
+  SENTINEL();
+  w->widget = backbone.window.widget;
+  return win;
+}
+
 void Init_rtortosa()
 {
   backbone.rb_objects.mRtortosa = rb_define_module("Rtortosa");
   backbone.rb_objects.cWidget = generate_widget_ruby_class_under(backbone.rb_objects.mRtortosa, rb_cObject);
+  backbone.rb_objects.cWindow = generate_window_ruby_class_under(backbone.rb_objects.mRtortosa, backbone.rb_objects.cWidget); 
   backbone.rb_objects.cNotebook = generate_notebook_ruby_class_under(backbone.rb_objects.mRtortosa, backbone.rb_objects.cWidget);
   backbone.rb_objects.cVte = generate_vte_ruby_class_under(backbone.rb_objects.mRtortosa, backbone.rb_objects.cWidget);
   backbone.rb_objects.cColor = generate_color_ruby_class_under(backbone.rb_objects.mRtortosa); 
   backbone.rb_objects.cFont = generate_font_ruby_class_under(backbone.rb_objects.mRtortosa);
-  generate_window_ruby_class_under(backbone.rb_objects.mRtortosa, backbone.rb_objects.cWidget); 
-  //gtk_window_wrapper(backbone.rb_objects.mRtortosa);
 
   rb_define_module_function(backbone.rb_objects.mRtortosa, "init", rtortosa_initialize, 1); 
   rb_define_module_function(backbone.rb_objects.mRtortosa,
@@ -211,4 +224,5 @@ void Init_rtortosa()
   rb_define_module_function(backbone.rb_objects.mRtortosa,
                             "new_tab", rtortosa_new_tab, 1);
   rb_define_module_function(backbone.rb_objects.mRtortosa, "notebook", rtortosa_notebook, 0);
+  rb_define_module_function(backbone.rb_objects.mRtortosa, "window", rtortosa_window, 0);
 }

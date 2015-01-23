@@ -36,6 +36,7 @@ typedef struct command_t
 typedef struct rb_objects
 {
   VALUE mRtortosa;
+  VALUE cWindow;
   VALUE cFont;
   VALUE cColor;
   VALUE cNotebook;

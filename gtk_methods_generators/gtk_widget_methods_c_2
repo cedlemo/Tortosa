@@ -1,4 +1,5 @@
 VALUE generate_widget_ruby_class_under(VALUE module, VALUE superclass) {
   VALUE c_widget = rb_define_class_under(module, "Widget", superclass);
+  rb_define_alloc_func(c_widget, c_widget_struct_alloc);
 //  return c_widget;
 //}

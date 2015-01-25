@@ -223,7 +223,8 @@ end
 
 out = Wrapper::OutputFiles.new('../gtk_widget_methods')
 out._h.puts(File.open('gtk_widget_methods_h', 'rb') { |f| f.read })
-out._c.puts(File.open('gtk_widget_methods_c_1', 'rb') { |f| f.read })
+out._c.puts(Wrapper::generate_simple_class_allocator('widget'))
+#out._c.puts(File.open('gtk_widget_methods_c_1', 'rb') { |f| f.read })
 
 sorter.functions_to_parse.each do |f|
     out._c.puts(generate_setter_handler(f, wrapper, fq))
@@ -253,20 +254,6 @@ sorter.functions_to_parse.each do |f|
 end
 out._c.puts('  return c_widget;')
 out._c.puts(Wrapper::C_CURLY_BRACKET)
-
-# write informations about handled functions and not handled
-out._h.puts(<<INFOS)
-/*|--------------------------------------->>*/
-/* functions wrapped                        */
-/*<<---------------------------------------|*/
-INFOS
-sorter.functions_to_parse.each { |f| out._h.puts('//' + f.getName) }
-out._h.puts(<<INFOS)
-/*|--------------------------------------->>*/
-/* functions ignored                        */
-/*<<---------------------------------------|*/
-INFOS
-sorter.functions_to_reject.each { |f| out._h.puts('//' + f.getName) }
-
+out._h.puts(Wrapper::generate_wrapped_sumup(sorter))
 out.close_all
 

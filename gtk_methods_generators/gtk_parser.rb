@@ -400,5 +400,38 @@ require 'rtruckboris'
   Data_Get_Struct(#{arg_name}, #{structure},#{struct_ptr_name});
 } + precision
   end
-    
+  def self.generate_simple_class_allocator(name)
+%Q{ /*#{name} ruby class*/
+#include "gtk_#{name}_methods.h"
+
+static void c_#{name}_struct_free(#{name}_t *c)
+{
+  if(c)
+  {
+    ruby_xfree(c);
+  }
+}
+static VALUE c_#{name}_struct_alloc( VALUE klass)
+{
+  return Data_Wrap_Struct(klass, NULL, c_#{name}_struct_free, ruby_xmalloc(sizeof(#{name}_t)));
+}
+/*static VALUE c_#{name}_initialize(VALUE self)
+{
+}*/} 
+  end
+  def self.generate_wrapped_sumup(functions_sorted)
+s= <<INFOS 
+/*|--------------------------------------->>*/
+/* functions wrapped                        */
+/*<<---------------------------------------|*/
+INFOS
+functions_sorted.functions_to_parse.each { |f| s= s + '//' + f.getName + NEWLINE}
+s+=<<INFOS
+/*|--------------------------------------->>*/
+/* functions ignored                        */
+/*<<---------------------------------------|*/
+INFOS
+functions_sorted.functions_to_reject.each { |f| s= s+ '//' + f.getName + NEWLINE}
+  s
+  end
 end

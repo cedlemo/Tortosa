@@ -1,4 +1,4 @@
-/*notebook ruby class*/
+ /*notebook ruby class*/
 #include "gtk_notebook_methods.h"
 
 static void c_notebook_struct_free(notebook_t *c)
@@ -12,7 +12,7 @@ static VALUE c_notebook_struct_alloc( VALUE klass)
 {
   return Data_Wrap_Struct(klass, NULL, c_notebook_struct_free, ruby_xmalloc(sizeof(notebook_t)));
 }
-/*static VALUE c_notebook_initialize(VALUE self, VALUE command)
+/*static VALUE c_notebook_initialize(VALUE self)
 {
 }*/
 static VALUE rtortosa_notebook_set_group_name(VALUE self,VALUE group_name){

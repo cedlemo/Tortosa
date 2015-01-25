@@ -1,4 +1,4 @@
-/*notebook ruby class*/
+ /*widget ruby class*/
 #include "gtk_widget_methods.h"
 
 static void c_widget_struct_free(widget_t *c)
@@ -12,7 +12,7 @@ static VALUE c_widget_struct_alloc( VALUE klass)
 {
   return Data_Wrap_Struct(klass, NULL, c_widget_struct_free, ruby_xmalloc(sizeof(widget_t)));
 }
-/*static VALUE c_notebook_initialize(VALUE self, VALUE command)
+/*static VALUE c_widget_initialize(VALUE self)
 {
 }*/
 static VALUE rtortosa_widget_destroy(VALUE self){

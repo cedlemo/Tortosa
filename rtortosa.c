@@ -48,7 +48,12 @@ static  VALUE rtortosa_initialize( VALUE self, VALUE args)
   extended_gdk_rgba_parse(&backbone.window.background.rgba, backbone.window.background.color->str);
 
   backbone.window.widget = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  //set window transparent if system supports it:
+//  GType test = G_TYPE_FROM_INSTANCE(backbone.window.widget);
+//  GTypeQuery q;
+//  g_type_query(test, &q);
+//  SENTINEL("-------- ------ %s\n",q.type_name);
+//  GType t = g_type_from_name("GtkWidget");
+//  set window transparent if system supports it:
   init_window_visual_with_alpha(backbone.window.widget, &backbone);
   
   g_signal_connect_swapped(backbone.window.widget, "destroy", G_CALLBACK(quit_gracefully), &backbone); 
@@ -188,10 +193,8 @@ static VALUE rtortosa_window(VALUE self)
 {
   VALUE win;
   win = rb_class_new_instance(0, NULL, backbone.rb_objects.cWindow);
-  SENTINEL();
   window_t *w;
   Data_Get_Struct(win,window_t, w);
-  SENTINEL();
   w->widget = backbone.window.widget;
   return win;
 }

@@ -9,7 +9,3 @@ puts "green : #{c.get_green} -> #{255 * c.get_green}"
 puts "blue : #{c.get_blue} -> #{255 * c.get_blue}"
 puts "alpha : #{c.get_alpha} -> #{255 * c.get_alpha}"
 
-#win = Rtortosa::init()
-#win::height = 1
-#win::width = 800
-#win::run

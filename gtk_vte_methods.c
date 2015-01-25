@@ -41,7 +41,7 @@ static VALUE c_vte_struct_alloc( VALUE klass)
 {
   return Data_Wrap_Struct(klass, NULL, c_vte_struct_free, ruby_xmalloc(sizeof(vte_t)));
 }
-static VALUE c_vte_initialize(VALUE self, VALUE command)
+static VALUE c_vte_spawn(VALUE self, VALUE command)
 {
   vte_t *v;
   Data_Get_Struct(self, vte_t, v);
@@ -581,7 +581,7 @@ static VALUE rtortosa_terminal_get_input_enabled(VALUE self){
 VALUE generate_vte_ruby_class_under(VALUE module, VALUE superclass) {
   VALUE c_vte = rb_define_class_under(module, "Vte", superclass);
   rb_define_alloc_func(c_vte, c_vte_struct_alloc);
-  rb_define_method(c_vte, "initialize", RUBY_METHOD_FUNC(c_vte_initialize), 1);
+  rb_define_method(c_vte, "spawn", RUBY_METHOD_FUNC(c_vte_spawn), 1);
 
   rb_define_method(c_vte,
                                         "copy_clipboard",

@@ -171,6 +171,7 @@ static VALUE rtortosa_notebook_popup_disable(VALUE self){
 }
 VALUE generate_notebook_ruby_class_under(VALUE module, VALUE superclass) {
   VALUE c_notebook = rb_define_class_under(module, "Notebook", superclass);
+  rb_define_alloc_func(c_notebook, c_notebook_struct_alloc);
   rb_define_const(module, "POS_LEFT", INT2FIX(GTK_POS_LEFT) );
   rb_define_const(module, "POS_RIGHT", INT2FIX(GTK_POS_RIGHT) );
   rb_define_const(module, "POS_TOP", INT2FIX(GTK_POS_TOP) );

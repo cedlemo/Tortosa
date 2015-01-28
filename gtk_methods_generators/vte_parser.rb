@@ -246,20 +246,7 @@ sorter.functions_to_parse.each do |f|
 end
 out._c.puts('  return c_vte;')
 out._c.puts(Wrapper::C_CURLY_BRACKET)
-
-# write informations about handled functions and not handled
-out._h.puts(<<INFOS)
-/*|--------------------------------------->>*/
-/* functions wrapped                        */
-/*<<---------------------------------------|*/
-INFOS
-sorter.functions_to_parse.each { |f| out._h.puts('//' + f.getName) }
-out._h.puts(<<INFOS)
-/*|--------------------------------------->>*/
-/* functions ignored                        */
-/*<<---------------------------------------|*/
-INFOS
-sorter.functions_to_reject.each { |f| out._h.puts('//' + f.getName) }
+out._h.puts(Wrapper::generate_wrapped_sumup(sorter))
 
 out.close_all
 
@@ -270,6 +257,7 @@ out.close_all
 #  print_function(f)
 # end
 # TODO write code that generates rtortosa vte constant
+
 source = '/usr/include/vte-2.91/vte/vteenums.h'
 enums_wrapper = Wrapper::GlobalWrapper.new(source, hp)
 enums_wrapper.parse(true)

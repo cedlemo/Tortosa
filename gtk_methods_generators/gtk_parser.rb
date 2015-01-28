@@ -431,6 +431,7 @@ s+=<<INFOS
 /* functions ignored                        */
 /*<<---------------------------------------|*/
 INFOS
+#functions_sorted.functions_to_reject.each { |f| puts f.class ;puts f.methods}#s= s+ '//' + f.getName + NEWLINE}}
 functions_sorted.functions_to_reject.each { |f| s= s+ '//' + f.getName + NEWLINE}
   s
   end

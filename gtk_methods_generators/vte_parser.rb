@@ -5,9 +5,15 @@ source = '/usr/include/vte-2.91/vte/vteterminal.h'
 hp = `pkg-config --cflags gtk+-3.0`.gsub('-I', '').split(' ')
 wrapper = Wrapper::GlobalWrapper.new(source, hp)
 wrapper.parse(true)
+
+source = '/usr/include/vte-2.91/vte/vteenums.h'
+enums_wrapper = Wrapper::GlobalWrapper.new(source, hp)
+enums_wrapper.parse(true)
+
+enums = enums_wrapper.parser.getEnums
+
 # Create a filter in order to check sort the functions
 # we would like to parse and those we don't want
-
 filter = Wrapper::FunctionsFilter.new
 
 names = %w(vte_terminal_search_ vte_terminal_match)
@@ -31,7 +37,11 @@ end
 # Create a FunctionsWrapper which will sort our functions
 sorter = Wrapper::FunctionsWrapper.new(wrapper.parser.getFunctions, filter)
 sorter.sort
-
+titi=""
+sorter.functions_to_reject.each do |f|
+  titi +=f.getName
+end
+puts titi
 # Create a FunctionQualifier which will allow us
 # to create generic rules to determine if a function is:
 # void return function
@@ -258,11 +268,6 @@ out.close_all
 # end
 # TODO write code that generates rtortosa vte constant
 
-source = '/usr/include/vte-2.91/vte/vteenums.h'
-enums_wrapper = Wrapper::GlobalWrapper.new(source, hp)
-enums_wrapper.parse(true)
-
-enums = enums_wrapper.parser.getEnums
 puts enums.size
 enums.each do |e|
   puts "Enum Name : #{e.getName}"

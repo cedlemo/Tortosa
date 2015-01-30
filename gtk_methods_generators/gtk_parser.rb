@@ -431,8 +431,11 @@ s+=<<INFOS
 /* functions ignored                        */
 /*<<---------------------------------------|*/
 INFOS
+#functions_sorted.functions_to_reject.each { |f| puts f.class }#s= s+ '//' + f.getName + NEWLINE}}
 #functions_sorted.functions_to_reject.each { |f| puts f.class ;puts f.methods}#s= s+ '//' + f.getName + NEWLINE}}
-functions_sorted.functions_to_reject.each { |f| s= s+ '//' + f.getName + NEWLINE}
+functions_sorted.functions_to_reject.each { |f| puts f.getName}
+#functions_sorted.functions_to_reject.each { |f| s= s+ '//' + f.getName + NEWLINE}
+#functions_sorted.functions_to_reject.each { |f| s= s+ '//' + f.getParameters.size.to_s + NEWLINE}
   s
   end
 end

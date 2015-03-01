@@ -42,6 +42,8 @@ require 'rtruckboris'
     def initialize(name)
       @_c = File.new((name||'wrapper') + '.c', 'w')
       @_h = File.new((name||'wrapper') + '.h', 'w')
+      @_c.sync= true
+      @_c.sync= true
     end
     def close_all
       @_c.close
@@ -433,8 +435,12 @@ s+=<<INFOS
 INFOS
 #functions_sorted.functions_to_reject.each { |f| puts f.class }#s= s+ '//' + f.getName + NEWLINE}}
 #functions_sorted.functions_to_reject.each { |f| puts f.class ;puts f.methods}#s= s+ '//' + f.getName + NEWLINE}}
-functions_sorted.functions_to_reject.each { |f| puts f.getName}
-#functions_sorted.functions_to_reject.each { |f| s= s+ '//' + f.getName + NEWLINE}
+#functions_sorted.functions_to_reject.each_with_index { |f,i| puts f.getName + " " + i.to_s}
+functions_sorted.functions_to_reject.each { |f| s= s+ '//' + f.getName + NEWLINE}
+#functions_sorted.functions_to_reject.each_with_index do |f, index| 
+#   s= s+ '//' + f.getName + NEWLINE
+#  puts index
+#end
 #functions_sorted.functions_to_reject.each { |f| s= s+ '//' + f.getParameters.size.to_s + NEWLINE}
   s
   end

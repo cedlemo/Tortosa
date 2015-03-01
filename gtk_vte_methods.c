@@ -703,3 +703,57 @@ VALUE generate_vte_ruby_class_under(VALUE module, VALUE superclass) {
                                         "reset",
                                         RUBY_METHOD_FUNC(rtortosa_terminal_reset),
                                         2);
+  rb_define_method(c_vte,
+                                        "get_cursor_position",
+                                        RUBY_METHOD_FUNC(rtortosa_terminal_get_cursor_position),
+                                        0);
+  rb_define_method(c_vte,
+                                        "get_encoding",
+                                        RUBY_METHOD_FUNC(rtortosa_terminal_get_encoding),
+                                        0);
+  rb_define_method(c_vte,
+                                        "get_cjk_ambiguous_width",
+                                        RUBY_METHOD_FUNC(rtortosa_terminal_get_cjk_ambiguous_width),
+                                        0);
+  rb_define_method(c_vte,
+                                        "get_char_width",
+                                        RUBY_METHOD_FUNC(rtortosa_terminal_get_char_width),
+                                        0);
+  rb_define_method(c_vte,
+                                        "get_char_height",
+                                        RUBY_METHOD_FUNC(rtortosa_terminal_get_char_height),
+                                        0);
+  rb_define_method(c_vte,
+                                        "get_row_count",
+                                        RUBY_METHOD_FUNC(rtortosa_terminal_get_row_count),
+                                        0);
+  rb_define_method(c_vte,
+                                        "get_column_count",
+                                        RUBY_METHOD_FUNC(rtortosa_terminal_get_column_count),
+                                        0);
+  rb_define_method(c_vte,
+                                        "get_window_title",
+                                        RUBY_METHOD_FUNC(rtortosa_terminal_get_window_title),
+                                        0);
+  rb_define_method(c_vte,
+                                        "get_icon_title",
+                                        RUBY_METHOD_FUNC(rtortosa_terminal_get_icon_title),
+                                        0);
+  rb_define_method(c_vte,
+                                        "get_current_directory_uri",
+                                        RUBY_METHOD_FUNC(rtortosa_terminal_get_current_directory_uri),
+                                        0);
+  rb_define_method(c_vte,
+                                        "get_current_file_uri",
+                                        RUBY_METHOD_FUNC(rtortosa_terminal_get_current_file_uri),
+                                        0);
+  rb_define_method(c_vte,
+                                        "set_input_enabled",
+                                        RUBY_METHOD_FUNC(rtortosa_terminal_set_input_enabled),
+                                        1);
+  rb_define_method(c_vte,
+                                        "get_input_enabled",
+                                        RUBY_METHOD_FUNC(rtortosa_terminal_get_input_enabled),
+                                        0);
+  return c_vte;
+}

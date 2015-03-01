@@ -6,11 +6,15 @@ hp = `pkg-config --cflags gtk+-3.0`.gsub('-I', '').split(' ')
 wrapper = Wrapper::GlobalWrapper.new(source, hp)
 wrapper.parse(true)
 
-source = '/usr/include/vte-2.91/vte/vteenums.h'
-enums_wrapper = Wrapper::GlobalWrapper.new(source, hp)
-enums_wrapper.parse(true)
+enum_source = '/usr/include/vte-2.91/vte/vteenums.h'
+enum_hp = `pkg-config --cflags gtk+-3.0`.gsub('-I', '').split(' ')
+# TODO when you modify the source or hp variable, you the program crash. Try to :
+# not use const in the HeaderParser C++ class 
+# or rewrite the method call with swig
+#enums_wrapper = Wrapper::GlobalWrapper.new(enum_source, enum_hp)
+#enums_wrapper.parse(true)
 
-enums = enums_wrapper.parser.getEnums
+#enums = enums_wrapper.parser.getEnums
 
 # Create a filter in order to check sort the functions
 # we would like to parse and those we don't want
@@ -37,11 +41,6 @@ end
 # Create a FunctionsWrapper which will sort our functions
 sorter = Wrapper::FunctionsWrapper.new(wrapper.parser.getFunctions, filter)
 sorter.sort
-titi=""
-sorter.functions_to_reject.each do |f|
-  titi +=f.getName
-end
-puts titi
 # Create a FunctionQualifier which will allow us
 # to create generic rules to determine if a function is:
 # void return function
@@ -49,7 +48,6 @@ puts titi
 # getter array function (function that return an array)
 # setter function
 # setter array function
-
 fq = Wrapper::FunctionQualifier.new
 fq.is_void_instructions do |function|
   function.getReturn.getName.match(/void/)
@@ -78,11 +76,11 @@ fq.is_getter_by_return_instructions do |function|
 end
 # Generate a code handler for simple fonction
 # setter function that return value
-wrapper = Wrapper::Rewritter.new
-wrapper.rename_instructions do |name|
+rewritter = Wrapper::Rewritter.new
+rewritter.rename_instructions do |name|
   "rtortosa_#{name.gsub('vte_', '')}"
 end
-wrapper.wrapper_r_arguments_instructions do |parameter|
+rewritter.wrapper_r_arguments_instructions do |parameter|
   type = parameter.getType.getName
   case
   when type =~ /VteTerminal\s\*/
@@ -95,7 +93,7 @@ wrapper.wrapper_r_arguments_instructions do |parameter|
     ''
   end
 end
-wrapper.wrapper_r_2_c_instructions do |parameter|
+rewritter.wrapper_r_2_c_instructions do |parameter|
   c_type = parameter.getType.getName
   r_name = parameter.getName
   c_name = 'c_' + r_name
@@ -144,14 +142,14 @@ wrapper.wrapper_r_2_c_instructions do |parameter|
     ''
   end
 end
-wrapper.wrapper_c_arguments_instructions do |parameter|
+rewritter.wrapper_c_arguments_instructions do |parameter|
   if parameter.getType.getName == 'VteTerminal *'
     'vte'
   else
     "c_#{parameter.getName}"
   end
 end
-wrapper.wrapper_c_2_r_instructions do |arg|
+rewritter.wrapper_c_2_r_instructions do |arg|
     type = arg[:type]
     c_name = arg[:c_name]
     r_name = arg[:r_name]
@@ -173,15 +171,15 @@ wrapper.wrapper_c_2_r_instructions do |arg|
     end
 end
 
-wrapper.wrapper_r_return_instructions do |function|
+rewritter.wrapper_r_return_instructions do |function|
   type = function.getReturn.getName
   if fq.is_getter_by_return(function)
-    wrapper.wrapper_c_2_r({:type=>type, :c_name=>'c_ret', :r_name=>'r_ret'})  + Wrapper::NEWLINE
+    rewritter.wrapper_c_2_r({:type=>type, :c_name=>'c_ret', :r_name=>'r_ret'})  + Wrapper::NEWLINE
   else
     s = '  VALUE r_ret= rb_ary_new();' + Wrapper::NEWLINE
     function.getParameters.each do |p|
       if !p.getType.getName.match(/VteTerminal/)
-        s += wrapper.wrapper_c_2_r({:type=>p.getType.getName.gsub(/\*/,""), :c_name=>'local_c_' + p.getName, :r_name=>p.getName}) + Wrapper::NEWLINE
+        s += rewritter.wrapper_c_2_r({:type=>p.getType.getName.gsub(/\*/,""), :c_name=>'local_c_' + p.getName, :r_name=>p.getName}) + Wrapper::NEWLINE
         s += "  rb_ary_push(r_ret, #{p.getName});"  + Wrapper::NEWLINE
       end
     end
@@ -190,42 +188,54 @@ wrapper.wrapper_r_return_instructions do |function|
 end
 
 # put it all together to write the handlers
-def generate_setter_handler(f, wrapper, fq)
-  s = 'static VALUE ' + wrapper.rename(f.getName) + Wrapper::O_BRACKET
+def generate_setter_handler(f, rewritter, fq)
+  s = 'static VALUE ' + rewritter.rename(f.getName) + Wrapper::O_BRACKET
   buff = []
   f.getParameters.each do |p|
-    r_arg = wrapper.wrapper_r_arguments(p)
+    r_arg = rewritter.wrapper_r_arguments(p)
     buff << r_arg unless r_arg == ''
   end
   s += buff.join(Wrapper::COMMA)
   s +=  Wrapper::C_BRACKET + Wrapper::O_CURLY_BRACKET + Wrapper::NEWLINE
   f.getParameters.each do |p|
-    s += wrapper.wrapper_r_2_c(p)
+    s += rewritter.wrapper_r_2_c(p)
   end
   s += '  '
   s += "#{f.getReturn.getName} c_ret =" unless !fq.is_getter_by_return(f) || fq.is_void(f)
   s +=  f.getName + Wrapper::O_BRACKET
   buff.clear
   f.getParameters.each do |p|
-    buff << wrapper.wrapper_c_arguments(p)
+    buff << rewritter.wrapper_c_arguments(p)
   end
   s += buff.join(Wrapper::COMMA) + Wrapper::C_BRACKET + Wrapper::SEMI_COLON + Wrapper::NEWLINE
-  s +=  wrapper.wrapper_r_return(f)
+  s +=  rewritter.wrapper_r_return(f)
   s += '  return r_ret;' + Wrapper::NEWLINE
   s += Wrapper::NEWLINE + Wrapper::C_CURLY_BRACKET
+  s
 end
 
 def print_function(f)
   puts "#{f.getReturn.getName} #{f.getName}(#{f.getParameters.map { |p|"#{p.getType.getName} #{p.getName}" }.join(',')})"
 end
-
 out = Wrapper::OutputFiles.new('../gtk_vte_methods')
 out._h.puts(File.open('gtk_vte_methods_h', 'rb') { |f| f.read })
 out._c.puts(File.open('gtk_vte_methods_c_1', 'rb') { |f| f.read })
-
-sorter.functions_to_parse.each do |f|
-    out._c.puts(generate_setter_handler(f, wrapper, fq))
+#xlm=""
+#puts wrapper.class
+#puts sorter.functions_to_parse.size
+sorter.functions_to_parse.each_with_index do |f, index|
+#    puts index
+    out._c.puts(generate_setter_handler(f, rewritter, fq))
+#    xlm += generate_setter_handler(f, wrapper, fq)
+#  puts    generate_setter_handler(f, wrapper, fq)
 end
+#out._c.puts(xlm)
+#titi=""
+#sorter.functions_to_reject.each do |f|
+#  titi = titi +"  " + f.getName
+#end
+#puts titi
+#puts "------------------------------------------------"
 
 out._c.puts(File.open('gtk_vte_methods_c_2', 'rb') { |f| f.read })
 
@@ -268,17 +278,17 @@ out.close_all
 # end
 # TODO write code that generates rtortosa vte constant
 
-puts enums.size
-enums.each do |e|
-  puts "Enum Name : #{e.getName}"
-  puts "\thas name for linkage ? #{e.hasNameForLinkage}"  
-  puts "\thas linkage ? #{e.hasLinkage}"  
-  puts "\ttypedef name: #{e.getTypedefName}"
-  constants = e.getConstants
-  print "\t\t"
-  constants.each do |c|
-    print "#{c.getName} #{c.getValue}  "
-  end
-  puts""
-end
+#puts enums.size
+#enums.each do |e|
+#  puts "Enum Name : #{e.getName}"
+#  puts "\thas name for linkage ? #{e.hasNameForLinkage}"  
+#  puts "\thas linkage ? #{e.hasLinkage}"  
+#  puts "\ttypedef name: #{e.getTypedefName}"
+#  constants = e.getConstants
+#  print "\t\t"
+#  constants.each do |c|
+#    print "#{c.getName} #{c.getValue}  "
+#  end
+#  puts""
+#end
 

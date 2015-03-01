@@ -13,8 +13,8 @@ win.set_icon_name('terminal')
 Rtortosa.background_color = Rtortosa::Color.new("#333333ff") 
 notebook = Rtortosa.notebook
 notebook.show
-win.show_all
 notebook.set_tab_pos(Rtortosa::POS_BOTTOM)#Rtortosa::POS_BOTTOM)
+win.show_all
 command_cb = Proc.new{ |command, notebook| 
   puts "command line: #{command}"
   case command

@@ -75,7 +75,7 @@ static  VALUE rtortosa_initialize( VALUE self, VALUE args)
   backbone.window.notebook = gtk_notebook_new(); 
   backbone.window.tabs = NULL;
   widget_set_transparent_background(backbone.window.notebook);
-  gtk_box_pack_start(GTK_BOX(backbone.window.vbox), backbone.window.notebook, FALSE, FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(backbone.window.vbox), backbone.window.notebook, TRUE, TRUE, 0);
   
   /***********/
   /* GtkEntry*/
@@ -84,7 +84,7 @@ static  VALUE rtortosa_initialize( VALUE self, VALUE args)
   gtk_entry_set_has_frame(GTK_ENTRY(backbone.window.entry),FALSE);
   widget_set_transparent_background(backbone.window.entry);
   gtk_entry_set_activates_default(GTK_ENTRY(backbone.window.entry),TRUE);
-  gtk_box_pack_end(GTK_BOX(backbone.window.vbox), backbone.window.entry, FALSE, FALSE, 0);
+  gtk_box_pack_end(GTK_BOX(backbone.window.vbox), backbone.window.entry, TRUE, TRUE, 0);
   
   return self;
 }

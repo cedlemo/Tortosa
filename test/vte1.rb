@@ -8,6 +8,4 @@ Rtortosa::background_color = Rtortosa::Color.new("#333333ff")
 first_vte = Rtortosa::Vte.new
 first_vte.spawn("/bin/fish")
 first_vte.set_rewrap_on_resize(true)
-first_vte.set_hexpand(true)
-first_vte.set_vexpand(true)
 Rtortosa::run

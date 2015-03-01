@@ -18,7 +18,7 @@ key_cb = Proc.new{ |event, userdata|
 #  puts "-->event->state #{event[:state]}"
 #  puts "-->event->keyname #{event[:keyname]}"
 }
-command_cb = Proc.new{ |command, userdata| 
+command_cb = Proc.new{ |command, win| 
   puts "command line: #{command}"
 #  puts "-->userdata : #{userdata}"
 #  puts "-->event->time #{event[:time]}"
@@ -33,7 +33,7 @@ command_cb = Proc.new{ |command, userdata|
   when 'with border'
     win.set_decorated(true)
   when 'quit'
-    win.quit
+    Rtortosa.quit
   else
     puts "Unknow command : #{command}"
   end

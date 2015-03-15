@@ -55,8 +55,7 @@ Tortosa has a first released version 1.0 which compiles only with the version of
     > vte3-devel
 
 +    Debian: 
-    > libgtk-3-0-dev
-    > libvte-2.90-dev
+    > libvte-2.91-dev
 
 ##Installation
 

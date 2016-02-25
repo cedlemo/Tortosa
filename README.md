@@ -1,5 +1,11 @@
 #Tortosa
 
+# Project is dead
+
+Tortosa is not maintained anymore. My new vte terminal project is https://github.com/cedlemo/germinal.
+
+## Introduction
+
 Tortosa is a terminal emulator based on the vte3 library. I used gnome-terminal but after different upgrades, some functionalities were removed like background transparency or Japanese input via SCIM.
 
 

@@ -2,7 +2,7 @@
 
 # Project is dead
 
-Tortosa is not maintained anymore. My new vte terminal project is https://github.com/cedlemo/germinal.
+Tortosa is not maintained anymore. My new vte terminal project is https://github.com/cedlemo/topinambour.
 
 ## Introduction
 

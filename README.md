@@ -20,3 +20,10 @@ Clean the repository after build:
 make clean
 make maintainer-clean
 ```
+
+Generates the compile_commands.json for ccls/clang used with coc.
+
+```bash
+# after have build everything
+bear make
+```

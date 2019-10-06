@@ -275,6 +275,7 @@ target_alias =
 top_build_prefix = 
 top_builddir = .
 top_srcdir = .
+MAINTAINERCLEANFILES = Makefile.in aclocal.m4 config.h.in configure depcomp install-sh missing compile
 tortosa_LDFLAGS = $(DEPS_LIBS)
 tortosa_CPPFLAGS = $(DEPS_CFLAGS)
 tortosa_SOURCES = main.c
@@ -666,6 +667,7 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
+	-test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
 clean: clean-am
 
 clean-am: clean-binPROGRAMS clean-generic mostlyclean-am

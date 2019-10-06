@@ -2,5 +2,8 @@ AC_INIT([Tortosa], 2.0)
 AM_INIT_AUTOMAKE
 AC_PROG_CC
 PKG_CHECK_MODULES([DEPS], [vte-2.91 gtk+-3.0])
-AC_CONFIG_FILES(Makefile)
+AC_CONFIG_FILES([
+		 Makefile
+		 src/Makefile
+		 ])
 AC_OUTPUT

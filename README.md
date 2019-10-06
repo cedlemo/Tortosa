@@ -10,4 +10,13 @@
 aclocal
 automake --add-missing --foreign
 autoconf
+./configure
+make
+```
+
+Clean the repository after build:
+
+```bash
+make clean
+make maintainer-clean
 ```

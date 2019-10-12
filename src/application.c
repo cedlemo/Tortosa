@@ -1,7 +1,9 @@
 #include "application.h"
+#include "terminal.h"
 
 #define APP_ID "com.github.cedlemo.tortosa"
 #define APP_NAME "Tortosa"
+
 static void
 startup (GtkApplication *app,
          gpointer user_data)
@@ -21,6 +23,7 @@ activate (GtkApplication *app,
 {
     GtkWidget *window;
     GtkWidget *headerbar;
+    GtkWidget *vte;
 
     window = gtk_application_window_new (app);
     gtk_window_set_title (GTK_WINDOW (window), "Window");
@@ -31,6 +34,9 @@ activate (GtkApplication *app,
     gtk_header_bar_set_show_close_button(GTK_HEADER_BAR(headerbar), TRUE);
     gtk_widget_set_name (headerbar, "tortosa-headerbar");
     gtk_window_set_titlebar(GTK_WINDOW(window), headerbar);
+
+    vte = tortosa_terminal_new ();
+    gtk_container_add (GTK_CONTAINER (window), vte);
 
     gtk_widget_show_all (window);
 }

@@ -1,12 +1,30 @@
 #include "terminal.h"
 
+const char *colors[PALETTE_SIZE] = {
+    BACKGROUND, COLOR0, COLOR1, COLOR2, COLOR3, COLOR4, COLOR5, FOREGROUND,
+    COLOR6, COLOR7, COLOR8, COLOR9, COLOR10, COLOR11, COLOR12, COLOR13, COLOR14, COLOR15
+};
+
+
 void
 spawn_async_cb (VteTerminal *terminal,
                 GPid pid,
                 GError *error,
                 gpointer user_data)
 {
+    GdkRGBA palette[PALETTE_SIZE];
 
+    for (int i = 0; i < PALETTE_SIZE; i++)
+    {
+        gdk_rgba_parse(&palette[i], colors[i]);
+    }
+
+    vte_terminal_set_colors (terminal,
+                             NULL,                // const GdkRGBA *foreground,
+                             NULL,                // const GdkRGBA *background,
+                             (GdkRGBA *) palette, // const GdkRGBA *palette,
+                             16                   // gsize palette_size
+                            );
 }
 
 GtkWidget * tortosa_terminal_new (void)

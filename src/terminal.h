@@ -21,7 +21,7 @@
 #define COLOR13 "#d3869b"
 #define COLOR14 "#8ec07c"
 #define COLOR15 "#ebdbb2"
-#define PALETTE_SIZE 18
+#define PALETTE_SIZE 16
 
 GtkWidget * tortosa_terminal_new (void);
 #endif

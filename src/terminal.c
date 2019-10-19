@@ -1,8 +1,7 @@
 #include "terminal.h"
 
 const char *colors[PALETTE_SIZE] = {
-    BACKGROUND, COLOR0, COLOR1, COLOR2, COLOR3, COLOR4, COLOR5, FOREGROUND,
-    COLOR6, COLOR7, COLOR8, COLOR9, COLOR10, COLOR11, COLOR12, COLOR13, COLOR14, COLOR15
+    COLOR0, COLOR1, COLOR2, COLOR3, COLOR4, COLOR5,     COLOR6, COLOR7, COLOR8, COLOR9, COLOR10, COLOR11, COLOR12, COLOR13, COLOR14, COLOR15
 };
 
 
@@ -16,14 +15,19 @@ spawn_async_cb (VteTerminal *terminal,
 
     for (int i = 0; i < PALETTE_SIZE; i++)
     {
-        gdk_rgba_parse(&palette[i], colors[i]);
+        gdk_rgba_parse (&palette[i], colors[i]);
     }
 
+    GdkRGBA foreground;
+    GdkRGBA background;
+    gdk_rgba_parse (&foreground, FOREGROUND);
+    gdk_rgba_parse (&background, BACKGROUND);
+
     vte_terminal_set_colors (terminal,
-                             NULL,                // const GdkRGBA *foreground,
-                             NULL,                // const GdkRGBA *background,
+                             &foreground,         // const GdkRGBA *foreground,
+                             &background,         // const GdkRGBA *background,
                              (GdkRGBA *) palette, // const GdkRGBA *palette,
-                             16                   // gsize palette_size
+                             PALETTE_SIZE         // gsize palette_size
                             );
 }
 

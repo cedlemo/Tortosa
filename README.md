@@ -1,8 +1,8 @@
 #Tortosa
 
-# Project is dead
+# Project 1.0.0 is dead
 
-Tortosa is not maintained anymore. My new vte terminal project is https://github.com/cedlemo/topinambour.
+This version is not maintained anymore. I am starting a new version from scratch.
 
 ## Introduction
 
@@ -29,10 +29,10 @@ So I decided to write my own terminal emulator. Even if it looks like a toy, Tor
 
 +    Tortosa supports detection of urls/uri and can launch default applications like in gnome-terminal via the main menu. Furthermore Tortosa detect colors pattern and allow you to copy/edit this color via the main menu.
 
-<img src="https://raw.github.com/cedlemo/Tortosa/master/tortosa_overview.png" width="576" height="324" alt="Screenshot">	
+<img src="https://raw.github.com/cedlemo/Tortosa/master/tortosa_overview.png" width="576" height="324" alt="Screenshot">
 
 *tmux in a tortosa tab. In the top tmux pans, 2 colors schemes scripts displaying terminal color. In the bottom, Tortosa configuration and css file are opened. Just need to save after modifications in the files and use reload functions in the main menu in order to see the modifications applied*
-	
+
 ##Versions:
 Tortosa has a first released version 1.0 which compiles only with the version of the vte3 library prior to 0.34. This version can be built with all the vte library (version >= 2.9) but some functionnalities have been removed:
 
@@ -46,7 +46,7 @@ Tortosa has a first released version 1.0 which compiles only with the version of
 
 +    Gtk+ v >= 3.0
 
-+    vte3 v >= 2.9 
++    vte3 v >= 2.9
 
 +    autotools
 
@@ -60,7 +60,7 @@ Tortosa has a first released version 1.0 which compiles only with the version of
     > gtk3-devel
     > vte3-devel
 
-+    Debian: 
++    Debian:
     > libvte-2.91-dev
 
 ##Installation
@@ -223,7 +223,7 @@ The file value must be a full path. The css content is applied with the GTK_STYL
 	GtkWindow
 	|-------->GtkNotebook
 							|---------->GtkLabel
-							|---------->VteTerminal	
+							|---------->VteTerminal
 	GtkMenu
 	|-------->GtkMenuItem
 	|-------->GtkMenuSeparator
@@ -267,10 +267,10 @@ GtkNotebook, .notebook {
 GtkNotebook tab, .notebook tab{
 	/*background-color: rgba(46,52,54,0.5);*/
 	background-image: -gtk-gradient(linear,
-																	center top, 
-																	center bottom, 
-																	color-stop(0, rgba(0,0,0,0.7)), 
-																	color-stop(0.6, rgba(46,52,54,0.5)), 
+																	center top,
+																	center bottom,
+																	color-stop(0, rgba(0,0,0,0.7)),
+																	color-stop(0.6, rgba(46,52,54,0.5)),
 																	color-stop(1, rgba(46,52,54,0)));
 	padding:0px 5px 2px 5px;
 	border-radius:0px 0px 0px 0px;

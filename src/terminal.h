@@ -26,4 +26,4 @@
 #define PALETTE_SIZE 16
 
 GtkWidget * tortosa_terminal_new (void);
-#endif
+#endif /* !TORTOSA_TERMINAL_H */

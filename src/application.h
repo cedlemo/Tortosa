@@ -4,4 +4,4 @@
 
 GtkApplication *tortosa_application_new ();
 
-#endif
+#endif /* !TORTOSA_APPLICATION_H */

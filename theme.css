@@ -1,0 +1,26 @@
+*{
+}
+
+#tortosa-window {
+  background-color: rgba(0,0,0,0);
+  /*border: solid 4px #282828;
+  border-radius: 0px 0px 8px 8px;*/
+}
+
+#tortosa-headerbar {
+/*	 padding: 0px;
+	 margin: 0px;
+    min-height: 0px;
+    padding: 0px;
+    background-color: #323232;*/
+  background-color: #282828;
+  border: none;
+  box-shadow: none;
+}
+#tortosa-headerbar:backdrop {
+  background-color: rgba(50,50,50,0.7);
+  border: none;
+  box-shadow: none;
+}
+
+

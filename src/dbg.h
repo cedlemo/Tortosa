@@ -1,12 +1,12 @@
 /**
- * \file dbg.h 
+ * \file dbg.h
  * \brief Define dbg helpers
  * \author Cedlemo
  * \version 0.1
  * \date 18 mai 2013
  */
 #include <stdio.h>
-#include <errno.h> 
+#include <errno.h>
 #include <string.h>
 
 #ifndef DBG_H
@@ -23,3 +23,4 @@
 #define check_mem(A) check((A), "Out of memory.")
 #define check_debug(A, M, ...) if(!(A)) { debug(M, ##__VA_ARGS__); errno=0; goto error; }
 #endif
+

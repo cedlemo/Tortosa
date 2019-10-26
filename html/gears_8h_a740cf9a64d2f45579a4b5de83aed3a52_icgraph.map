@@ -1,9 +1,0 @@
-<map id="load_css_regexes_match" name="load_css_regexes_match">
-<area shape="rect" id="node2" href="$gears_8h.html#a4bda941d2d40f5eb77c9d729dc229879" title="reload_tortosa_configuration" alt="" coords="225,107,409,133"/>
-<area shape="rect" id="node4" href="$tortosa_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="main" alt="" coords="645,157,696,184"/>
-<area shape="rect" id="node5" href="$tabs_8h.html#a99dabcf43137f96cf5524ad88d02bed3" title="reload_tabs_configuration" alt="" coords="233,5,402,32"/>
-<area shape="rect" id="node6" href="$window_8h.html#afc260ef4462cea2de9dcf5598eeddf8f" title="reload_css_theme" alt="" coords="253,157,381,184"/>
-<area shape="rect" id="node8" href="$window_8h.html#ab6594fce84d4150895ac925b56869bfb" title="reload_window_configuration" alt="" coords="224,56,411,83"/>
-<area shape="rect" id="node3" href="$menus_8h.html#a0f10cf5a8a8b20c2a7b244fc9a23c616" title="create_reload_menu" alt="" coords="459,107,597,133"/>
-<area shape="rect" id="node7" href="$events_8h.html#a2b45201051e4603136cfca4ae05b202a" title="event_key_press" alt="" coords="469,157,587,184"/>
-</map>

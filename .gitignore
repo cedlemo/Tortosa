@@ -1,0 +1,5 @@
+.ccls-cache/
+.clangd/
+compile_commands.json
+src/.deps/
+src/tortosa

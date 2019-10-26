@@ -1,5 +1,7 @@
-#ifndef TORTOSA_TERMINAL
-#define TORTOSA_TERMINAL
+#ifndef TORTOSA_TERMINAL_H
+#define TORTOSA_TERMINAL_H
+#include <stdlib.h>
+#include <gtk/gtk.h>
 #include <vte/vte.h>
 #include "dbg.h"
 

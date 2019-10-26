@@ -1,9 +1,8 @@
 #include "terminal.h"
 
 const char *colors[PALETTE_SIZE] = {
-    COLOR0, COLOR1, COLOR2, COLOR3, COLOR4, COLOR5,     COLOR6, COLOR7, COLOR8, COLOR9, COLOR10, COLOR11, COLOR12, COLOR13, COLOR14, COLOR15
+    COLOR0, COLOR1, COLOR2, COLOR3, COLOR4, COLOR5, COLOR6, COLOR7, COLOR8, COLOR9, COLOR10, COLOR11, COLOR12, COLOR13, COLOR14, COLOR15
 };
-
 
 void
 spawn_async_cb (VteTerminal *terminal,
@@ -29,6 +28,14 @@ spawn_async_cb (VteTerminal *terminal,
                              (GdkRGBA *) palette, // const GdkRGBA *palette,
                              PALETTE_SIZE         // gsize palette_size
                             );
+}
+
+void
+child_exited_cb (VteTerminal *terminal,
+                 gint status,
+                 gpointer user_data)
+{
+    exit (EXIT_SUCCESS);
 }
 
 GtkWidget * tortosa_terminal_new (void)
@@ -58,6 +65,8 @@ GtkWidget * tortosa_terminal_new (void)
 								   NULL,                // cancellable a GCancellable, or NULL.
 								   spawn_async_cb,
                                    NULL);
+
+    g_signal_connect (vte, "child-exited", G_CALLBACK (child_exited_cb), NULL);
 //	{
 //		LOG_ERR("%s\n", error->message);
 //		g_strfreev(argvp);

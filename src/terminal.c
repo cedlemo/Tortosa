@@ -1,4 +1,5 @@
 #include "terminal.h"
+#include "shell.h"
 
 const char *colors[PALETTE_SIZE] = {
     COLOR0, COLOR1, COLOR2, COLOR3, COLOR4, COLOR5, COLOR6, COLOR7, COLOR8, COLOR9, COLOR10, COLOR11, COLOR12, COLOR13, COLOR14, COLOR15
@@ -35,6 +36,9 @@ child_exited_cb (VteTerminal *terminal,
                  gint status,
                  gpointer user_data)
 {
+    TortosaShell *tortosa_shell;
+    tortosa_shell = tortosa_shell_get_default ();
+    g_object_unref (tortosa_shell);
     exit (EXIT_SUCCESS);
 }
 

@@ -1,5 +1,6 @@
 #include "application.h"
 #include "terminal.h"
+#include "shell.h"
 
 #define APP_ID "com.github.cedlemo.tortosa"
 #define APP_NAME "Tortosa"
@@ -8,6 +9,7 @@ static void
 startup (GtkApplication *app,
          gpointer user_data)
 {
+    TortosaShell *tortosa_shell = tortosa_shell_get_default ();
     g_set_application_name (APP_NAME);
     g_set_prgname (APP_NAME);
     GtkCssProvider *cssProvider = gtk_css_provider_new ();

@@ -1,6 +1,7 @@
 #ifndef TORTOSA_SHELL_H
 #define TORTOSA_SHELL_H
 #include <glib-object.h>
+#include <stdio.h>
 
 G_BEGIN_DECLS
 

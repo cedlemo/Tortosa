@@ -43,7 +43,7 @@ tortosa_shell_init (TortosaShell *self)
 static TortosaShell *
 tortosa_shell_new ()
 {
-    return g_object_new (TORTOSA_TYPE_SHELL, NULL);
+    return g_object_new (TORTOSA_SHELL_TYPE, NULL);
 }
 
 TortosaShell *

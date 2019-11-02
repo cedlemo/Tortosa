@@ -15,7 +15,6 @@ G_DEFINE_TYPE(TortosaApplication, tortosa_application, GTK_TYPE_APPLICATION)
 static void
 tortosa_application_init (TortosaApplication *app)
 {
-    printf("Application instance init\n");
 }
 
 static void tortosa_startup (GApplication *app);
@@ -25,11 +24,9 @@ static int tortosa_command_line (GApplication *application, GApplicationCommandL
 static void
 tortosa_application_class_init (TortosaApplicationClass *klass)
 {
-    printf("Application class init start\n");
     G_APPLICATION_CLASS (klass)->startup = tortosa_startup;
     G_APPLICATION_CLASS (klass)->activate = tortosa_activate;
     G_APPLICATION_CLASS (klass)->command_line = tortosa_command_line;
-    printf("Application class init end\n");
 }
 
 static void
@@ -80,8 +77,8 @@ tortosa_command_line (GApplication            *application,
   argv = g_application_command_line_get_arguments (cmdline, &argc);
 
   g_application_command_line_print (cmdline,
-                                    "This text is written back\n"
-                                    "to stdout of the caller\n");
+                                    "Launching Tortosa "
+                                    "..oO | Oo..\n");
 
   for (i = 0; i < argc; i++)
     g_print ("argument %d: %s\n", i, argv[i]);
@@ -96,7 +93,6 @@ tortosa_command_line (GApplication            *application,
 TortosaApplication *
 tortosa_application_new ()
 {
-    printf("Tortosa application new\n");
     return g_object_new (TORTOSA_APPLICATION_TYPE,
                          "application-id", APP_ID,
                          "flags", G_APPLICATION_NON_UNIQUE | G_APPLICATION_HANDLES_COMMAND_LINE,

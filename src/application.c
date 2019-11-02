@@ -1,6 +1,6 @@
 #include "application.h"
-#include "terminal.h"
 #include "shell.h"
+#include "window.h"
 #include "stdio.h"
 
 #define APP_ID "com.github.cedlemo.tortosa"
@@ -46,22 +46,8 @@ tortosa_startup (GApplication *app)
 static void
 tortosa_activate (GApplication *app)
 {
-    GtkWidget *window;
-    GtkWidget *headerbar;
-    GtkWidget *vte;
-
-    window = gtk_application_window_new (GTK_APPLICATION (app));
-    gtk_window_set_title (GTK_WINDOW (window), "Window");
-    gtk_window_set_default_size (GTK_WINDOW (window), 200, 200);
-    gtk_widget_set_name (window, "tortosa-window");
-
-    headerbar = gtk_header_bar_new();
-    gtk_header_bar_set_show_close_button(GTK_HEADER_BAR(headerbar), TRUE);
-    gtk_widget_set_name (headerbar, "tortosa-headerbar");
-    gtk_window_set_titlebar(GTK_WINDOW(window), headerbar);
-
-    vte = tortosa_terminal_new ();
-    gtk_container_add (GTK_CONTAINER (window), vte);
+    TortosaWindow *window;
+    window = tortosa_window_new (TORTOSA_APPLICATION (app));
     gtk_widget_show_all (GTK_WIDGET (window));
     gtk_window_present (GTK_WINDOW (window));
 }

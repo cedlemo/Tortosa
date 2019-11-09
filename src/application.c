@@ -62,12 +62,10 @@ tortosa_command_line (GApplication            *application,
 
   argv = g_application_command_line_get_arguments (cmdline, &argc);
 
-  g_application_command_line_print (cmdline,
-                                    "Launching Tortosa "
-                                    "..oO | Oo..\n");
+  g_message("Launching Tortosa (%s) ..oO | Oo..", argv[0]);
 
-  for (i = 0; i < argc; i++)
-    g_print ("argument %d: %s\n", i, argv[i]);
+  for (i = 1; i < argc; i++)
+    g_message("\targ. %d : %s", i, argv[i]);
 
   g_strfreev (argv);
 

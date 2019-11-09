@@ -25,5 +25,12 @@
 #define COLOR15 "#ebdbb2"
 #define PALETTE_SIZE 16
 
-GtkWidget * tortosa_terminal_new (void);
+G_BEGIN_DECLS
+
+#define TORTOSA_TERMINAL_TYPE (tortosa_terminal_get_type ())
+G_DECLARE_FINAL_TYPE(TortosaTerminal, tortosa_terminal, TORTOSA, TERMINAL, VteTerminal)
+
+TortosaTerminal * tortosa_terminal_new (void);
+
+G_END_DECLS
 #endif /* !TORTOSA_TERMINAL_H */

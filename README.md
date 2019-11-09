@@ -42,6 +42,13 @@ autoconf
 make
 ./src/tortosa
 ```
+Use `sh build.sh`
+
+Launch tortosa to test it:
+
+```
+make launch
+```
 
 Clean the repository after build:
 

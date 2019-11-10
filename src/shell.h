@@ -19,13 +19,14 @@
 #ifndef TORTOSA_SHELL_H
 #define TORTOSA_SHELL_H
 #include <glib-object.h>
-#include <stdio.h>
+#include "notebook.h"
 
 G_BEGIN_DECLS
 
 #define TORTOSA_SHELL_TYPE tortosa_shell_get_type ()
 G_DECLARE_FINAL_TYPE( TortosaShell, tortosa_shell, TORTOSA, SHELL, GObject)
 
-TortosaShell *tortosa_shell_get_default (void);
+TortosaShell         *tortosa_shell_get_default (void);
+TortosaNotebook      *tortosa_shell_get_notebook (TortosaShell *shell);
 G_END_DECLS
 #endif /* !TORTOSA_SHELL_H */

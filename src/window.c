@@ -20,6 +20,7 @@
 #include "terminal.h"
 #include "header-bar.h"
 #include "notebook.h"
+#include "shell.h"
 
 struct _TortosaWindow {
     GtkApplicationWindow parent;
@@ -36,20 +37,17 @@ tortosa_window_class_init (TortosaWindowClass *klass)
 static void
 tortosa_window_init (TortosaWindow *window)
 {
-    TortosaNotebook *notebook;
-
+    TortosaShell *shell = tortosa_shell_get_default ();
+    TortosaNotebook *notebook = tortosa_shell_get_notebook(shell);
     gtk_window_set_title (GTK_WINDOW (window), "Window");
     gtk_window_set_default_size (GTK_WINDOW (window), 200, 200);
     gtk_widget_set_name (GTK_WIDGET (window), "tortosa-window");
 
     gtk_window_set_titlebar(GTK_WINDOW(window), GTK_WIDGET (tortosa_header_bar_new ()));
-    notebook = tortosa_notebook_new ();
     tortosa_notebook_add_terminal (notebook);
 
     gtk_container_add (GTK_CONTAINER (window), GTK_WIDGET (notebook));
-
-    // TODO: Why this unref on floating reference drop notebook
-    // g_object_unref (notebook);
+    gtk_widget_show_all (GTK_WIDGET (window));
 }
 
 TortosaWindow *

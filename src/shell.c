@@ -20,6 +20,8 @@
 
 struct _TortosaShell {
     GObject parent_instance;
+
+    TortosaNotebook *notebook;
 };
 
 static TortosaShell * tortosa_shell = NULL;
@@ -29,6 +31,9 @@ G_DEFINE_TYPE (TortosaShell, tortosa_shell, G_TYPE_OBJECT)
 static void
 tortosa_shell_dispose (GObject *gobject)
 {
+    TortosaShell *shell = TORTOSA_SHELL (gobject);
+    g_clear_object (&shell->notebook);
+
     G_OBJECT_CLASS (tortosa_shell_parent_class)->dispose (gobject);
 }
 
@@ -56,6 +61,7 @@ tortosa_shell_class_init (TortosaShellClass *klass)
 static void
 tortosa_shell_init (TortosaShell *self)
 {
+    self->notebook = tortosa_notebook_new ();
 }
 
 static TortosaShell *
@@ -71,4 +77,12 @@ tortosa_shell_get_default ()
         tortosa_shell = tortosa_shell_new ();
 
     return tortosa_shell;
+}
+
+TortosaNotebook *
+tortosa_shell_get_notebook (TortosaShell *shell)
+{
+    if(shell == NULL) return NULL;
+
+    return shell->notebook;
 }

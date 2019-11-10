@@ -33,7 +33,7 @@ child_exited_cb (VteTerminal *terminal,
 {
     TortosaShell *tortosa_shell;
     tortosa_shell = tortosa_shell_get_default ();
-    g_object_unref (tortosa_shell);
+    g_clear_object (&tortosa_shell);
     exit (EXIT_SUCCESS);
 }
 

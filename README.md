@@ -71,9 +71,10 @@ bear make
 #### Valgrind:
 
 * https://developer.gnome.org/programming-guidelines/stable/tooling.html.en#valgrind
+* http://liacs.leidenuniv.nl/~stefanovtp/courses/StudentenSeminarium/Papers/OS/IMMG.pdf
 
 ```bash
-libtool exec valgrind --tool=memcheck --leak-check=full ./src/tortosa
+libtool exec valgrind --tool=memcheck --leak-check=full --suppressions=./gtk.supp ./src/tortosa
 ```
 
 ## Global Structure:

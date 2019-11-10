@@ -75,6 +75,18 @@ bear make
 
 ```bash
 libtool exec valgrind --tool=memcheck --leak-check=full --suppressions=./gtk.supp ./src/tortosa
+G_SLICE=debug-blocks valgrind --tool=memcheck --leak-check=full --suppressions=./gtk.supp ./src/tortos
+```
+
+* G_SLICE=debug-blocks will turn off gtk's advanced memory management to allow valgrind to show correct results.
+* --leak-check=full will show stack traces for the leaked memory blocks.
+* You can also use --show-reachable=yes to see stack traces for all memory blocks that haven't been free when the program exits.
+* There is also the massif valgrind tool that tracks memory usage to show which parts of the program are using the most memory.
+
+Run program under massif:
+
+```
+G_SLICE=always-malloc valgrind --tool=massif --detailed-freq=2 --max-snapshots=400 --num-callers=20 ./src/tortosa
 ```
 
 ## Global Structure:

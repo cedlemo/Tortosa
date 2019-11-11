@@ -17,7 +17,6 @@
  */
 
 #include "notebook.h"
-#include "terminal.h"
 
 struct _TortosaNotebook {
     GtkNotebook parent;
@@ -39,6 +38,12 @@ tortosa_notebook_init (TortosaNotebook *notebook)
     gtk_notebook_set_show_border (GTK_NOTEBOOK (notebook), FALSE);
 }
 
+static void
+tortosa_notebook_dispose (GObject *object)
+{
+    g_debug ("notebook dispose");
+}
+
 TortosaNotebook *
 tortosa_notebook_new (void)
 {
@@ -51,4 +56,28 @@ tortosa_notebook_add_terminal (TortosaNotebook *notebook)
     return gtk_notebook_append_page (GTK_NOTEBOOK (notebook),
                                      GTK_WIDGET (tortosa_terminal_new ()),
                                      NULL);
+}
+
+int
+tortosa_notebook_close_terminal (TortosaNotebook *notebook, VteTerminal *terminal)
+{
+    GList *l = NULL;
+    GList *children = gtk_container_get_children (GTK_CONTAINER (notebook));
+    int i = 0;
+
+    for (l = children; l != NULL; l = l->next)
+    {
+        VteTerminal *t = VTE_TERMINAL (l->data);
+        if(t == terminal) break;
+        i++;
+    }
+
+    if(l != NULL) {
+        gtk_notebook_remove_page (GTK_NOTEBOOK (notebook), i);
+        g_clear_object (&terminal);
+    }
+
+    g_list_free (children);
+
+    return gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
 }

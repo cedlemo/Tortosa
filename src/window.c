@@ -37,8 +37,7 @@ tortosa_window_class_init (TortosaWindowClass *klass)
 static void
 tortosa_window_init (TortosaWindow *window)
 {
-    TortosaShell *shell = tortosa_shell_get_default ();
-    TortosaNotebook *notebook = tortosa_shell_get_notebook(shell);
+    TortosaNotebook *notebook = tortosa_shell_get_notebook();
     gtk_window_set_title (GTK_WINDOW (window), "Window");
     gtk_window_set_default_size (GTK_WINDOW (window), 200, 200);
     gtk_widget_set_name (GTK_WIDGET (window), "tortosa-window");
@@ -48,6 +47,12 @@ tortosa_window_init (TortosaWindow *window)
 
     gtk_container_add (GTK_CONTAINER (window), GTK_WIDGET (notebook));
     gtk_widget_show_all (GTK_WIDGET (window));
+}
+
+static void
+tortosa_window_dispose (void)
+{
+    g_debug ("dispose window");
 }
 
 TortosaWindow *

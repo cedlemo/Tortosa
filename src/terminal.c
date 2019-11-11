@@ -18,7 +18,6 @@
 
 #include "terminal.h"
 #include "shell.h"
-#include "dbg.h"
 
 struct _TortosaTerminal {
     VteTerminal parent;
@@ -31,10 +30,18 @@ void
 child_exited_cb (VteTerminal *terminal,
                  gint status)
 {
-    TortosaShell *tortosa_shell;
-    tortosa_shell = tortosa_shell_get_default ();
-    g_clear_object (&tortosa_shell);
-    exit (EXIT_SUCCESS);
+    TortosaShell *shell = tortosa_shell_get_default ();
+    TortosaNotebook *notebook = tortosa_shell_get_notebook ();
+    GApplication *application = tortosa_shell_get_application ();
+    int remaining_terminals = tortosa_notebook_close_terminal (notebook, terminal);
+
+    if(remaining_terminals == 0) {
+        g_clear_object (&shell);
+
+        g_message("Last terminal closed, bye!");
+
+        g_application_quit (G_APPLICATION (application));
+    }
 }
 
 const char *colors[PALETTE_SIZE] = {
@@ -65,6 +72,9 @@ spawn_async_cb (VteTerminal *terminal,
                              (GdkRGBA *) palette, // const GdkRGBA *palette,
                              PALETTE_SIZE         // gsize palette_size
                             );
+    vte_terminal_set_allow_bold (terminal, TRUE);
+    vte_terminal_set_scroll_on_output (terminal, TRUE);
+    vte_terminal_set_scrollback_lines (terminal, -1);
 }
 
 

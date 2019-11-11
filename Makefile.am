@@ -4,4 +4,4 @@ SUBDIRS=src test
 
 .PHONY: launch
 launch:
-	./src/tortosa
+	G_MESSAGES_DEBUG=all ./src/tortosa

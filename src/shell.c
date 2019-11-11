@@ -22,6 +22,8 @@ struct _TortosaShell {
     GObject parent_instance;
 
     TortosaNotebook *notebook;
+//    TortosaWindow *window;
+    GApplication *application;
 };
 
 static TortosaShell * tortosa_shell = NULL;
@@ -31,8 +33,10 @@ G_DEFINE_TYPE (TortosaShell, tortosa_shell, G_TYPE_OBJECT)
 static void
 tortosa_shell_dispose (GObject *gobject)
 {
+    g_debug ("shell dispose");
     TortosaShell *shell = TORTOSA_SHELL (gobject);
-    g_clear_object (&shell->notebook);
+
+    if(shell->notebook != NULL) g_clear_object (&shell->notebook);
 
     G_OBJECT_CLASS (tortosa_shell_parent_class)->dispose (gobject);
 }
@@ -62,16 +66,17 @@ static void
 tortosa_shell_init (TortosaShell *self)
 {
     self->notebook = tortosa_notebook_new ();
+    self->application = NULL;
 }
 
 static TortosaShell *
-tortosa_shell_new ()
+tortosa_shell_new (void)
 {
     return g_object_new (TORTOSA_SHELL_TYPE, NULL);
 }
 
 TortosaShell *
-tortosa_shell_get_default ()
+tortosa_shell_get_default (void)
 {
     if (tortosa_shell == NULL)
         tortosa_shell = tortosa_shell_new ();
@@ -80,9 +85,24 @@ tortosa_shell_get_default ()
 }
 
 TortosaNotebook *
-tortosa_shell_get_notebook (TortosaShell *shell)
+tortosa_shell_get_notebook (void)
 {
-    if(shell == NULL) return NULL;
+    TortosaShell *shell = tortosa_shell_get_default ();
 
     return shell->notebook;
+}
+
+GApplication *
+tortosa_shell_get_application (void)
+{
+    TortosaShell *shell = tortosa_shell_get_default ();
+    return shell->application;
+}
+
+void
+tortosa_shell_set_application (GApplication *application)
+{
+    TortosaShell *shell = tortosa_shell_get_default ();
+    shell->application = application;
+
 }

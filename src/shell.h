@@ -20,6 +20,8 @@
 #define TORTOSA_SHELL_H
 #include <glib-object.h>
 #include "notebook.h"
+#include "window.h"
+#include "application.h"
 
 G_BEGIN_DECLS
 
@@ -27,6 +29,8 @@ G_BEGIN_DECLS
 G_DECLARE_FINAL_TYPE( TortosaShell, tortosa_shell, TORTOSA, SHELL, GObject)
 
 TortosaShell         *tortosa_shell_get_default (void);
-TortosaNotebook      *tortosa_shell_get_notebook (TortosaShell *shell);
+TortosaNotebook      *tortosa_shell_get_notebook (void);
+GApplication         *tortosa_shell_get_application (void);
+void                 tortosa_shell_set_application (GApplication *application);
 G_END_DECLS
 #endif /* !TORTOSA_SHELL_H */

@@ -17,10 +17,13 @@
   border: none;
   box-shadow: none;
 }
+
 #tortosa-headerbar:backdrop {
   background-color: rgba(50,50,50,0.7);
   border: none;
   box-shadow: none;
 }
 
-
+#tortosa-notebook {
+  margin: 5px;
+}

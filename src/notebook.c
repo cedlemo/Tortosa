@@ -19,7 +19,7 @@
 #include "notebook.h"
 
 struct _TortosaNotebook {
-    GtkNotebook parent;
+    GtkNotebook parent_instance;
 };
 
 G_DEFINE_TYPE (TortosaNotebook, tortosa_notebook, GTK_TYPE_NOTEBOOK)
@@ -38,12 +38,6 @@ tortosa_notebook_init (TortosaNotebook *notebook)
     gtk_notebook_set_show_border (GTK_NOTEBOOK (notebook), FALSE);
 }
 
-static void
-tortosa_notebook_dispose (GObject *object)
-{
-    g_debug ("notebook dispose");
-}
-
 TortosaNotebook *
 tortosa_notebook_new (void)
 {
@@ -59,22 +53,26 @@ tortosa_notebook_add_terminal (TortosaNotebook *notebook)
 }
 
 int
-tortosa_notebook_close_terminal (TortosaNotebook *notebook, VteTerminal *terminal)
+tortosa_notebook_close_terminal (TortosaNotebook *notebook, TortosaTerminal *terminal)
 {
     GList *l = NULL;
     GList *children = gtk_container_get_children (GTK_CONTAINER (notebook));
     int i = 0;
 
+    g_debug ("Looking for the terminal to close");
     for (l = children; l != NULL; l = l->next)
     {
-        VteTerminal *t = VTE_TERMINAL (l->data);
+        TortosaTerminal *t = TORTOSA_TERMINAL (l->data);
         if(t == terminal) break;
         i++;
     }
 
     if(l != NULL) {
+        g_debug ("Removing terminal %d", i);
         gtk_notebook_remove_page (GTK_NOTEBOOK (notebook), i);
-        g_clear_object (&terminal);
+        if(terminal != NULL) {
+            gtk_widget_destroy (GTK_WIDGET (terminal));
+        }
     }
 
     g_list_free (children);

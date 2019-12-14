@@ -29,8 +29,11 @@ G_BEGIN_DECLS
 G_DECLARE_FINAL_TYPE( TortosaShell, tortosa_shell, TORTOSA, SHELL, GObject)
 
 TortosaShell         *tortosa_shell_get_default (void);
+void                 tortosa_shell_set_notebook (TortosaNotebook *notebook);
 TortosaNotebook      *tortosa_shell_get_notebook (void);
-GApplication         *tortosa_shell_get_application (void);
 void                 tortosa_shell_set_application (GApplication *application);
+GApplication         *tortosa_shell_get_application (void);
+void                 tortosa_shell_set_window (TortosaWindow *window);
+TortosaWindow        *tortosa_shell_get_window (void);
 G_END_DECLS
 #endif /* !TORTOSA_SHELL_H */

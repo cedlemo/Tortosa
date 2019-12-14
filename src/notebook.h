@@ -27,7 +27,7 @@ G_DECLARE_FINAL_TYPE (TortosaNotebook, tortosa_notebook, TORTOSA, NOTEBOOK, GtkN
 
 TortosaNotebook *tortosa_notebook_new (void);
 int tortosa_notebook_add_terminal (TortosaNotebook *notebook);
-int tortosa_notebook_close_terminal (TortosaNotebook *notebook, VteTerminal *terminal);
+int tortosa_notebook_close_terminal (TortosaNotebook *notebook, TortosaTerminal *terminal);
 G_END_DECLS
 
 #endif /* TORTOSA_NOTEBOOK_H */

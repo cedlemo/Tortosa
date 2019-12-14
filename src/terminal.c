@@ -20,7 +20,7 @@
 #include "shell.h"
 
 struct _TortosaTerminal {
-    VteTerminal parent;
+    VteTerminal parent_instance;
 };
 
 
@@ -30,17 +30,14 @@ void
 child_exited_cb (VteTerminal *terminal,
                  gint status)
 {
-    TortosaShell *shell = tortosa_shell_get_default ();
     TortosaNotebook *notebook = tortosa_shell_get_notebook ();
-    GApplication *application = tortosa_shell_get_application ();
-    int remaining_terminals = tortosa_notebook_close_terminal (notebook, terminal);
+    int remaining_terminals = tortosa_notebook_close_terminal (notebook, TORTOSA_TERMINAL (terminal));
 
     if(remaining_terminals == 0) {
-        g_clear_object (&shell);
 
         g_message("Last terminal closed, bye!");
 
-        g_application_quit (G_APPLICATION (application));
+        gtk_window_close (GTK_WINDOW (tortosa_shell_get_window ()));
     }
 }
 

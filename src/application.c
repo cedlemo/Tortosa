@@ -25,7 +25,7 @@
 #define APP_NAME "Tortosa"
 
 struct _TortosaApplication {
-    GtkApplication parent;
+    GtkApplication parent_instance;
 };
 
 G_DEFINE_TYPE(TortosaApplication, tortosa_application, GTK_TYPE_APPLICATION)
@@ -48,12 +48,6 @@ tortosa_application_class_init (TortosaApplicationClass *klass)
 }
 
 static void
-tortosa_application_dispose (GObject *object)
-{
-    g_debug ("dispose application");
-}
-
-static void
 tortosa_startup (GApplication *app)
 {
     G_APPLICATION_CLASS (tortosa_application_parent_class)->startup (app);
@@ -70,10 +64,10 @@ tortosa_startup (GApplication *app)
 static void
 tortosa_activate (GApplication *app)
 {
-    TortosaWindow *window= tortosa_window_new (TORTOSA_APPLICATION (app));
-    tortosa_shell_get_default (); // used just to be sure that the shell is initialized
-    tortosa_shell_set_application (app);
+    TortosaWindow *window = tortosa_window_new (TORTOSA_APPLICATION (app));
 
+    tortosa_shell_set_application (app);
+    tortosa_shell_set_window (window);
     gtk_widget_show_all (GTK_WIDGET (window));
     gtk_window_present (GTK_WINDOW (window));
 }

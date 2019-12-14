@@ -19,7 +19,7 @@
 #include "header-bar.h"
 
 struct _TortosaHeaderBar {
-    GtkHeaderBar parent;
+    GtkHeaderBar parent_instance;
 };
 
 G_DEFINE_TYPE (TortosaHeaderBar, tortosa_header_bar, GTK_TYPE_HEADER_BAR)

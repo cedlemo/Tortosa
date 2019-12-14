@@ -18,11 +18,17 @@
 
 #include <gtk/gtk.h>
 #include "application.h"
+#include "shell.h"
 
 int main(int argc,
          char **argv)
 {
-    GtkApplication *app;
+    int status;
+    TortosaShell *shell = tortosa_shell_get_default ();
 
-    return g_application_run (G_APPLICATION (tortosa_application_new ()), argc, argv);
+    status = g_application_run (G_APPLICATION (tortosa_application_new ()), argc, argv);
+
+    g_clear_object(&shell);
+
+    return status;
 }

@@ -42,6 +42,7 @@ tortosa_window_init (TortosaWindow *window)
     gtk_window_set_title (GTK_WINDOW (window), "Window");
     gtk_window_set_default_size (GTK_WINDOW (window), 400, 400);
     gtk_widget_set_name (GTK_WIDGET (window), "tortosa-window");
+    gtk_window_set_icon_name (GTK_WINDOW (window), "utilities-terminal-symbolic");
 
     TortosaHeaderBar *header_bar = tortosa_header_bar_new ();
     gtk_window_set_titlebar(GTK_WINDOW(window), GTK_WIDGET (header_bar));

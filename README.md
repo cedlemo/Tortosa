@@ -9,10 +9,10 @@ Vte Terminal Emulator
 * Css theming for all the widgets
 * Setup unit testing environment
 * define rules to memory managment
+* add an application menu
+* Enforce a coding style (use clang linter ?)
 
 ### To Do
-* Enforce a coding style (use clang linter ?)
-* add an application menu
 * Window with multiple terminals managment
   - multiple terminals in tabs (one terminal in one tab, GtkNotebook)
   - multiple terminals in pans (multiple terminal in one tab)
@@ -121,4 +121,15 @@ This design is shamelessly stolen from Epiphany:
     * https://gitlab.gnome.org/GNOME/epiphany/blob/master/src/ephy-shell.h
     * https://gitlab.gnome.org/GNOME/epiphany/blob/master/src/ephy-shell.c
 
+### Style:
 
+#### Generates the parser configuration file:
+
+    ```
+    clang-format -style=google -dump-config > .clang-format
+    ```
+
+#### Format the files:
+    ```
+    clang-format -i file.c
+    ```

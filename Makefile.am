@@ -5,3 +5,7 @@ SUBDIRS=src test
 .PHONY: launch
 launch:
 	G_MESSAGES_DEBUG=all ./src/tortosa
+
+.PHONY: gresources
+gresources:
+	glib-compile-resources --generate-source --target=src/resources.c --sourcedir data/ data/tortosa.gresource.xml

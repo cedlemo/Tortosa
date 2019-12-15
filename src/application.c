@@ -48,8 +48,34 @@ tortosa_application_class_init (TortosaApplicationClass *klass)
 }
 
 static void
+preferences_activated (GSimpleAction *action,
+                       GVariant      *parameter,
+                       gpointer       app)
+{
+}
+
+static void
+quit_activated (GSimpleAction *action,
+                GVariant      *parameter,
+                gpointer       app)
+{
+    g_application_quit (G_APPLICATION (app));
+}
+
+static GActionEntry app_entries[] =
+{
+  { "preferences", preferences_activated, NULL, NULL, NULL },
+  { "quit", quit_activated, NULL, NULL, NULL }
+};
+
+static void
 tortosa_startup (GApplication *app)
 {
+    GtkBuilder *builder;
+    GMenuModel *app_menu;
+    const gchar *quit_accels[2] = { "<Ctrl>Q", NULL };
+
+
     G_APPLICATION_CLASS (tortosa_application_parent_class)->startup (app);
     g_set_application_name (APP_NAME);
     g_set_prgname (APP_NAME);
@@ -59,6 +85,18 @@ tortosa_startup (GApplication *app)
     gtk_style_context_add_provider_for_screen(gdk_screen_get_default(),
                                               GTK_STYLE_PROVIDER(cssProvider),
                                               GTK_STYLE_PROVIDER_PRIORITY_USER);
+
+    g_action_map_add_action_entries (G_ACTION_MAP (app),
+            app_entries, G_N_ELEMENTS (app_entries),
+            app);
+    gtk_application_set_accels_for_action (GTK_APPLICATION (app),
+            "app.quit",
+            quit_accels);
+
+    builder = gtk_builder_new_from_resource ("/com/github/cedlemo/tortosa/app-menu.ui");
+    app_menu = G_MENU_MODEL (gtk_builder_get_object (builder, "appmenu"));
+    gtk_application_set_app_menu (GTK_APPLICATION (app), app_menu);
+    g_object_unref (builder);
 }
 
 static void

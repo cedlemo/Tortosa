@@ -8,10 +8,10 @@ Vte Terminal Emulator
 * Window with a terminal
 * Css theming for all the widgets
 * Setup unit testing environment
+* define rules to memory managment
 
 ### To Do
 * Enforce a coding style (use clang linter ?)
-* define rules to memory managment
 * add an application menu
 * Window with multiple terminals managment
   - multiple terminals in tabs (one terminal in one tab, GtkNotebook)

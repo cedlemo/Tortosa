@@ -23,6 +23,10 @@
 int main(int argc,
          char **argv)
 {
+    /*
+     * No installation is done during the dev so the gschema.compiled directory must
+     * be specified with the folowing */
+    g_setenv ("GSETTINGS_SCHEMA_DIR", "./data", FALSE);
     int status;
     TortosaShell *shell = tortosa_shell_get_default ();
 

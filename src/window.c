@@ -26,7 +26,13 @@ struct _TortosaWindow {
     GtkApplicationWindow parent_instance;
 };
 
-G_DEFINE_TYPE(TortosaWindow, tortosa_window, GTK_TYPE_APPLICATION_WINDOW)
+typedef struct _TortosaWindowPrivate TortosaWindowPrivate;
+
+struct _TortosaWindowPrivate {
+  GSettings *settings;
+};
+
+G_DEFINE_TYPE_WITH_PRIVATE (TortosaWindow, tortosa_window, GTK_TYPE_APPLICATION_WINDOW)
 
 static void
 tortosa_window_class_init (TortosaWindowClass *klass)
@@ -36,6 +42,11 @@ tortosa_window_class_init (TortosaWindowClass *klass)
 static void
 tortosa_window_init (TortosaWindow *window)
 {
+    TortosaWindowPrivate *priv;
+
+    priv = tortosa_window_get_instance_private (window);
+    priv->settings = g_settings_new ("com.github.cedlemo.tortosa");
+
     TortosaNotebook *notebook = tortosa_notebook_new ();
     tortosa_shell_set_notebook (notebook);
 

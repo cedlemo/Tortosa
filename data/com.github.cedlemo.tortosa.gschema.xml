@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-  <schema path="/org/gtk/exampleapp/" id="org.gtk.exampleapp">
+	<schema path="/com/github/cedlemo/tortosa/" id="com.github.cedlemo.tortosa">
     <key name="font" type="s">
       <default>'DroidSansMono Nerd Font Mono Book'</default>
       <summary>Font</summary>

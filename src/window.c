@@ -61,6 +61,7 @@ tortosa_window_init (TortosaWindow *window)
 
     gtk_container_add (GTK_CONTAINER (window), GTK_WIDGET (notebook));
     gtk_widget_show_all (GTK_WIDGET (window));
+    gtk_window_present (GTK_WINDOW (window));
 
     g_object_unref (notebook);
 }

@@ -39,7 +39,7 @@ tortosa_preferences_class_init (TortosaPreferencesClass *class)
 {
     G_OBJECT_CLASS (class)->dispose = tortosa_preferences_dispose;
     gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (class),
-            "/org/gtk/exampleapp/prefs.ui");
+            "/com/github/cedlemo/tortosa/preferences.ui");
     gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (class), TortosaPreferences, font);
 }
 

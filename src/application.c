@@ -19,6 +19,7 @@
 #include "application.h"
 #include "shell.h"
 #include "window.h"
+#include "preferences.h"
 #include "stdio.h"
 
 #define APP_ID "com.github.cedlemo.tortosa"
@@ -52,6 +53,12 @@ preferences_activated (GSimpleAction *action,
                        GVariant      *parameter,
                        gpointer       app)
 {
+    TortosaPreferences *prefs;
+    GtkWindow *win;
+
+    win = gtk_application_get_active_window (GTK_APPLICATION (app));
+    prefs = tortosa_preferences_new (TORTOSA_WINDOW (win));
+    gtk_window_present (GTK_WINDOW (prefs));
 }
 
 static void

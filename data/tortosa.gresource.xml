@@ -2,5 +2,6 @@
 <gresources>
   <gresource prefix="/com/github/cedlemo/tortosa">
     <file preprocess="xml-stripblanks">app-menu.ui</file>
+    <file preprocess="xml-stripblanks">preferences.ui</file>
   </gresource>
 </gresources>

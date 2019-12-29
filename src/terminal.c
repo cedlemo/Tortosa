@@ -45,6 +45,35 @@ const char *colors[PALETTE_SIZE] = {
     COLOR0, COLOR1, COLOR2, COLOR3, COLOR4, COLOR5, COLOR6, COLOR7, COLOR8, COLOR9, COLOR10, COLOR11, COLOR12, COLOR13, COLOR14, COLOR15
 };
 
+static gboolean
+font_string_to_font_desc (GValue   *value,
+                          GVariant *variant,
+                          gpointer  user_data)
+{
+  const char *str = NULL;
+
+  // get a pointer out of the variant, instead of copying the string out
+  g_variant_get (variant, "&s", &str);
+
+  // empty strings are invalid
+  if (str ==NULL || *str == '\0')
+    return FALSE;
+
+  // create a new PangoFontDescription from the font description string
+  PangoFontDescription *font_desc = pango_font_description_from_string (str);
+
+  if (font_desc == NULL)
+    return FALSE;
+
+  // PangoFontDescription is a boxed GType, so we use the appropriate setter
+  // for GValue; we want the GValue to take ownership of the newly created
+  // font description instance, since we don't care about it any more
+  g_value_take_boxed (value, font_desc);
+
+  // conversion successful
+  return TRUE;
+}
+
 void
 spawn_async_cb (VteTerminal *terminal,
                 GPid pid,
@@ -52,6 +81,7 @@ spawn_async_cb (VteTerminal *terminal,
                 gpointer user_data)
 {
     GdkRGBA palette[PALETTE_SIZE];
+    GSettings *settings = tortosa_shell_get_settings ();
 
     for (int i = 0; i < PALETTE_SIZE; i++)
     {
@@ -72,6 +102,11 @@ spawn_async_cb (VteTerminal *terminal,
     vte_terminal_set_allow_bold (terminal, TRUE);
     vte_terminal_set_scroll_on_output (terminal, TRUE);
     vte_terminal_set_scrollback_lines (terminal, -1);
+
+    g_settings_bind_with_mapping (settings, "font",
+                                  terminal, "font-desc",
+                                  G_SETTINGS_BIND_GET,
+                                  font_string_to_font_desc, NULL, NULL, NULL);
 }
 
 

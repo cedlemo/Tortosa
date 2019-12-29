@@ -35,5 +35,6 @@ void                 tortosa_shell_set_application (GApplication *application);
 GApplication         *tortosa_shell_get_application (void);
 void                 tortosa_shell_set_window (TortosaWindow *window);
 TortosaWindow        *tortosa_shell_get_window (void);
+GSettings            *tortosa_shell_get_settings (void);
 G_END_DECLS
 #endif /* !TORTOSA_SHELL_H */

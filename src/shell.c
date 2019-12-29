@@ -24,6 +24,7 @@ struct _TortosaShell {
     TortosaNotebook *notebook;
     TortosaWindow *window;
     GApplication *application;
+    GSettings *settings;
 };
 
 static TortosaShell * tortosa_shell = NULL;
@@ -34,6 +35,8 @@ static void
 tortosa_shell_dispose (GObject *gobject)
 {
     G_OBJECT_CLASS (tortosa_shell_parent_class)->dispose (gobject);
+    TortosaShell *shell = TORTOSA_SHELL (gobject);
+    g_clear_object (&shell->settings);
 }
 
 static void
@@ -63,6 +66,7 @@ tortosa_shell_init (TortosaShell *self)
     self->notebook = NULL;
     self->application = NULL;
     self->window = NULL;
+    self->settings = g_settings_new ("com.github.cedlemo.tortosa");
 }
 
 static TortosaShell *
@@ -123,4 +127,11 @@ tortosa_shell_get_window (void)
 {
     TortosaShell *shell = tortosa_shell_get_default ();
     return shell->window;
+}
+
+GSettings *
+tortosa_shell_get_settings (void)
+{
+    TortosaShell *shell = tortosa_shell_get_default ();
+    return shell->settings;
 }

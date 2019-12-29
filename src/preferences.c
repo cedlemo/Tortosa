@@ -1,4 +1,5 @@
 #include "preferences.h"
+#include "shell.h"
 
 struct _TortosaPreferences {
     GtkDialog parent;
@@ -7,7 +8,6 @@ struct _TortosaPreferences {
 typedef struct _TortosaPreferencesPrivate TortosaPreferencesPrivate;
 
 struct _TortosaPreferencesPrivate {
-    GSettings *settings;
     GtkWidget *font;
 };
 
@@ -17,10 +17,10 @@ static void
 tortosa_preferences_init (TortosaPreferences *prefs)
 {
     TortosaPreferencesPrivate *priv;
+    GSettings *settings = tortosa_shell_get_settings ();
     priv = tortosa_preferences_get_instance_private (prefs);
     gtk_widget_init_template (GTK_WIDGET (prefs));
-    priv->settings = g_settings_new ("com.github.cedlemo.tortosa");
-    g_settings_bind (priv->settings, "font",
+    g_settings_bind (settings, "font",
                      priv->font, "font",
                      G_SETTINGS_BIND_DEFAULT);
 }
@@ -30,7 +30,6 @@ tortosa_preferences_dispose (GObject *object)
 {
     TortosaPreferencesPrivate *priv;
     priv = tortosa_preferences_get_instance_private (TORTOSA_PREFERENCES (object));
-    g_clear_object (&priv->settings);
     G_OBJECT_CLASS (tortosa_preferences_parent_class)->dispose (object);
 }
 

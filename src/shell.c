@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Cedric LE MOIGNE, cedlemo@gmx.com
+ * Copyright 2019-2020 Cedric LE MOIGNE, cedlemo@gmx.com
  * This file is part of Tortosa Terminal Emulator.
  *
  * Tortosa is free software: you can redistribute it and/or modify
@@ -25,6 +25,7 @@ struct _TortosaShell {
     TortosaWindow *window;
     GApplication *application;
     GSettings *settings;
+    GtkPopover *termmenu;
 };
 
 static TortosaShell * tortosa_shell = NULL;
@@ -135,3 +136,19 @@ tortosa_shell_get_settings (void)
     TortosaShell *shell = tortosa_shell_get_default ();
     return shell->settings;
 }
+
+void
+tortosa_shell_set_termmenu (GtkPopover *popover)
+{
+    TortosaShell *shell = tortosa_shell_get_default ();
+    g_object_ref (popover);
+    shell->termmenu = popover;
+}
+
+GtkPopover *
+tortosa_shell_get_termmenu (void)
+{
+    TortosaShell *shell = tortosa_shell_get_default ();
+    return shell->termmenu;
+}
+

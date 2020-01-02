@@ -21,6 +21,7 @@
 
 struct _TortosaTerminal {
     VteTerminal parent_instance;
+    GtkPopover *termmenu;
 };
 
 
@@ -56,7 +57,7 @@ font_string_to_font_desc (GValue   *value,
   g_variant_get (variant, "&s", &str);
 
   // empty strings are invalid
-  if (str ==NULL || *str == '\0')
+  if (str == NULL || *str == '\0')
     return FALSE;
 
   // create a new PangoFontDescription from the font description string
@@ -72,6 +73,24 @@ font_string_to_font_desc (GValue   *value,
 
   // conversion successful
   return TRUE;
+}
+
+static void
+handle_button_press_event (GtkWidget *terminal,
+                           GdkEvent  *event,
+                           gpointer data)
+{
+   if (event->type == GDK_BUTTON_PRESS)
+   {
+       GdkEventButton *event_button = (GdkEventButton *) event;
+       if(event_button->button == GDK_BUTTON_SECONDARY)
+       {
+           GtkPopover *popover = tortosa_shell_get_termmenu ();
+           gtk_popover_set_relative_to (popover, GTK_WIDGET (terminal));
+           g_message("popup");
+           gtk_widget_show (popover);
+       }
+   }
 }
 
 void
@@ -107,6 +126,8 @@ spawn_async_cb (VteTerminal *terminal,
                                   terminal, "font-desc",
                                   G_SETTINGS_BIND_GET,
                                   font_string_to_font_desc, NULL, NULL, NULL);
+
+    g_signal_connect (terminal, "button-press-event", G_CALLBACK (handle_button_press_event), NULL);
 }
 
 

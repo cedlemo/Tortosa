@@ -69,10 +69,28 @@ quit_activated (GSimpleAction *action,
     g_application_quit (G_APPLICATION (app));
 }
 
+static void
+terminal_copy_activated (GSimpleAction *action,
+                         GVariant      *parameter,
+                         gpointer       app)
+{
+    g_message("COPYYYYYYYYYYYYYYYYYYYY");
+}
+
+static void
+terminal_paste_activated (GSimpleAction *action,
+                         GVariant      *parameter,
+                         gpointer       app)
+{
+    g_message("PASSSSSSSSSSSSSSSTE");
+}
+
 static GActionEntry app_entries[] =
 {
   { "preferences", preferences_activated, NULL, NULL, NULL },
-  { "quit", quit_activated, NULL, NULL, NULL }
+  { "quit", quit_activated, NULL, NULL, NULL },
+  { "copy", terminal_copy_activated, NULL, NULL, NULL },
+  { "paste", terminal_paste_activated, NULL, NULL, NULL }
 };
 
 static void
@@ -113,6 +131,14 @@ tortosa_activate (GApplication *app)
 
     tortosa_shell_set_application (app);
     tortosa_shell_set_window (window);
+    const char *termmenu_ui = "/com/github/cedlemo/tortosa/terminal-menu.ui";
+    GtkBuilder *builder = gtk_builder_new_from_resource (termmenu_ui);
+    GMenuModel *menu = G_MENU_MODEL (gtk_builder_get_object(builder, "termmenu"));
+    tortosa_shell_set_termmenu (GTK_POPOVER (gtk_popover_new_from_model (NULL, menu)));
+    g_object_unref (builder);
+
+
+
     gtk_widget_show_all (GTK_WIDGET (window));
     gtk_window_present (GTK_WINDOW (window));
 }

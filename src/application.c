@@ -89,8 +89,8 @@ static GActionEntry app_entries[] =
 {
   { "preferences", preferences_activated, NULL, NULL, NULL },
   { "quit", quit_activated, NULL, NULL, NULL },
-  { "copy", terminal_copy_activated, NULL, NULL, NULL },
-  { "paste", terminal_paste_activated, NULL, NULL, NULL }
+  { "term_copy", terminal_copy_activated, NULL, NULL, NULL },
+  { "term_paste", terminal_paste_activated, NULL, NULL, NULL }
 };
 
 static void

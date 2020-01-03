@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Cedric LE MOIGNE, cedlemo@gmx.com
+ * Copyright 2019-2020 Cedric LE MOIGNE, cedlemo@gmx.com
  * This file is part of Tortosa Terminal Emulator.
  *
  * Tortosa is free software: you can redistribute it and/or modify
@@ -25,9 +25,10 @@ G_BEGIN_DECLS
 #define TORTOSA_NOTEBOOK_TYPE (tortosa_notebook_get_type ())
 G_DECLARE_FINAL_TYPE (TortosaNotebook, tortosa_notebook, TORTOSA, NOTEBOOK, GtkNotebook)
 
-TortosaNotebook *tortosa_notebook_new (void);
-int tortosa_notebook_add_terminal (TortosaNotebook *notebook);
-int tortosa_notebook_close_terminal (TortosaNotebook *notebook, TortosaTerminal *terminal);
+TortosaNotebook           *tortosa_notebook_new (void);
+int                       tortosa_notebook_add_terminal (TortosaNotebook *notebook);
+int                       tortosa_notebook_close_terminal (TortosaNotebook *notebook, TortosaTerminal *terminal);
+TortosaTerminal           *tortosa_notebook_get_current_terminal (TortosaNotebook *notebook);
 G_END_DECLS
 
 #endif /* TORTOSA_NOTEBOOK_H */

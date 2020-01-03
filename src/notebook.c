@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Cedric LE MOIGNE, cedlemo@gmx.com
+ * Copyright 2019-2020 Cedric LE MOIGNE, cedlemo@gmx.com
  * This file is part of Tortosa Terminal Emulator.
  *
  * Tortosa is free software: you can redistribute it and/or modify
@@ -78,4 +78,11 @@ tortosa_notebook_close_terminal (TortosaNotebook *notebook, TortosaTerminal *ter
     g_list_free (children);
 
     return gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
+}
+
+TortosaTerminal *
+tortosa_notebook_get_current_terminal (TortosaNotebook *notebook)
+{
+    int current = gtk_notebook_get_current_page (GTK_NOTEBOOK (notebook));
+    return TORTOSA_TERMINAL (gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), current));
 }

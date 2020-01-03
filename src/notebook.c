@@ -47,9 +47,12 @@ tortosa_notebook_new (void)
 int
 tortosa_notebook_add_terminal (TortosaNotebook *notebook)
 {
-    return gtk_notebook_append_page (GTK_NOTEBOOK (notebook),
-                                     GTK_WIDGET (tortosa_terminal_new ()),
-                                     NULL);
+    int current;
+    current = gtk_notebook_append_page (GTK_NOTEBOOK (notebook),
+                                        GTK_WIDGET (tortosa_terminal_new ()),
+                                        NULL);
+    gtk_notebook_set_current_page (GTK_NOTEBOOK (notebook), current);
+    return current;
 }
 
 int

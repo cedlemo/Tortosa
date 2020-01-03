@@ -76,6 +76,28 @@ font_string_to_font_desc (GValue   *value,
 }
 
 static void
+show_termmenu (GtkWidget *terminal, GdkEventButton *event) {
+    GtkPopover *popover = tortosa_shell_get_termmenu ();
+    gdouble parent_x, parent_y;
+    GtkAllocation allocation;
+
+    gdk_window_coords_to_parent (event->window, event->x, event->y, &parent_x, &parent_y);
+    gtk_popover_set_relative_to (popover, GTK_WIDGET (terminal));
+    gtk_widget_get_allocation (GTK_WIDGET (terminal), &allocation);
+    GdkRectangle rect = {
+        .x = parent_x - allocation.x,
+        .y = parent_y - allocation.y,
+        .width = 1,
+        .height = 1
+    };
+
+    gtk_popover_set_pointing_to (popover, &rect);
+    g_message("popup");
+
+    gtk_widget_show (GTK_WIDGET (popover));
+}
+
+static void
 handle_button_press_event (GtkWidget *terminal,
                            GdkEvent  *event,
                            gpointer data)
@@ -85,10 +107,7 @@ handle_button_press_event (GtkWidget *terminal,
        GdkEventButton *event_button = (GdkEventButton *) event;
        if(event_button->button == GDK_BUTTON_SECONDARY)
        {
-           GtkPopover *popover = tortosa_shell_get_termmenu ();
-           gtk_popover_set_relative_to (popover, GTK_WIDGET (terminal));
-           g_message("popup");
-           gtk_widget_show (popover);
+           show_termmenu (terminal, event_button);
        }
    }
 }

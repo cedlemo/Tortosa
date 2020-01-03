@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Cedric LE MOIGNE, cedlemo@gmx.com
+ * Copyright 2019-2020 Cedric LE MOIGNE, cedlemo@gmx.com
  * This file is part of Tortosa Terminal Emulator.
  *
  * Tortosa is free software: you can redistribute it and/or modify
@@ -74,7 +74,9 @@ terminal_copy_activated (GSimpleAction *action,
                          GVariant      *parameter,
                          gpointer       app)
 {
-    g_message("COPYYYYYYYYYYYYYYYYYYYY");
+    TortosaNotebook *notebook = tortosa_shell_get_notebook ();
+    TortosaTerminal *terminal = tortosa_notebook_get_current_terminal (notebook);
+    tortosa_terminal_copy_selection (terminal);
 }
 
 static void
@@ -82,7 +84,9 @@ terminal_paste_activated (GSimpleAction *action,
                          GVariant      *parameter,
                          gpointer       app)
 {
-    g_message("PASSSSSSSSSSSSSSSTE");
+    TortosaNotebook *notebook = tortosa_shell_get_notebook ();
+    TortosaTerminal *terminal = tortosa_notebook_get_current_terminal (notebook);
+    tortosa_terminal_paste_selection (terminal);
 }
 
 static GActionEntry app_entries[] =

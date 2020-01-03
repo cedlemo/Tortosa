@@ -92,7 +92,6 @@ show_termmenu (GtkWidget *terminal, GdkEventButton *event) {
     };
 
     gtk_popover_set_pointing_to (popover, &rect);
-    g_message("popup");
 
     gtk_widget_show (GTK_WIDGET (popover));
 }

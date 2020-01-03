@@ -26,6 +26,7 @@ struct _TortosaShell {
     GApplication *application;
     GSettings *settings;
     GtkPopover *termmenu;
+    GtkLabel *term_title;
 };
 
 static TortosaShell * tortosa_shell = NULL;
@@ -68,6 +69,8 @@ tortosa_shell_init (TortosaShell *self)
     self->application = NULL;
     self->window = NULL;
     self->settings = g_settings_new ("com.github.cedlemo.tortosa");
+    self->termmenu = NULL;
+    self->term_title = NULL;
 }
 
 static TortosaShell *
@@ -152,3 +155,13 @@ tortosa_shell_get_termmenu (void)
     return shell->termmenu;
 }
 
+GtkLabel *
+tortosa_shell_get_term_title (void)
+{
+    TortosaShell *shell = tortosa_shell_get_default ();
+    if(shell->term_title == NULL)
+    {
+       shell->term_title = GTK_LABEL (gtk_label_new(""));
+    }
+    return shell->term_title;
+}

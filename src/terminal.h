@@ -50,6 +50,6 @@ G_DECLARE_FINAL_TYPE(TortosaTerminal, tortosa_terminal, TORTOSA, TERMINAL, VteTe
 
 TortosaTerminal *tortosa_terminal_new (void);
 void             tortosa_terminal_copy_selection (TortosaTerminal *terminal);
-
+void             tortosa_terminal_paste_selection (TortosaTerminal *terminal);
 G_END_DECLS
 #endif /* !TORTOSA_TERMINAL_H */

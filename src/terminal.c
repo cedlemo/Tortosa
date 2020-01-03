@@ -203,3 +203,9 @@ tortosa_terminal_copy_selection (TortosaTerminal *terminal)
 {
     vte_terminal_copy_clipboard_format (VTE_TERMINAL (terminal), VTE_FORMAT_TEXT);
 }
+
+void
+tortosa_terminal_paste_selection (TortosaTerminal *terminal)
+{
+    vte_terminal_paste_clipboard (VTE_TERMINAL (terminal));
+}

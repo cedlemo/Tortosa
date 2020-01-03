@@ -111,6 +111,17 @@ handle_button_press_event (GtkWidget *terminal,
    }
 }
 
+static void
+handle_window_title_changed (GtkWidget *terminal,
+                             gpointer data)
+{
+    GtkLabel *term_title = tortosa_shell_get_term_title ();
+    TortosaNotebook *notebook = tortosa_shell_get_notebook ();
+    TortosaTerminal *current = tortosa_notebook_get_current_terminal (notebook);
+    if(GTK_WIDGET (current) == terminal)
+        gtk_label_set_text (term_title, vte_terminal_get_window_title (VTE_TERMINAL (terminal)));
+}
+
 void
 spawn_async_cb (VteTerminal *terminal,
                 GPid pid,
@@ -146,6 +157,7 @@ spawn_async_cb (VteTerminal *terminal,
                                   font_string_to_font_desc, NULL, NULL, NULL);
 
     g_signal_connect (terminal, "button-press-event", G_CALLBACK (handle_button_press_event), NULL);
+    g_signal_connect (terminal, "window-title-changed", G_CALLBACK (handle_window_title_changed), NULL);
 }
 
 

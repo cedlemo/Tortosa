@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Cedric LE MOIGNE, cedlemo@gmx.com
+ * Copyright 2019-2020 Cedric LE MOIGNE, cedlemo@gmx.com
  * This file is part of Tortosa Terminal Emulator.
  *
  * Tortosa is free software: you can redistribute it and/or modify
@@ -48,7 +48,8 @@ G_BEGIN_DECLS
 #define TORTOSA_TERMINAL_TYPE (tortosa_terminal_get_type ())
 G_DECLARE_FINAL_TYPE(TortosaTerminal, tortosa_terminal, TORTOSA, TERMINAL, VteTerminal)
 
-TortosaTerminal * tortosa_terminal_new (void);
+TortosaTerminal *tortosa_terminal_new (void);
+void             tortosa_terminal_copy_selection (TortosaTerminal *terminal);
 
 G_END_DECLS
 #endif /* !TORTOSA_TERMINAL_H */

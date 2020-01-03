@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Cedric LE MOIGNE, cedlemo@gmx.com
+ * Copyright 2019-2020 Cedric LE MOIGNE, cedlemo@gmx.com
  * This file is part of Tortosa Terminal Emulator.
  *
  * Tortosa is free software: you can redistribute it and/or modify
@@ -196,4 +196,10 @@ TortosaTerminal *
 tortosa_terminal_new (void)
 {
     return g_object_new (TORTOSA_TERMINAL_TYPE, NULL);
+}
+
+void
+tortosa_terminal_copy_selection (TortosaTerminal *terminal)
+{
+    vte_terminal_copy_clipboard_format (VTE_TERMINAL (terminal), VTE_FORMAT_TEXT);
 }

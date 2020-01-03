@@ -17,6 +17,7 @@
  */
 
 #include "header-bar.h"
+#include "shell.h"
 
 struct _TortosaHeaderBar {
     GtkHeaderBar parent_instance;
@@ -29,6 +30,7 @@ tortosa_header_bar_init (TortosaHeaderBar *header_bar)
 {
     gtk_header_bar_set_show_close_button(GTK_HEADER_BAR(header_bar), TRUE);
     gtk_widget_set_name (GTK_WIDGET (header_bar), "tortosa-headerbar");
+    gtk_header_bar_pack_start (GTK_HEADER_BAR (header_bar), GTK_WIDGET (tortosa_shell_get_term_title ()));
 }
 
 static void

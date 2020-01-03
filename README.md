@@ -16,6 +16,7 @@ Vte Terminal Emulator
 * Add terminal right-click menu
    - add copy action
    - add paste action
+* Display the title of the current terminal in the header bar
 
 ### To Do
 * Window with multiple terminals managment

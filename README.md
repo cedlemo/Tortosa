@@ -11,6 +11,11 @@ Vte Terminal Emulator
 * define rules to memory managment
 * add an application menu
 * Enforce a coding style (use clang linter ?)
+* GSettings
+  - load gschema
+* Add terminal right-click menu
+   - add copy action
+   - add paste action
 
 ### To Do
 * Window with multiple terminals managment
@@ -19,6 +24,7 @@ Vte Terminal Emulator
   - add shortcuts to manage tabs
 * Terminal colors / Palette managment
 * GSettings
+  - adapt makefile to install gschema
   - specify the Css theme file
   - specify the shell to use
   - specify the Palette color

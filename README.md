@@ -17,6 +17,12 @@ Vte Terminal Emulator
    - add copy action
    - add paste action
 * Display the title of the current terminal in the header bar
+* Window with multiple terminals managment
+  - multiple terminals in tabs (one terminal in one tab, GtkNotebook)
+  - add shortcuts to manage tabs
+	- ctrl+shift + t : new terminal
+	- ctrl+shift + left : previous terminal
+	- ctrl+shift + right : next terminal
 
 ### To Do
 * Window with multiple terminals managment

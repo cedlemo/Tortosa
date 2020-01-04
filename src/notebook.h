@@ -29,6 +29,8 @@ TortosaNotebook           *tortosa_notebook_new (void);
 int                       tortosa_notebook_add_terminal (TortosaNotebook *notebook);
 int                       tortosa_notebook_close_terminal (TortosaNotebook *notebook, TortosaTerminal *terminal);
 TortosaTerminal           *tortosa_notebook_get_current_terminal (TortosaNotebook *notebook);
+void                      tortosa_notebook_prev (TortosaNotebook *notebook);
+void                      tortosa_notebook_next (TortosaNotebook *notebook);
 G_END_DECLS
 
 #endif /* TORTOSA_NOTEBOOK_H */

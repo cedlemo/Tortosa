@@ -47,9 +47,12 @@ tortosa_notebook_new (void)
 int
 tortosa_notebook_add_terminal (TortosaNotebook *notebook)
 {
+    g_debug ("Add new terminal in notebook");
     int current;
+    GtkWidget *terminal = GTK_WIDGET (tortosa_terminal_new ());
+    gtk_widget_show (terminal);
     current = gtk_notebook_append_page (GTK_NOTEBOOK (notebook),
-                                        GTK_WIDGET (tortosa_terminal_new ()),
+                                        terminal,
                                         NULL);
     gtk_notebook_set_current_page (GTK_NOTEBOOK (notebook), current);
     return current;
@@ -88,4 +91,33 @@ tortosa_notebook_get_current_terminal (TortosaNotebook *notebook)
 {
     int current = gtk_notebook_get_current_page (GTK_NOTEBOOK (notebook));
     return TORTOSA_TERMINAL (gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), current));
+}
+
+void
+tortosa_notebook_next (TortosaNotebook *notebook)
+{
+    g_debug ("Go to next terminal in notebook");
+    GtkNotebook *_noteb = GTK_NOTEBOOK (notebook);
+    int current, next, n;
+    current = gtk_notebook_get_current_page (_noteb);
+    next = current + 1;
+    n = gtk_notebook_get_n_pages (_noteb);
+    if(next >= n)
+        next = 0;
+    g_message ("n %d current %d next %d", n, current, next);
+    gtk_notebook_set_current_page (_noteb, next);
+}
+
+void
+tortosa_notebook_prev (TortosaNotebook *notebook)
+{
+    g_debug ("Go to prev terminal in notebook");
+    GtkNotebook *_noteb = GTK_NOTEBOOK (notebook);
+    int current, prev, n;
+    current = gtk_notebook_get_current_page (_noteb);
+    prev = current - 1;
+    n = gtk_notebook_get_n_pages (_noteb);
+    if(prev < 0)
+        prev = n - 1;
+    gtk_notebook_set_current_page (_noteb, prev);
 }

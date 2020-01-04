@@ -39,6 +39,31 @@ tortosa_window_class_init (TortosaWindowClass *klass)
 {
 }
 
+static gboolean
+handle_key_events (GtkWidget *widget,
+                   GdkEventKey *event,
+                   gpointer   user_data)
+{
+    TortosaNotebook *notebook = tortosa_shell_get_notebook ();
+
+    if ((event->state & (GDK_CONTROL_MASK|GDK_SHIFT_MASK)) == (GDK_CONTROL_MASK|GDK_SHIFT_MASK))
+    {
+        switch (event->keyval) {
+            case GDK_KEY_T:
+                tortosa_notebook_add_terminal (notebook);
+                return TRUE;
+            case GDK_KEY_Left:
+                tortosa_notebook_prev (notebook);
+                return TRUE;
+            case GDK_KEY_Right:
+                tortosa_notebook_next (notebook);
+                return TRUE;
+        }
+    }
+
+    return FALSE;
+}
+
 static void
 tortosa_window_init (TortosaWindow *window)
 {
@@ -63,6 +88,7 @@ tortosa_window_init (TortosaWindow *window)
     gtk_widget_show_all (GTK_WIDGET (window));
     gtk_window_present (GTK_WINDOW (window));
 
+    g_signal_connect (window, "key-press-event", G_CALLBACK (handle_key_events), NULL);
     g_object_unref (notebook);
 }
 

@@ -17,6 +17,7 @@
  */
 
 #include "notebook.h"
+#include "shell.h"
 
 struct _TortosaNotebook {
     GtkNotebook parent_instance;
@@ -31,11 +32,24 @@ tortosa_notebook_class_init (TortosaNotebookClass *klass)
 }
 
 static void
+handle_current_page_changed (GtkNotebook *notebook,
+                             GtkWidget   *page,
+                             guint        page_num,
+                             gpointer     user_data)
+{
+    GtkLabel *term_title = tortosa_shell_get_term_title ();
+    VteTerminal *terminal = VTE_TERMINAL (page);
+    gtk_label_set_text (term_title, vte_terminal_get_window_title (terminal));
+}
+
+static void
 tortosa_notebook_init (TortosaNotebook *notebook)
 {
     gtk_widget_set_name (GTK_WIDGET (notebook), "tortosa-notebook");
     gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notebook), FALSE);
     gtk_notebook_set_show_border (GTK_NOTEBOOK (notebook), FALSE);
+
+    g_signal_connect (notebook, "switch-page", G_CALLBACK (handle_current_page_changed), NULL);
 }
 
 TortosaNotebook *

@@ -4,6 +4,23 @@ Vte Terminal Emulator
 
 <img src="https://github.com/cedlemo/Tortosa/raw/develop/preview.png" width="576" alt="Screenshot">
 
+## Install/remove
+
+```
+sh build.sh
+make
+sudo make install
+```
+
+Tortosa is by default installed in:
+
+```
+~ ls /usr/local/share/glib-2.0/schemas
+com.github.cedlemo.tortosa.gschema.xml  gschemas.compiled
+~ whereis tortosa
+tortosa: /usr/local/bin/tortosa
+```
+
 ## Expected Functionnalities
 
 ### Done
@@ -15,6 +32,7 @@ Vte Terminal Emulator
 * Enforce a coding style (use clang linter ?)
 * GSettings
   - load gschema
+  - adapt makefile to install gschema
 * Add terminal right-click menu
    - add copy action
    - add paste action
@@ -33,7 +51,6 @@ Vte Terminal Emulator
   - add shortcuts to manage tabs
 * Terminal colors / Palette managment
 * GSettings
-  - adapt makefile to install gschema
   - specify the Css theme file
   - specify the shell to use
   - specify the Palette color

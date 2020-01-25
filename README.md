@@ -2,6 +2,8 @@
 
 Vte Terminal Emulator
 
+<img src="https://github.com/cedlemo/Tortosa/raw/develop/preview.png" width="576" alt="Screenshot">
+
 ## Expected Functionnalities
 
 ### Done

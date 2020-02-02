@@ -20,6 +20,7 @@
 #define TORTOSA_TERMINAL_H
 #include <stdlib.h>
 #include <gtk/gtk.h>
+#include "terminal-pcre2.h"
 #include <vte/vte.h>
 #include "dbg.h"
 

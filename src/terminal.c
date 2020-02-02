@@ -19,11 +19,21 @@
 #include "terminal.h"
 #include "shell.h"
 
+#include "regexes.h"
+
 struct _TortosaTerminal {
     VteTerminal parent_instance;
     GtkPopover *termmenu;
 };
 
+
+typedef enum {
+  FLAVOR_AS_IS,
+  FLAVOR_DEFAULT_TO_HTTP,
+  FLAVOR_VOIP_CALL,
+  FLAVOR_EMAIL,
+  FLAVOR_NUMBER,
+} TerminalURLFlavor;
 
 G_DEFINE_TYPE(TortosaTerminal, tortosa_terminal, VTE_TYPE_TERMINAL)
 
@@ -124,6 +134,62 @@ handle_window_title_changed (GtkWidget *terminal,
         gtk_label_set_text (term_title, vte_terminal_get_window_title (VTE_TERMINAL (terminal)));
 }
 
+typedef struct {
+  const char *pattern;
+  TerminalURLFlavor flavor;
+} TerminalRegexPattern;
+
+static const TerminalRegexPattern url_regex_patterns[] = {
+  { REGEX_URL_AS_IS, FLAVOR_AS_IS },
+  { REGEX_URL_HTTP,  FLAVOR_DEFAULT_TO_HTTP },
+  { REGEX_URL_FILE,  FLAVOR_AS_IS },
+  { REGEX_URL_VOIP,  FLAVOR_VOIP_CALL },
+  { REGEX_EMAIL,     FLAVOR_EMAIL },
+  { REGEX_NEWS_MAN,  FLAVOR_AS_IS },
+};
+
+static const TerminalRegexPattern extra_regex_patterns[] = {
+  { "(0[Xx][[:xdigit:]]+|[[:digit:]]+)", FLAVOR_NUMBER },
+};
+
+static VteRegex **url_regexes;
+static VteRegex **extra_regexes;
+static TerminalURLFlavor *url_regex_flavors;
+static TerminalURLFlavor *extra_regex_flavors;
+static guint n_url_regexes;
+static guint n_extra_regexes;
+
+static void
+precompile_regexes (const TerminalRegexPattern *regex_patterns,
+                    guint n_regexes,
+                    VteRegex ***regexes,
+                    TerminalURLFlavor **regex_flavors)
+{
+  guint i;
+
+  *regexes = g_new0 (VteRegex*, n_regexes);
+  *regex_flavors = g_new0 (TerminalURLFlavor, n_regexes);
+
+  for (i = 0; i < n_regexes; ++i)
+    {
+      GError *error = NULL;
+
+      (*regexes)[i] = vte_regex_new_for_match (regex_patterns[i].pattern, -1,
+                                               PCRE2_UTF | PCRE2_NO_UTF_CHECK | PCRE2_UCP | PCRE2_MULTILINE,
+                                               &error);
+      g_assert_no_error (error);
+
+      if (!vte_regex_jit ((*regexes)[i], PCRE2_JIT_COMPLETE, &error) ||
+          !vte_regex_jit ((*regexes)[i], PCRE2_JIT_PARTIAL_SOFT, &error)) {
+        g_printerr ("Failed to JIT regex '%s': %s\n", regex_patterns[i].pattern, error->message);
+        g_clear_error (&error);
+      }
+
+      (*regex_flavors)[i] = regex_patterns[i].flavor;
+    }
+}
+
+
 void
 spawn_async_cb (VteTerminal *terminal,
                 GPid pid,
@@ -160,6 +226,28 @@ spawn_async_cb (VteTerminal *terminal,
 
     g_signal_connect (terminal, "button-press-event", G_CALLBACK (handle_button_press_event), NULL);
     g_signal_connect (terminal, "window-title-changed", G_CALLBACK (handle_window_title_changed), NULL);
+
+    n_url_regexes = G_N_ELEMENTS (url_regex_patterns);
+    precompile_regexes (url_regex_patterns, n_url_regexes, &url_regexes, &url_regex_flavors);
+    n_extra_regexes = G_N_ELEMENTS (extra_regex_patterns);
+    precompile_regexes (extra_regex_patterns, n_extra_regexes, &extra_regexes, &extra_regex_flavors);
+
+
+     vte_terminal_set_allow_hyperlink (terminal, TRUE);
+
+      for (int i = 0; i < n_url_regexes; ++i)
+        {
+          // TagData *tag_data;
+
+          // tag_data = g_slice_new (TagData);
+          // tag_data->flavor = url_regex_flavors[i];
+          // tag_data->tag = vte_terminal_match_add_regex (terminal, url_regexes[i], 0);
+          // vte_terminal_match_set_cursor_type (terminal, tag_data->tag, URL_MATCH_CURSOR);
+          vte_terminal_match_add_regex (terminal, url_regexes[i], 0);
+          // vte_terminal_match_set_cursor_type (terminal, tag_data->tag, URL_MATCH_CURSOR);
+          // priv->match_tags = g_slist_prepend (priv->match_tags, tag_data);
+        }
+
 }
 
 

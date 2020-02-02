@@ -96,7 +96,7 @@ show_termmenu (GtkWidget *terminal, GdkEventButton *event) {
     gtk_widget_show (GTK_WIDGET (popover));
 }
 
-static void
+static gboolean
 handle_button_press_event (GtkWidget *terminal,
                            GdkEvent  *event,
                            gpointer data)
@@ -107,8 +107,10 @@ handle_button_press_event (GtkWidget *terminal,
        if(event_button->button == GDK_BUTTON_SECONDARY)
        {
            show_termmenu (terminal, event_button);
+           return TRUE;
        }
    }
+   return FALSE;
 }
 
 static void

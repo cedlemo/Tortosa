@@ -21,12 +21,6 @@
 
 #include "regexes.h"
 
-struct _TortosaTerminal {
-    VteTerminal parent_instance;
-    GtkPopover *termmenu;
-};
-
-
 typedef enum {
   FLAVOR_AS_IS,
   FLAVOR_DEFAULT_TO_HTTP,
@@ -34,6 +28,36 @@ typedef enum {
   FLAVOR_EMAIL,
   FLAVOR_NUMBER,
 } TerminalURLFlavor;
+
+typedef struct
+{
+  int tag;
+  TerminalURLFlavor flavor;
+} TagData;
+
+typedef struct {
+  const char *pattern;
+  TerminalURLFlavor flavor;
+} TerminalRegexPattern;
+
+static const TerminalRegexPattern url_regex_patterns[] = {
+  { REGEX_URL_AS_IS, FLAVOR_AS_IS },
+  { REGEX_URL_HTTP,  FLAVOR_DEFAULT_TO_HTTP },
+  { REGEX_URL_FILE,  FLAVOR_AS_IS },
+  { REGEX_URL_VOIP,  FLAVOR_VOIP_CALL },
+  { REGEX_EMAIL,     FLAVOR_EMAIL },
+  { REGEX_NEWS_MAN,  FLAVOR_AS_IS },
+};
+
+static const TerminalRegexPattern extra_regex_patterns[] = {
+  { "(0[Xx][[:xdigit:]]+|[[:digit:]]+)", FLAVOR_NUMBER },
+};
+
+
+struct _TortosaTerminal {
+    VteTerminal parent_instance;
+    GSList *match_tags;
+};
 
 G_DEFINE_TYPE(TortosaTerminal, tortosa_terminal, VTE_TYPE_TERMINAL)
 
@@ -106,6 +130,44 @@ show_termmenu (GtkWidget *terminal, GdkEventButton *event) {
     gtk_widget_show (GTK_WIDGET (popover));
 }
 
+static void
+manage_regex_on_left_click (GtkWidget *terminal,
+                            GdkEvent *event)
+{
+    int tag;
+    int flavor;
+    char *match;
+    GSList *tags;
+    match = vte_terminal_match_check_event (VTE_TERMINAL (terminal),
+                                            event,
+                                            &tag);
+    if(match)
+    {
+      for (tags = (TORTOSA_TERMINAL (terminal))->match_tags; tags != NULL; tags = tags->next)
+        {
+          TagData *tag_data = (TagData*) tags->data;
+          if (tag_data->tag == tag)
+            {
+                flavor = tag_data->flavor;
+            }
+    }
+      switch (flavor) {
+          case FLAVOR_AS_IS:
+              break;
+          case FLAVOR_DEFAULT_TO_HTTP:
+              break;
+          case FLAVOR_VOIP_CALL:
+              break;
+          case FLAVOR_EMAIL:
+              break;
+      }
+      g_app_info_launch_default_for_uri (match, NULL, NULL);
+      g_message("match %s", match);
+      g_free (match);
+    }
+
+}
+
 static gboolean
 handle_button_press_event (GtkWidget *terminal,
                            GdkEvent  *event,
@@ -117,6 +179,11 @@ handle_button_press_event (GtkWidget *terminal,
        if(event_button->button == GDK_BUTTON_SECONDARY)
        {
            show_termmenu (terminal, event_button);
+           return TRUE;
+       }
+       if(event_button->button == GDK_BUTTON_PRIMARY)
+       {
+           manage_regex_on_left_click(terminal, event);
            return TRUE;
        }
    }
@@ -133,24 +200,6 @@ handle_window_title_changed (GtkWidget *terminal,
     if(GTK_WIDGET (current) == terminal)
         gtk_label_set_text (term_title, vte_terminal_get_window_title (VTE_TERMINAL (terminal)));
 }
-
-typedef struct {
-  const char *pattern;
-  TerminalURLFlavor flavor;
-} TerminalRegexPattern;
-
-static const TerminalRegexPattern url_regex_patterns[] = {
-  { REGEX_URL_AS_IS, FLAVOR_AS_IS },
-  { REGEX_URL_HTTP,  FLAVOR_DEFAULT_TO_HTTP },
-  { REGEX_URL_FILE,  FLAVOR_AS_IS },
-  { REGEX_URL_VOIP,  FLAVOR_VOIP_CALL },
-  { REGEX_EMAIL,     FLAVOR_EMAIL },
-  { REGEX_NEWS_MAN,  FLAVOR_AS_IS },
-};
-
-static const TerminalRegexPattern extra_regex_patterns[] = {
-  { "(0[Xx][[:xdigit:]]+|[[:digit:]]+)", FLAVOR_NUMBER },
-};
 
 static VteRegex **url_regexes;
 static VteRegex **extra_regexes;
@@ -237,15 +286,16 @@ spawn_async_cb (VteTerminal *terminal,
 
       for (int i = 0; i < n_url_regexes; ++i)
         {
-          // TagData *tag_data;
+          TagData *tag_data;
 
-          // tag_data = g_slice_new (TagData);
-          // tag_data->flavor = url_regex_flavors[i];
-          // tag_data->tag = vte_terminal_match_add_regex (terminal, url_regexes[i], 0);
+          tag_data = g_slice_new (TagData);
+          tag_data->flavor = url_regex_flavors[i];
+          tag_data->tag = vte_terminal_match_add_regex (terminal, url_regexes[i], 0);
           // vte_terminal_match_set_cursor_type (terminal, tag_data->tag, URL_MATCH_CURSOR);
           vte_terminal_match_add_regex (terminal, url_regexes[i], 0);
           // vte_terminal_match_set_cursor_type (terminal, tag_data->tag, URL_MATCH_CURSOR);
-          // priv->match_tags = g_slist_prepend (priv->match_tags, tag_data);
+
+          (TORTOSA_TERMINAL (terminal))->match_tags = g_slist_prepend ((TORTOSA_TERMINAL (terminal))->match_tags, tag_data);
         }
 
 }

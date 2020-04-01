@@ -1,5 +1,8 @@
 .ccls-cache/
 .clangd/
 compile_commands.json
-src/.deps/
+*/.deps/
 src/tortosa
+*.valid
+*.compiled
+

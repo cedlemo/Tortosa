@@ -55,6 +55,7 @@ click_next (GtkWidget *event_label, GdkEvent *event, gpointer data)
 
     return TRUE;
 }
+
 static void
 tortosa_header_bar_init (TortosaHeaderBar *header_bar)
 {
@@ -64,7 +65,7 @@ tortosa_header_bar_init (TortosaHeaderBar *header_bar)
     TortosaEventLabel *prev_label = tortosa_event_label_new ("<");
     tortosa_event_label_set_button_press_cb (prev_label, click_prev);
     TortosaEventLabel *next_label = tortosa_event_label_new (">");
-    tortosa_event_label_set_button_press_cb (prev_label, click_next);
+    tortosa_event_label_set_button_press_cb (next_label, click_next);
 
     gtk_header_bar_pack_start (GTK_HEADER_BAR (header_bar), GTK_WIDGET (prev_label));
     gtk_header_bar_pack_start (GTK_HEADER_BAR (header_bar), GTK_WIDGET (tortosa_shell_get_term_title ()));
